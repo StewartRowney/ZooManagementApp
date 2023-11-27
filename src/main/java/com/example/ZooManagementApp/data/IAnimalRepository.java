@@ -22,7 +22,7 @@ public interface IAnimalRepository extends ListCrudRepository<Animal, UUID> {
     @Query(value = "SELECT * FROM Animal WHERE DType = 'Reptile'", nativeQuery = true)
     List<Reptile> findAllReptiles();
 
-    @Query(value = "SELECT * FROM Animal WHERE DType = 'Reptile'", nativeQuery = true)
+    @Query(value = "SELECT * FROM Animal WHERE DType = 'Bird'", nativeQuery = true)
     List<Bird> findAllBirds();
 
     @Query(value = "SELECT * FROM Animal WHERE DType = 'Amphibian'", nativeQuery = true)
