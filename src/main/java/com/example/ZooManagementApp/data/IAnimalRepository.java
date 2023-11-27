@@ -4,7 +4,6 @@ import com.example.ZooManagementApp.entities.Animal;
 import com.example.ZooManagementApp.entities.Mammal;
 import org.springframework.data.jpa.repository.Query;
 import com.example.ZooManagementApp.entities.Insect;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
 
