@@ -1,11 +1,9 @@
 package com.example.ZooManagementApp.controller;
 
-import com.example.ZooManagementApp.services.IMammalService;
 import com.example.ZooManagementApp.services.IReptileService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
