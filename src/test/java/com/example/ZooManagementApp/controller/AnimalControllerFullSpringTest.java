@@ -10,6 +10,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.UUID;
+
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -28,6 +30,14 @@ public class AnimalControllerFullSpringTest {
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/animals");
         mockMvc.perform(requestBuilder);
         verify(mockAnimalService, times(1)).findAllAnimals();
+    }
+
+    @Test
+    void testZooServiceCallsFindZooByID() throws Exception {
+        UUID id = UUID.randomUUID();
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/animals/findById/" + id);
+        mockMvc.perform(requestBuilder);
+        verify(mockAnimalService,times(1)).findAnimalById(id);
     }
 
 }
