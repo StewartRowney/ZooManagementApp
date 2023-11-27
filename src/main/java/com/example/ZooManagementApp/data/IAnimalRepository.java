@@ -1,6 +1,7 @@
 package com.example.ZooManagementApp.data;
 
 import com.example.ZooManagementApp.entities.Animal;
+import com.example.ZooManagementApp.entities.Fish;
 import com.example.ZooManagementApp.entities.Mammal;
 import org.springframework.data.jpa.repository.Query;
 import com.example.ZooManagementApp.entities.Insect;
@@ -18,4 +19,7 @@ public interface IAnimalRepository extends ListCrudRepository<Animal, UUID> {
 
     @Query(value = "SELECT * FROM Animal WHERE DType = 'Insect'", nativeQuery = true)
     List<Insect> findAllInsects();
+
+    @Query(value = "SELECT * FROM Animal WHERE DType = 'Fish'", nativeQuery = true)
+    List<Fish> findAllFish();
 }
