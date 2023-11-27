@@ -15,15 +15,12 @@ public class MammalServiceFullSpringTest {
     @MockBean
     IAnimalRepository mockMammalRepository;
 
-    @MockBean
-    I mockPersonService;
-
     @Autowired
-    MessageService uut;
+    IMammalService uut;
 
     @Test
-    void test_GetAllMessages_ValidRequest() {
-        uut.getAllMessages();
-        verify(mockMammalRepository, times(1)).findAll();
+    void testVerifyRepositoryInvokesGetAllMammals() {
+        uut.getAllMammals();
+        verify(mockMammalRepository, times(1)).findAllMammals();
     }
 }

@@ -19,7 +19,7 @@ public class MammalControllerNoSpringTest {
     }
 
     @Test
-    void getAllZoos() {
+    void testMammalServiceCalledForGetAllMammals() {
         uut.getAllMammals();
         verify(mockMammalService, times(1)).getAllMammals();
     }
