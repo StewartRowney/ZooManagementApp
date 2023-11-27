@@ -36,7 +36,7 @@ public class Populator {
         Mammal tiger = new Mammal(chesterZoo, "Barry", "Tiger", LocalDate.of(2013, 3, 11), "Jungle", "angry and ferocious", "meat", "He is playful when calm but extremely aggressive when provoked", true, false, false);
         animalRepository.save(tiger);
 
-        Birds pigeon = new Birds(chesterZoo, "Henry", "Pigeon", LocalDate.of(2022, 1, 18), "Woods", "calm and chirpy", "seeds", "Annoying and noisy!", true, false, false);
+        Bird pigeon = new Bird(chesterZoo, "Henry", "Pigeon", LocalDate.of(2022, 1, 18), "Woods", "calm and chirpy", "seeds", "Annoying and noisy!", true, false, false);
         animalRepository.save(pigeon);
 
         Reptile snake = new Reptile(chesterZoo, "Slimy", "Snake", LocalDate.of(2000, 11, 22), "Rainforest", "Hungry and territorial", "rodents", "Chills most of the time, sleeps and stares alot", false, true, false);
@@ -47,6 +47,12 @@ public class Populator {
 
         Fish goldfish = new Fish(edinburghZoo, "Goldie", "Goldfish", LocalDate.of(2023, 07, 29), "Ocean", "Literally unknown, does nothing, exists", "flakes", "A very boring/uncool animal", false, false);
         animalRepository.save(goldfish);
+
+        Insect spider = new Insect(chesterZoo, "Sid", "Spider", LocalDate.of(2020,10,10),"Trees", "Crazy", "Flies", "is a great guy", false, 8);
+        animalRepository.save(spider);
+
+        Amphibian snail = new Amphibian(edinburghZoo, "Terry", "Snail", LocalDate.of(1990,12,18), "Anywhere", "Stone cold killer", "Humans", "Has killed multiple zookeepers", false, false);
+        animalRepository.save(snail);
     }
 
 }
