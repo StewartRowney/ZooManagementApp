@@ -10,8 +10,6 @@ import java.util.UUID;
 public class Mammal extends Animal{
 
     //VARIABLES
-    @Id
-    @GeneratedValue
     private boolean hasFur;
     private boolean hasFins;
     private boolean hasTrunk;
@@ -58,7 +56,6 @@ public class Mammal extends Animal{
     }
 
     //SETTERS
-
     public void setHasFur(boolean hasFur) {
         this.hasFur = hasFur;
     }
