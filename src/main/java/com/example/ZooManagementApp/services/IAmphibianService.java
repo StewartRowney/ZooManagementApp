@@ -6,5 +6,5 @@ import java.util.List;
 
 @Service
 public interface IAmphibianService {
-    List<Amphibian> getAllAmphibians();
+    List<Amphibian> findAllAmphibians();
 }

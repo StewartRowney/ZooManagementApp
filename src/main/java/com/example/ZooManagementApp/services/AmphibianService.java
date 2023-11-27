@@ -17,7 +17,7 @@ public class AmphibianService implements IAmphibianService{
     }
 
     @Override
-    public List<Amphibian> getAllAmphibians() {
+    public List<Amphibian> findAllAmphibians() {
         return animalRepository.findAllAmphibians();
     }
 }

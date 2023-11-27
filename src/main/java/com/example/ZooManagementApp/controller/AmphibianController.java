@@ -24,6 +24,6 @@ public class AmphibianController {
 
     @GetMapping
     public List<Amphibian> getAllAmphibians() {
-        return amphibianService.getAllAmphibians();
+        return amphibianService.findAllAmphibians();
     }
 }
