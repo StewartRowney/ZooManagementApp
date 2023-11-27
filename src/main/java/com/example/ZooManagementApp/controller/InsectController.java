@@ -2,6 +2,7 @@ package com.example.ZooManagementApp.controller;
 
 import com.example.ZooManagementApp.entities.Insect;
 import com.example.ZooManagementApp.services.IInsectService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @SuppressWarnings("unused")
+@Tag(name = "Insect Api")
 @RequestMapping("/insects")
 public class InsectController {
 
