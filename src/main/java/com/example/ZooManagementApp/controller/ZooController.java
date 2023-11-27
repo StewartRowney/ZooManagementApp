@@ -40,4 +40,23 @@ public class ZooController {
         return service.addNewZoo(zoo);
     }
 
+    @PutMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Zoo putAZoo(@RequestBody Zoo zoo){
+        return service.updateZooWithPut(zoo);
+    }
+
+    @PatchMapping("/editName/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Zoo patchZooName(@PathVariable UUID id, @RequestBody String name){
+        return service.updateZooByName(name, id);
+    }
+
+    @DeleteMapping("/deleteZoo/{zooId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteZooById(UUID id){
+         service.removeZooById(id);
+    }
+
+
 }

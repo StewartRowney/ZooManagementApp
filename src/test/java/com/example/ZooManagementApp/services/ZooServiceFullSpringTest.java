@@ -50,4 +50,20 @@ class ZooServiceFullSpringTest {
         uut.addNewZoo(zoo);
         verify(mockZooRepo, times(1)).save(zoo);
     }
+
+    @Test
+    void test_PostNewZoo_ValidRequest(){
+        Zoo zoo = new Zoo();
+        uut.addNewZoo(zoo);
+        verify(mockZooRepo, times(1)).save(zoo);
+    }
+
+//    @Test
+//    void test_UpdateZoo_ValidRequest(){
+//        Zoo zoo = new Zoo();
+//        when(mockZooRepo.existsById(zoo.getId())).thenReturn(true);
+//        uut.updateZooWithPut(zoo);
+//        verify(mockZooRepo, times(1)).save(zoo);
+//    }
+
 }
