@@ -43,4 +43,11 @@ class ZooServiceFullSpringTest {
         uut.findZooByName(name);
         verify(mockZooRepo,times(1)).findByName(name);
     }
+
+    @Test
+    void verifyMockRepoCallsSaveWhenAddingNewZoo() {
+        Zoo zoo = new Zoo();
+        uut.addNewZoo(zoo);
+        verify(mockZooRepo, times(1)).save(zoo);
+    }
 }

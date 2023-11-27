@@ -11,4 +11,6 @@ public interface IZooService {
     Zoo findZooById(UUID id);
 
     Zoo findZooByName(String name);
+
+    Zoo addNewZoo(Zoo zoo);
 }

@@ -28,4 +28,9 @@ public class ZooService implements IZooService{
         return repository.findByName(name)
                 .orElseThrow(() -> new EntityNotFoundException("Zoo with name: "+ name+ " not found"));
     }
+
+    @Override
+    public Zoo addNewZoo(Zoo zoo) {
+        return repository.save(zoo);
+    }
 }

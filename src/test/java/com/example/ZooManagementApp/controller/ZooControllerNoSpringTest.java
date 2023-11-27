@@ -43,4 +43,11 @@ class ZooControllerNoSpringTest {
         uut.getZooByName(name);
         verify(mockZooService,times(1)).findZooByName(name);
     }
+
+    @Test
+    void test_AddNewZoo(){
+        Zoo zoo = new Zoo();
+        uut.postNewZoo(zoo);
+        verify(mockZooService,times(1)).addNewZoo(zoo);
+    }
 }
