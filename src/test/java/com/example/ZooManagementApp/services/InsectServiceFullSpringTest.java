@@ -1,27 +1,29 @@
 package com.example.ZooManagementApp.services;
 
-import com.example.ZooManagementApp.data.ZooRepository;
+import com.example.ZooManagementApp.data.IAnimalRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 @ActiveProfiles("test")
-class ZooServiceFullSpringTest {
+class InsectServiceFullSpringTest {
 
     @MockBean
-    ZooRepository mockZooRepo;
+    private IAnimalRepository mockAnimalRepository;
 
     @Autowired
-    ZooService uut;
+    private IInsectService uut;
 
     @Test
     void verifyIfRepositoryInvokesFindAll() {
-        uut.findAllZoos();
-        verify(mockZooRepo,times(1)).findAll();
+        uut.findAllInsects();
+        verify(mockAnimalRepository,times(1)).findAllInsects();
     }
+
 }
