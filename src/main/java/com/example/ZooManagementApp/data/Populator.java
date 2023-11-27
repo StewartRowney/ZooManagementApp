@@ -33,20 +33,19 @@ public class Populator {
         Zoo londonZoo = new Zoo("London Zoo", "Regent's Park, London, England", 20166, BigDecimal.valueOf(27.00), LocalDate.of( 1828,  4, 27));
         zooRepository.save(londonZoo);
 
-
-        Animal tiger = new Mammal(chesterZoo, "Barry", "Tiger", LocalDate.of(2013, 3, 11), "Jungle", "angry and ferocious", "meat", "He is playful when calm but extremely aggressive when provoked", true, false, false);
+        Mammal tiger = new Mammal(chesterZoo, "Barry", "Tiger", LocalDate.of(2013, 3, 11), "Jungle", "angry and ferocious", "meat", "He is playful when calm but extremely aggressive when provoked", true, false, false);
         animalRepository.save(tiger);
 
-        Animal pigeon = new Birds(chesterZoo, "Henry", "Pigeon", LocalDate.of(2022, 1, 18), "Woods", "calm and chirpy", "seeds", "Annoying and noisy!", true, false, false);
+        Birds pigeon = new Birds(chesterZoo, "Henry", "Pigeon", LocalDate.of(2022, 1, 18), "Woods", "calm and chirpy", "seeds", "Annoying and noisy!", true, false, false);
         animalRepository.save(pigeon);
 
-        Animal snake = new Reptile(chesterZoo, "Slimy", "Snake", LocalDate.of(2000, 11, 22), "Rainforest", "Hungry and territorial", "rodents", "Chills most of the time, sleeps and stares alot", false, true, false);
+        Reptile snake = new Reptile(chesterZoo, "Slimy", "Snake", LocalDate.of(2000, 11, 22), "Rainforest", "Hungry and territorial", "rodents", "Chills most of the time, sleeps and stares alot", false, true, false);
         animalRepository.save(snake);
 
-        Animal badger = new Mammal(edinburghZoo, "Bill", "Badger", LocalDate.of(1996, 3, 9), "Woods", "Likes digging", "rodents, vermin, insects", "Eats whatever it can get its paws on", true, false, false);
+        Mammal badger = new Mammal(edinburghZoo, "Bill", "Badger", LocalDate.of(1996, 3, 9), "Woods", "Likes digging", "rodents, vermin, insects", "Eats whatever it can get its paws on", true, false, false);
         animalRepository.save(badger);
 
-        Animal goldfish = new Fish(edinburghZoo, "Goldie", "Goldfish", LocalDate.of(2023, 07, 29), "Ocean", "Literally unknown, does nothing, exists", "flakes", "A very boring/uncool animal", false, false);
+        Fish goldfish = new Fish(edinburghZoo, "Goldie", "Goldfish", LocalDate.of(2023, 07, 29), "Ocean", "Literally unknown, does nothing, exists", "flakes", "A very boring/uncool animal", false, false);
         animalRepository.save(goldfish);
     }
 
