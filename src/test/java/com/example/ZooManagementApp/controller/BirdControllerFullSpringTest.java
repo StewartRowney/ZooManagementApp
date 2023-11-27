@@ -23,7 +23,7 @@ public class BirdControllerFullSpringTest {
     private MockMvc mockMvc;
 
     @Test
-    void testFishServiceCalledForGetAllFish() throws Exception {
+    void testBirdServiceCalledForGetAllBirds() throws Exception {
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/birds");
         mockMvc.perform(requestBuilder);
         verify(mockBirdService, times(1)).findAllBirds();
