@@ -26,5 +26,6 @@ private final IMammalService mammalService;
     @GetMapping
     public List<Mammal> getAllMammals() {
         return mammalService.getAllMammals();
+
     }
 }
