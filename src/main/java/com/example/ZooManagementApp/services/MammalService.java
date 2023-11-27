@@ -17,7 +17,7 @@ public class MammalService implements IMammalService{
         this.animalRepository = animalRepository;
     }
 
-    public List<Mammal> getAllMammals() {
+    public List<Mammal> findAllMammals() {
         return animalRepository.findAllMammals();
     }
 }

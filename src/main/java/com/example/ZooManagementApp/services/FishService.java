@@ -17,7 +17,7 @@ public class FishService implements IFishService {
     }
 
     @Override
-    public List<Fish> getAllFish() {
+    public List<Fish> findAllFish() {
         return animalRepository.findAllFish();
     }
 }

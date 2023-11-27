@@ -25,6 +25,6 @@ public class FishController {
 
     @GetMapping
     public List<Fish> getAllFish() {
-        return fishService.getAllFish();
+        return fishService.findAllFish();
     }
 }

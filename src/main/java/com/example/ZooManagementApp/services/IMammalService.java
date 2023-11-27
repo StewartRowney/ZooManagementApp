@@ -7,5 +7,5 @@ import java.util.List;
 
 @Service
 public interface IMammalService {
-    List<Mammal> getAllMammals();
+    List<Mammal> findAllMammals();
 }

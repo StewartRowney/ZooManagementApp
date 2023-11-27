@@ -7,5 +7,5 @@ import java.util.List;
 
 @Service
 public interface IFishService {
-    List<Fish> getAllFish();
+    List<Fish> findAllFish();
 }
