@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
