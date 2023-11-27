@@ -1,6 +1,6 @@
 package com.example.ZooManagementApp.data;
 
-import entities.Animal;
+import com.example.ZooManagementApp.entities.Animal;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,6 @@
 package com.example.ZooManagementApp.data;
 
-import entities.Zoo;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.ZooManagementApp.entities.Zoo;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
 

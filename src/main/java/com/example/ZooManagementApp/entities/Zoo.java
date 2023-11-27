@@ -1,4 +1,4 @@
-package entities;
+package com.example.ZooManagementApp.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Entity;
