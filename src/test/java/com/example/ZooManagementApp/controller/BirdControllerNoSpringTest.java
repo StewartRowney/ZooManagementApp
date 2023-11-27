@@ -19,7 +19,7 @@ public class BirdControllerNoSpringTest {
     }
 
     @Test
-    void testMammalServiceCalledForGetAllMammals() {
+    void testBirdServiceCalledForGetAllBirds() {
         uut.getAllBirds();
         verify(mockBirdService, times(1)).findAllBirds();
     }

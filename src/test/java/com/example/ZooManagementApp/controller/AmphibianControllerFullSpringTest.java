@@ -1,6 +1,6 @@
 package com.example.ZooManagementApp.controller;
 
-import com.example.ZooManagementApp.services.IBirdService;
+import com.example.ZooManagementApp.services.IAmphibianService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -12,20 +12,20 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-@WebMvcTest(BirdController.class)
+@WebMvcTest(AmphibianController.class)
 @ActiveProfiles("test")
-public class BirdControllerFullSpringTest {
+public class AmphibianControllerFullSpringTest {
 
     @MockBean
-    private IBirdService mockBirdService;
+    IAmphibianService mockAmphibianService;
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    void testBirdServiceCalledForGetAllBirds() throws Exception {
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/birds");
+    void testAmphibianServiceCalledForGetAllAmphibians() throws Exception {
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/amphibians");
         mockMvc.perform(requestBuilder);
-        verify(mockBirdService, times(1)).findAllBirds();
+        verify(mockAmphibianService, times(1)).findAllAmphibians();
     }
 }
