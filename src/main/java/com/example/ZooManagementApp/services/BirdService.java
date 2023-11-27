@@ -1,7 +1,7 @@
 package com.example.ZooManagementApp.services;
 
 import com.example.ZooManagementApp.data.IAnimalRepository;
-import com.example.ZooManagementApp.entities.Birds;
+import com.example.ZooManagementApp.entities.Bird;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -17,7 +17,7 @@ public class BirdService implements IBirdService {
     }
 
     @Override
-    public List<Birds> findAllBirds() {
+    public List<Bird> findAllBirds() {
         return animalRepository.findAllBirds();
     }
 }

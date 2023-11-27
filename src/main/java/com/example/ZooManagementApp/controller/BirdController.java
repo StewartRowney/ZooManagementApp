@@ -1,6 +1,6 @@
 package com.example.ZooManagementApp.controller;
 
-import com.example.ZooManagementApp.entities.Birds;
+import com.example.ZooManagementApp.entities.Bird;
 import com.example.ZooManagementApp.entities.Fish;
 import com.example.ZooManagementApp.services.IBirdService;
 import com.example.ZooManagementApp.services.IFishService;
@@ -25,7 +25,7 @@ public class BirdController {
     }
 
     @GetMapping
-    public List<Birds> getAllBirds() {
+    public List<Bird> getAllBirds() {
         return birdService.findAllBirds();
     }
 }
