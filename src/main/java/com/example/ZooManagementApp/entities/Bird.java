@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 import java.time.LocalDate;
 
 @Entity
-public class Birds extends Animal {
+public class Bird extends Animal {
 
     //Variables
     private boolean canFly;
@@ -14,14 +14,14 @@ public class Birds extends Animal {
 
     //Constructors
 
-    public Birds(Zoo zoo, String name, String speciesName, LocalDate birthDate, String habitat, String behaviour, String foodType, String extraInformation, boolean canFly, boolean isNocturnal, boolean canMimicSound) {
+    public Bird(Zoo zoo, String name, String speciesName, LocalDate birthDate, String habitat, String behaviour, String foodType, String extraInformation, boolean canFly, boolean isNocturnal, boolean canMimicSound) {
         super(zoo, name, speciesName, birthDate, habitat, behaviour, foodType, extraInformation);
         this.canFly = canFly;
         this.isNocturnal = isNocturnal;
         this.canMimicSound = canMimicSound;
     }
 
-    public Birds() {
+    public Bird() {
     }
 
     //Getters

@@ -24,7 +24,7 @@ public class Zoo {
     private List<Animal> animals = new ArrayList<Animal>();
     private BigDecimal price;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private LocalDate date;
+    private LocalDate dateOpened;
 
 
     //Getters
@@ -48,8 +48,8 @@ public class Zoo {
         return price;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getDateOpened() {
+        return dateOpened;
     }
 
 
@@ -70,18 +70,18 @@ public class Zoo {
         this.price = price;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setDateOpened(LocalDate dateOpened) {
+        this.dateOpened = dateOpened;
     }
 
 
     //Constructors
-    public Zoo(String name, String location, int capacity, BigDecimal price, LocalDate date) {
+    public Zoo(String name, String location, int capacity, BigDecimal price, LocalDate dateOpened) {
         this.name = name;
         this.location = location;
         this.capacity = capacity;
         this.price = price;
-        this.date = date;
+        this.dateOpened = dateOpened;
     }
 
     public Zoo(){

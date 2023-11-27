@@ -1,7 +1,10 @@
 package com.example.ZooManagementApp.entities;
 
+import jakarta.persistence.Entity;
+
 import java.time.LocalDate;
 
+@Entity
 public class Insect extends Animal{
 
     //VARIABLES
