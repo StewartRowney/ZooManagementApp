@@ -1,23 +1,23 @@
 package com.example.ZooManagementApp.services;
 
 import com.example.ZooManagementApp.data.IAnimalRepository;
-import com.example.ZooManagementApp.entities.Mammal;
+import com.example.ZooManagementApp.entities.Fish;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
-public class MammalService implements IMammalService{
+public class FishService implements IFishService {
 
     private final IAnimalRepository animalRepository;
 
     @Autowired
-    public MammalService(IAnimalRepository animalRepository) {
+    public FishService(IAnimalRepository animalRepository) {
         this.animalRepository = animalRepository;
     }
 
-    public List<Mammal> findAllMammals() {
-        return animalRepository.findAllMammals();
+    @Override
+    public List<Fish> findAllFish() {
+        return animalRepository.findAllFish();
     }
 }

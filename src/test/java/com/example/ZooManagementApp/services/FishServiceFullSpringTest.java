@@ -5,22 +5,21 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest
-public class MammalServiceFullSpringTest {
+public class FishServiceFullSpringTest {
 
     @MockBean
     IAnimalRepository mockAnimalRepository;
 
     @Autowired
-    IMammalService uut;
+    IFishService uut;
 
     @Test
-    void testVerifyRepositoryInvokesGetAllMammals() {
-        uut.findAllMammals();
-        verify(mockAnimalRepository, times(1)).findAllMammals();
+    void testVerifyRepositoryInvokesGetAllFish() {
+        uut.findAllFish();
+        verify(mockAnimalRepository, times(1)).findAllFish();
     }
 }

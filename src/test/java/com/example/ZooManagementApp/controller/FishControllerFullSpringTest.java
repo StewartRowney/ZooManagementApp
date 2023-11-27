@@ -1,29 +1,31 @@
 package com.example.ZooManagementApp.controller;
 
-import com.example.ZooManagementApp.services.IMammalService;
+import com.example.ZooManagementApp.services.IFishService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-@WebMvcTest(MammalController.class)
-public class MammalControllerFullSpringTest {
+@WebMvcTest(FishController.class)
+@ActiveProfiles("test")
+public class FishControllerFullSpringTest {
 
     @MockBean
-    IMammalService mammalService;
+    private IFishService mockFishService;
 
     @Autowired
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @Test
-    void testMammalServiceCalledForGetAllMammals() throws Exception {
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/mammals");
+    void testFishServiceCalledForGetAllFish() throws Exception {
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/fish");
         mockMvc.perform(requestBuilder);
-        verify(mammalService,times(1)).findAllMammals();
+        verify(mockFishService, times(1)).findAllFish();
     }
 }
