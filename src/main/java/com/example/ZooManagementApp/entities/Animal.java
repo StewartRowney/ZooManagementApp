@@ -1,13 +1,14 @@
 package com.example.ZooManagementApp.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Animal {
-
 
     //VARIABLES
     @Id
