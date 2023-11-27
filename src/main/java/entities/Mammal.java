@@ -12,10 +12,8 @@ public class Mammal extends Animal{
     //VARIABLES
     private boolean hasFur;
     private boolean hasFins;
-    private boolean hasTrunk;
-    private boolean hasTusks;
     private boolean hasHooves;
-    private boolean isCarnivorous;
+
 
     //CONSTRUCTORS
     public Mammal() {}
@@ -24,10 +22,7 @@ public class Mammal extends Animal{
         super(zoo, name, speciesName, birthDate, habitat, behaviour, foodType, extraInformation);
         this.hasFur = hasFur;
         this.hasFins = hasFins;
-        this.hasTrunk = hasTrunk;
-        this.hasTusks = hasTusks;
         this.hasHooves = hasHooves;
-        this.isCarnivorous = isCarnivorous;
     }
 
     //GETTERS
@@ -39,20 +34,8 @@ public class Mammal extends Animal{
         return hasFins;
     }
 
-    public boolean isHasTrunk() {
-        return hasTrunk;
-    }
-
-    public boolean isHasTusks() {
-        return hasTusks;
-    }
-
     public boolean isHasHooves() {
         return hasHooves;
-    }
-
-    public boolean isCarnivorous() {
-        return isCarnivorous;
     }
 
     //SETTERS
@@ -64,19 +47,8 @@ public class Mammal extends Animal{
         this.hasFins = hasFins;
     }
 
-    public void setHasTrunk(boolean hasTrunk) {
-        this.hasTrunk = hasTrunk;
-    }
-
-    public void setHasTusks(boolean hasTusks) {
-        this.hasTusks = hasTusks;
-    }
-
     public void setHasHooves(boolean hasHooves) {
         this.hasHooves = hasHooves;
     }
 
-    public void setCarnivorous(boolean carnivorous) {
-        isCarnivorous = carnivorous;
-    }
 }
