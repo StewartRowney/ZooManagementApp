@@ -9,11 +9,11 @@ import java.util.UUID;
 public interface IAmphibianService {
     List<Amphibian> findAllAmphibians();
 
-    Amphibian getAmphibianById(UUID amphibianId);
+    Amphibian findAmphibianById(UUID amphibianId);
 
     Amphibian addAmphibian(Amphibian amphibian);
 
     Amphibian updateAmphibian(Amphibian amphibian);
 
-    void deleteAmphibian(Long amphibianId);
+    void deleteAmphibian(UUID amphibianId);
 }

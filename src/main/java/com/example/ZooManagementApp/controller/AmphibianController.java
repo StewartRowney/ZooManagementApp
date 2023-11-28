@@ -34,27 +34,27 @@ public class AmphibianController {
     @Operation(summary = "Get amphibian by id", description = "Returns an amphibian by id")
     @GetMapping("findById/{amphibianId}")
     public Amphibian getAmphibian(@PathVariable UUID amphibianId) {
-        return amphibianService.getAmphibianById(amphibianId);
+        return amphibianService.findAmphibianById(amphibianId);
     }
 
     @Operation(summary = "Add an amphibian", description = "Add an amphibian")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Amphibian addAmphibian(@RequestBody @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Amphibian amphibian) {
+    public Amphibian addAmphibian(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") Amphibian amphibian) {
         return amphibianService.addAmphibian(amphibian);
     }
 
     @Operation(summary = "Update an amphibian", description = "Update an amphibian")
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public Amphibian updateAmphibian(@RequestBody @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Amphibian amphibian) {
+    public Amphibian updateAmphibian(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") Amphibian amphibian) {
         return amphibianService.updateAmphibian(amphibian);
     }
 
     @Operation(summary = "Delete an amphibian by id", description = "Delete an amphibian by id")
     @DeleteMapping("findById/{amphibianId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteAmphibian(@PathVariable Long amphibianId) {
+    public void deleteAmphibian(@PathVariable UUID amphibianId) {
         amphibianService.deleteAmphibian(amphibianId);
     }
 

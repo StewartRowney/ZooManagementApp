@@ -6,6 +6,7 @@ import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -32,5 +33,5 @@ public interface IAnimalRepository extends ListCrudRepository<Animal, UUID> {
     List<Amphibian> findAllAmphibians();
 
     @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id}", nativeQuery = true)
-    Amphibian findAmphibianById(@Param("id") UUID id);
+    Optional<Amphibian> findAmphibianById(@Param("id") UUID id);
 }
