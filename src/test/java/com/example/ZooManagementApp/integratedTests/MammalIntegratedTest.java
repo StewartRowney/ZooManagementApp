@@ -95,6 +95,34 @@ public class MammalIntegratedTest {
         );
     }
 
+    @Test
+    void test_UpdateMammal_ValidRequest() throws Exception {
+        int numberOfMammalsBeforeAdd = getAllMammals().length;
+        Mammal mammal = getTestMammal();
+        String json = mapper.writeValueAsString(mammal);
+
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/mammals")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json)
+                .accept(MediaType.APPLICATION_JSON);
+
+        MvcResult result = (mockMvc.perform(requestBuilder)
+                .andExpect(status().isCreated())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn());
+
+        String contentAsJson = result.getResponse().getContentAsString();
+        Mammal mammalResult = mapper.readValue(contentAsJson, Mammal.class);
+
+        int numberOfMammalsAfterAdd = getAllMammals().length;
+
+        assertAll(
+                () -> assertEquals(mammal.getName(), mammalResult.getName()),
+                () -> assertEquals(mammal.getSpeciesName(), mammalResult.getSpeciesName()),
+                () -> assertEquals(numberOfMammalsBeforeAdd, numberOfMammalsAfterAdd)
+        );
+    }
+
     private Mammal[] getAllMammals() throws Exception {
         MvcResult result =
                 (this.mockMvc.perform(MockMvcRequestBuilders.get("/mammals")))
@@ -104,6 +132,31 @@ public class MammalIntegratedTest {
 
         String contentAsJson = result.getResponse().getContentAsString();
         return mapper.readValue(contentAsJson, Mammal[].class);
+    }
+
+    private Mammal getTestMammal() {
+        String json = """
+                {
+                  "id": "2479f54f-b8c4-449f-a54c-31fd1d6074dc",
+                  "name": "string",
+                  "speciesName": "string",
+                  "birthDate": "28-11-2021",
+                  "habitat": "string",
+                  "behaviour": "string",
+                  "foodType": "string",
+                  "extraInformation": "string",
+                  "hasFur": true,
+                  "hasFins": true,
+                  "hasHooves": true
+                }""";
+
+        try {
+            Mammal mammal = mapper.readValue(json, Mammal.class);
+            mammal.setZoo(getTestZoo());
+            return mammal;
+        } catch (JsonProcessingException e) {
+            return new Mammal();
+        }
     }
 
     private Zoo getTestZoo() {
