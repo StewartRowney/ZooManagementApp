@@ -4,6 +4,7 @@ import com.example.ZooManagementApp.entities.Animal;
 import com.example.ZooManagementApp.entities.Fish;
 import com.example.ZooManagementApp.services.IFishService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -63,13 +64,26 @@ public class FishControllerFullSpringTest {
     @Test
     void testZooServiceCallsRemoveZoo() throws Exception {
         UUID id = createAFish().getId();
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/zoos/deleteZoo/"+id);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/fish/deleteFish/"+id);
         mockMvc.perform(requestBuilder);
         verify(mockFishService,times(1)).removeFishById(id);
     }
 
-    private Animal createAFish() {
-        return null;
+    private Fish createAFish() {
+        ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
+        String json = "{\n" +
+                "    \"id\": \"40ea5519-fcef-4272-b742-e01790ca04c3\",\n" +
+                "    \"name\": \"Chester Zoo\",\n" +
+                "    \"location\": \"Upton-by-Chester, Cheshire, England\",\n" +
+                "    \"capacity\": 27000,\n" +
+                "    \"price\": 19,\n" +
+                "    \"dateOpened\": \"10-06-1931\"\n" +
+                "  }";
+        try {
+            return mapper.readValue(json, Fish.class);
+        } catch (Exception e) {
+            return new Fish();
+        }
     }
 
 
