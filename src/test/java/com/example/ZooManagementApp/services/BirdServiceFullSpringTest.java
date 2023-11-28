@@ -1,6 +1,7 @@
 package com.example.ZooManagementApp.services;
 
 import com.example.ZooManagementApp.data.IAnimalRepository;
+import com.example.ZooManagementApp.data.ZooRepository;
 import com.example.ZooManagementApp.entities.Bird;
 import com.example.ZooManagementApp.entities.Zoo;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -27,6 +28,9 @@ public class BirdServiceFullSpringTest {
 
     @MockBean
     IAnimalRepository mockAnimalRepository;
+
+    @MockBean
+    ZooRepository zooRepository;
 
     @Autowired
     IBirdService uut;
@@ -80,9 +84,10 @@ public class BirdServiceFullSpringTest {
     @Test
     void test_addNewBird_ValidRequest() {
         Bird bird = new Bird();
-        Zoo zoo = createAZoo();
-        bird.setZoo(zoo);
-        when(mockAnimalRepository.existsById(any(UUID.class))).thenReturn(true);
+        bird.setZoo(createAZoo());
+
+        when(mockAnimalRepository.existsById(bird.getId())).thenReturn(true);
+        when(zooRepository.existsById(any(UUID.class))).thenReturn(true);
         uut.addNewBird(bird);
         verify(mockAnimalRepository, times(1)).save(bird);
     }
@@ -90,8 +95,8 @@ public class BirdServiceFullSpringTest {
     @Test
     void test_UpdateBird_ValidRequest(){
         Bird bird = createABird();
-        UUID id = bird.getId();
-        when(mockAnimalRepository.existsById(any())).thenReturn(true);
+        when(mockAnimalRepository.existsById(any(UUID.class))).thenReturn(true);
+        when(zooRepository.existsById(any(UUID.class))).thenReturn(true);
         uut.updateBirdWithPut(bird);
         //assertThrows(ResponseStatusException.class,() -> uut.updateZooWithPut(bird));
         verify(mockAnimalRepository, times(1)).save(bird);
@@ -106,7 +111,7 @@ public class BirdServiceFullSpringTest {
 
     @Test
     void test_UpdateBird_InvalidRequest_IdNotInDatabase(){
-        Bird bird = new Bird();
+        Bird bird = createABird();
         when(mockAnimalRepository.existsById(any())).thenReturn(false);
         assertThrows(ResponseStatusException.class,() -> uut.updateBirdWithPut(bird));
     }
@@ -135,22 +140,20 @@ public class BirdServiceFullSpringTest {
 
     private Bird createABird() {
             String json = """
-                {
-                  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-                  "name": "string",
-                  "speciesName": "string",
-                  "birthDate": "28-11-2021",
-                  "habitat": "string",
-                  "behaviour": "string",
-                  "foodType": "string",
-                  "extraInformation": "string",
-                  "hasFur": true,
-                  "hasFins": true,
-                  "hasHooves": true
-                }""";
+                    {
+                        "id": "9183d69e-97dc-4138-92ca-3d1cc0a1aef2",
+                        "name": "Henry",
+                        "speciesName": "Pigeon",
+                        "birthDate": "18-01-2022",
+                        "habitat": "Woods",
+                        "behaviour": "calm and chirpy",
+                        "foodType": "seeds",
+                        "extraInformation": "Annoying and noisy!",
+                        "canMimicSound": false,
+                        "nocturnal": false
+                    }""";
 
             try {
-
                 Bird bird = mapper.readValue(json, Bird.class);
                 bird.setZoo(createAZoo());
                 return bird;
@@ -161,22 +164,22 @@ public class BirdServiceFullSpringTest {
 
 
     private Zoo createAZoo() {
-        ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
-        String json = "{\n" +
-                "    \"id\": \"40ea5519-fcef-4272-b742-e01790ca04c3\",\n" +
-                "    \"name\": \"Chester Zoo\",\n" +
-                "    \"location\": \"Upton-by-Chester, Cheshire, England\",\n" +
-                "    \"capacity\": 27000,\n" +
-                "    \"price\": 19,\n" +
-                "    \"dateOpened\": \"10-06-1931\"\n" +
-                "  }";
-        try{
+        //ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
+        String json = """
+                 {
+                    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                    "name": "string",
+                    "location": "string",
+                    "capacity": 0,
+                    "price": 0,
+                    "dateOpened": "12-05-1999"
+                  }""";
+        try {
             return mapper.readValue(json, Zoo.class);
-        } catch (Exception e) {
+        } catch (JsonProcessingException e) {
             return new Zoo();
         }
-
-
     }
+
 }
 //TODO: Figure out why one line is not covered in the tests.
