@@ -179,3 +179,4 @@ public class BirdServiceFullSpringTest {
 
     }
 }
+//TODO: Figure out why one line is not covered in the tests.
