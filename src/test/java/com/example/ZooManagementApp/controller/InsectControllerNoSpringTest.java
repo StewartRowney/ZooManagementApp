@@ -1,6 +1,7 @@
 package com.example.ZooManagementApp.controller;
 
 import com.example.ZooManagementApp.entities.Insect;
+import com.example.ZooManagementApp.entities.Mammal;
 import com.example.ZooManagementApp.services.IInsectService;
 import org.junit.jupiter.api.Test;
 
@@ -31,5 +32,19 @@ class InsectControllerNoSpringTest {
         Insect insect = new Insect();
         uut.addInsect(insect);
         verify(mockInsectService, times(1)).addInsect(insect);
+    }
+
+    @Test
+    void test_UpdateInsect_ValidRequest() {
+        Insect insect = new Insect();
+        uut.updateInsect(insect);
+        verify(mockInsectService, times(1)).updateInsect(insect);
+    }
+
+    @Test
+    void test_DeleteInsectById_ValidRequest() {
+        UUID insectId = UUID.randomUUID();
+        uut.deleteInsectById(insectId);
+        verify(mockInsectService, times(1)).deleteInsectById(insectId);
     }
 }

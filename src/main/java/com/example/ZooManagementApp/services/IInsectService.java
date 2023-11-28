@@ -11,4 +11,6 @@ public interface IInsectService {
     List<Insect> findAllInsects();
     Insect findInsectById(UUID insectId);
     Insect addInsect(Insect insect);
+    Insect updateInsect(Insect insect);
+    void deleteInsectById(UUID insectId);
 }

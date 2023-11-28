@@ -49,4 +49,14 @@ public class InsectService implements IInsectService{
         }
         return animalRepository.save(insect);
     }
+
+    @Override
+    public Insect updateInsect(Insect insect) {
+        return null;
+    }
+
+    @Override
+    public void deleteInsectById(UUID insectId) {
+
+    }
 }

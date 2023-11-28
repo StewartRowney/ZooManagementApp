@@ -62,4 +62,25 @@ public class InsectControllerFullSpringTest {
         verify(mockInsectService, times(1)).addInsect(any(Insect.class));
     }
 
+    @Test
+    void test_UpdateInsect_ValidRequest() throws Exception {
+        String json = mapper.writeValueAsString(new Insect());
+
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/insects")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json)
+                .accept(MediaType.APPLICATION_JSON);
+
+        mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().isCreated());
+        verify(mockInsectService, times(1)).updateInsect(any(Insect.class));
+    }
+
+    @Test
+    void test_DeleteById_ValidRequest() throws Exception {
+        UUID insectId = UUID.randomUUID();
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/insects/" + insectId);
+        mockMvc.perform(requestBuilder);
+        verify(mockInsectService,times(1)).deleteInsectById(any(UUID.class));
+    }
+
 }
