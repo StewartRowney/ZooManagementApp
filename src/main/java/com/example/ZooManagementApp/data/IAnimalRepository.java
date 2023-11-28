@@ -1,6 +1,7 @@
 package com.example.ZooManagementApp.data;
 
 import com.example.ZooManagementApp.entities.*;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -34,4 +35,5 @@ public interface IAnimalRepository extends ListCrudRepository<Animal, UUID> {
 
     @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id}", nativeQuery = true)
     Optional<Amphibian> findAmphibianById(@Param("id") UUID id);
+
 }

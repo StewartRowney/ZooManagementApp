@@ -50,7 +50,6 @@ public class AmphibianService implements IAmphibianService{
         if (!animalRepository.existsById(amphibian.getId())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Amphibian to update does not exist");
         }
-
         return animalRepository.save(amphibian);
     }
 
