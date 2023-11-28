@@ -58,8 +58,21 @@ public class BirdServiceFullSpringTest {
     }
 
     @Test
+    void test_addNewBird_InvalidRequest_NoBird() {
+        assertThrows(ResponseStatusException.class,() -> uut.addNewBird(null));
+    }
+
+    @Test
+    void test_addNewBird_InvalidRequest_BirdHasID() {
+        Bird bird = new Bird();
+        when(mockAnimalRepository.findById(any())).thenReturn(Optional.of(bird));
+        assertThrows(ResponseStatusException.class,() -> uut.addNewBird(bird));
+    }
+    @Test
     void test_addNewBird_ValidRequest() {
         Bird bird = new Bird();
+        Zoo zoo = createAZoo();
+        bird.setZoo(zoo);
         uut.addNewBird(bird);
         verify(mockAnimalRepository, times(1)).save(bird);
     }
@@ -132,6 +145,23 @@ public class BirdServiceFullSpringTest {
             return mapper.readValue(json, Bird.class);
         } catch (Exception e) {
             return new Bird();
+        }
+    }
+
+    private Zoo createAZoo() {
+        ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
+        String json = "{\n" +
+                "    \"id\": \"40ea5519-fcef-4272-b742-e01790ca04c3\",\n" +
+                "    \"name\": \"Chester Zoo\",\n" +
+                "    \"location\": \"Upton-by-Chester, Cheshire, England\",\n" +
+                "    \"capacity\": 27000,\n" +
+                "    \"price\": 19,\n" +
+                "    \"dateOpened\": \"10-06-1931\"\n" +
+                "  }";
+        try{
+            return mapper.readValue(json, Zoo.class);
+        } catch (Exception e) {
+            return new Zoo();
         }
 
 

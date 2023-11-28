@@ -34,10 +34,17 @@ public class BirdService implements IBirdService {
         return animalRepository.findBirdById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Bird with id: "+ id+ " not found"));
     }
-
-
     @Override
     public Bird addNewBird(Bird bird) {
+        if (bird == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bird to add cannot be null");
+        }
+        else if (bird.getId() != null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bird to add cannot contain an id");
+        }
+        else if (!animalRepository.existsById(bird.getZoo().getId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot add Bird to a zoo that doesn't exist");
+        }
         return animalRepository.save(bird);
     }
 
