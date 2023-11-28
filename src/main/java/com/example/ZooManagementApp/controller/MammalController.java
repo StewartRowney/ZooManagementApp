@@ -24,12 +24,12 @@ private final IMammalService mammalService;
     public MammalController(IMammalService mammalService) {
         this.mammalService = mammalService;
     }
-
+    @Operation(summary = "Get a list of all mammals", description = "Returns a list of all mammals")
     @GetMapping
     public List<Mammal> getAllMammals() {
         return mammalService.findAllMammals();
     }
-
+    @Operation(summary = "Get mammal by id", description = "Returns a mammal by id")
     @GetMapping("/{mammalId}")
     public Mammal getMammalById(@PathVariable UUID mammalId) {
         return mammalService.findMammalById(mammalId);
