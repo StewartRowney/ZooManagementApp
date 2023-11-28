@@ -63,4 +63,9 @@ public class MammalService implements IMammalService{
 
         return animalRepository.save(mammal);
     }
+
+    @Override
+    public void deleteMammalById(UUID mammalId) {
+
+    }
 }

@@ -48,4 +48,11 @@ public class MammalControllerNoSpringTest {
         uut.updateMammal(mammal);
         verify(mockMammalService, times(1)).updateMammal(mammal);
     }
+
+    @Test
+    void test_DeleteMammalById_ValidRequest() {
+        UUID mammalId = UUID.randomUUID();
+        uut.deleteMammalById(mammalId);
+        verify(mockMammalService, times(1)).deleteMammalById(mammalId);
+    }
 }

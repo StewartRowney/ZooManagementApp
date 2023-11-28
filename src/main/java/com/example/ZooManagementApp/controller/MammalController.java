@@ -48,4 +48,11 @@ private final IMammalService mammalService;
     public Mammal updateMammal(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") Mammal mammal) {
         return mammalService.updateMammal(mammal);
     }
+
+    @Operation(summary = "Delete a Mammal by Id", description = "Delete a Mammal by Id, returns no content")
+    @DeleteMapping("/{mammalId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteMammalById(@PathVariable UUID mammalId) {
+        mammalService.deleteMammalById(mammalId);
+    }
 }
