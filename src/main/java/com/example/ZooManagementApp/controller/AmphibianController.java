@@ -46,7 +46,7 @@ public class AmphibianController {
 
     @Operation(summary = "Update an amphibian", description = "Update an amphibian")
     @PutMapping
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public Amphibian updateAmphibian(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") Amphibian amphibian) {
         return amphibianService.updateAmphibian(amphibian);
     }

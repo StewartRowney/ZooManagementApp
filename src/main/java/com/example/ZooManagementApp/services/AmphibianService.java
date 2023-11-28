@@ -3,6 +3,7 @@ package com.example.ZooManagementApp.services;
 import com.example.ZooManagementApp.data.IAnimalRepository;
 import com.example.ZooManagementApp.data.ZooRepository;
 import com.example.ZooManagementApp.entities.Amphibian;
+import com.example.ZooManagementApp.entities.Mammal;
 import com.example.ZooManagementApp.entities.Zoo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,26 +55,28 @@ public class AmphibianService implements IAmphibianService{
     @Override
     public Amphibian updateAmphibian(Amphibian amphibian) {
         if (amphibian == null || amphibian.getId() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Amphibian to update must have an Id");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Amphibian to update must have an id");
         }
         else if (!animalRepository.existsById(amphibian.getId())) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Amphibian to update does not exist");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Amphibian to update cannot be found");
         }
         else if (!zooRepository.existsById(amphibian.getZoo().getId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot update Amphibian to a zoo that doesn't exist");
         }
+
         return animalRepository.save(amphibian);
     }
 
     @Override
     public void deleteAmphibian(UUID amphibianId) {
         if (amphibianId == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Amphibian id cannot be null");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Amphibian id cannot be null for delete");
         }
-
-        if (!animalRepository.existsById(amphibianId)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Amphibian to delete does not exist");
+        else if (!animalRepository.existsById(amphibianId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Amphibian to delete could not be found");
         }
-        animalRepository.deleteById(amphibianId);
+        else {
+            animalRepository.deleteById(amphibianId);
+        }
     }
 }

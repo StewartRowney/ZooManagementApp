@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
@@ -27,6 +28,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when;
 
+@ActiveProfiles("test")
 @SpringBootTest
 public class AmphibianServiceFullSpringTest {
 
@@ -41,7 +43,7 @@ public class AmphibianServiceFullSpringTest {
 
     private Amphibian amphibian;
     private UUID amphibianId;
-    private ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
+    private final ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
 
     @BeforeEach
@@ -129,7 +131,7 @@ public class AmphibianServiceFullSpringTest {
     void test_UpdateAmphibian_ValidRequest_InDatabase() {
         Amphibian amphibian = createAmphibian();
         when(mockAnimalRepository.existsById(amphibian.getId())).thenReturn(true);
-        when(mockAnimalRepository.findById(amphibian.getId())).thenReturn(Optional.of(amphibian));
+        when(zooRepository.existsById(any())).thenReturn(true);
         uut.updateAmphibian(amphibian);
         verify(mockAnimalRepository, times(1)).save(any(Amphibian.class));
     }
@@ -166,8 +168,8 @@ public class AmphibianServiceFullSpringTest {
     }
 
     @Test
-    void test_UpdateAmphibian_InvalidRequest_ZooNotInDatabase() {
-        amphibian.setZoo(createZoo());
+    void test_UpdateMammal_InvalidRequest_ZooNotInDatabase() {
+        Amphibian amphibian = createAmphibian();
         when(mockAnimalRepository.existsById(any(UUID.class))).thenReturn(true);
         when(zooRepository.existsById(any(UUID.class))).thenReturn(false);
         assertThrows(ResponseStatusException.class, () -> uut.updateAmphibian(amphibian));
@@ -195,7 +197,7 @@ public class AmphibianServiceFullSpringTest {
                   "foodType": "string",
                   "extraInformation": "string",
                   "isPoisonous": true,
-                  "makesNoise": true,
+                  "makesNoise": true
                 }""";
 
         try {

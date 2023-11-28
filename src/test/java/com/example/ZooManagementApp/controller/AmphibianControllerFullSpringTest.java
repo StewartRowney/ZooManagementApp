@@ -88,7 +88,7 @@ public class AmphibianControllerFullSpringTest {
                 .accept(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(requestBuilder)
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isCreated());
 
         verify(mockAmphibianService, times(1)).updateAmphibian(any(Amphibian.class));
     }

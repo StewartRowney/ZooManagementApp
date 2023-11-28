@@ -1,7 +1,9 @@
 package com.example.ZooManagementApp.integratedTests;
 
 import com.example.ZooManagementApp.entities.Amphibian;
+import com.example.ZooManagementApp.entities.Amphibian;
 import com.example.ZooManagementApp.entities.Zoo;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Test;
@@ -20,6 +22,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -46,36 +49,31 @@ public class AmphibianIntegratedTest {
     }
 
     @Test
-    void testAddAmphibian() throws Exception {
-
-        int numberOfAmphibiansBeforeAdd = getAllAmphibians().length;
-
-        Amphibian amphibian = new Amphibian(new Zoo(), "Terry", "Snail", LocalDate.of(1990,12,18),
-                "Anywhere", "Stone cold killer", "Humans", "Has killed multiple zookeepers", false, false);
-        Amphibian actualamphibian = addAmphibian(amphibian);
-        int numberOfAmphibiansAfterAdd = getAllAmphibians().length;
-
-        assertAll(
-                () -> assertEquals(amphibian.getName(), actualamphibian.getName()),
-                () -> assertEquals(amphibian.getSpeciesName(), actualamphibian.getSpeciesName()),
-                () -> assertEquals(amphibian.getId(), actualamphibian.getId()),
-                () -> assertEquals(numberOfAmphibiansBeforeAdd + 1, numberOfAmphibiansAfterAdd)
-        );
-
-    }
-
-    private Amphibian[] getAllAmphibians() throws Exception {
+    void test_GetAmphibianById_ValidRequest() throws Exception {
+        UUID amphibianId = UUID.fromString("60229efa-5978-4cf0-b2f8-76a690ef32b6");
         MvcResult result =
-                (this.mockMvc.perform(MockMvcRequestBuilders.get("/amphibians")))
+                (this.mockMvc.perform(MockMvcRequestBuilders.get("/amphibians/findById/" + amphibianId)))
                         .andExpect(status().isOk())
                         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                         .andReturn();
 
         String contentAsJson = result.getResponse().getContentAsString();
-        return mapper.readValue(contentAsJson, Amphibian[].class);
+        Amphibian amphibian = mapper.readValue(contentAsJson, Amphibian.class);
+
+        assertAll(
+                () -> assertEquals(amphibianId, amphibian.getId()),
+                () -> assertEquals("Jerry", amphibian.getName()),
+                () -> assertEquals("Cane Toad", amphibian.getSpeciesName())
+        );
     }
 
-    private Amphibian addAmphibian(Amphibian amphibian) throws Exception {
+    @Test
+    void test_AddAmphibian_ValidRequest() throws Exception {
+        int numberOfAmphibiansBeforeAdd = getAllAmphibians().length;
+        Amphibian amphibian = new Amphibian();
+        amphibian.setName("Test");
+        amphibian.setSpeciesName("testAnimal");
+        amphibian.setZoo(getTestZoo());
         String json = mapper.writeValueAsString(amphibian);
 
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/amphibians")
@@ -89,6 +87,105 @@ public class AmphibianIntegratedTest {
                 .andReturn());
 
         String contentAsJson = result.getResponse().getContentAsString();
-        return mapper.readValue(contentAsJson, Amphibian.class);
+        Amphibian amphibianResult = mapper.readValue(contentAsJson, Amphibian.class);
+
+        int numberOfAmphibiansAfterAdd = getAllAmphibians().length;
+
+        assertAll(
+                () -> assertEquals(amphibian.getName(), amphibianResult.getName()),
+                () -> assertEquals(amphibian.getSpeciesName(), amphibianResult.getSpeciesName()),
+                () -> assertEquals(numberOfAmphibiansBeforeAdd + 1, numberOfAmphibiansAfterAdd)
+        );
+    }
+
+    @Test
+    void test_UpdateAmphibian_ValidRequest() throws Exception {
+        int numberOfAmphibiansBeforeUpdate = getAllAmphibians().length;
+        Amphibian amphibian = getTestAmphibian();
+        String json = mapper.writeValueAsString(amphibian);
+
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/amphibians")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json)
+                .accept(MediaType.APPLICATION_JSON);
+
+        MvcResult result = (mockMvc.perform(requestBuilder)
+                .andExpect(status().isCreated())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn());
+
+        String contentAsJson = result.getResponse().getContentAsString();
+        Amphibian amphibianResult = mapper.readValue(contentAsJson, Amphibian.class);
+
+        int numberOfAmphibiansAfterUpdate = getAllAmphibians().length;
+
+        assertAll(
+                () -> assertEquals(amphibian.getName(), amphibianResult.getName()),
+                () -> assertEquals(amphibian.getSpeciesName(), amphibianResult.getSpeciesName()),
+                () -> assertEquals(numberOfAmphibiansBeforeUpdate, numberOfAmphibiansAfterUpdate)
+        );
+    }
+
+    @Test
+    void test_DeleteAmphibianById_ValidRequest() throws Exception {
+        int numberOfAmphibiansBeforeDelete = getAllAmphibians().length;
+        UUID amphibianId = getTestAmphibian().getId();
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/amphibians/findById/" + amphibianId));
+        int numberOfAmphibiansAfterDelete = getAllAmphibians().length;
+
+        assertEquals(numberOfAmphibiansBeforeDelete - 1, numberOfAmphibiansAfterDelete);
+    }
+
+    private Amphibian[] getAllAmphibians() throws Exception {
+        MvcResult result =
+                (this.mockMvc.perform(MockMvcRequestBuilders.get("/amphibians")))
+                        .andExpect(status().isOk())
+                        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                        .andReturn();
+
+        String contentAsJson = result.getResponse().getContentAsString();
+        return mapper.readValue(contentAsJson, Amphibian[].class);
+    }
+
+    private Amphibian getTestAmphibian() {
+        String json = """
+                {
+                  "id": "60229efa-5978-4cf0-b2f8-76a690ef32b6",
+                  "name": "string",
+                  "speciesName": "string",
+                  "birthDate": "28-11-2021",
+                  "habitat": "string",
+                  "behaviour": "string",
+                  "foodType": "string",
+                  "extraInformation": "string",
+                  "isPoisonous": true,
+                  "makesNoise": true
+                }""";
+
+        try {
+            Amphibian amphibian = mapper.readValue(json, Amphibian.class);
+            amphibian.setZoo(getTestZoo());
+            return amphibian;
+        } catch (JsonProcessingException e) {
+            return new Amphibian();
+        }
+    }
+
+    private Zoo getTestZoo() {
+        String json = """
+                 {
+                    "id": "40ea5519-fcef-4272-b742-e01790ca04c3",
+                    "name": "string",
+                    "location": "string",
+                    "capacity": 0,
+                    "price": 0,
+                    "dateOpened": "12-05-1999"
+                  }""";
+        try {
+            return mapper.readValue(json, Zoo.class);
+        } catch (JsonProcessingException e) {
+            return new Zoo();
+        }
     }
 }
