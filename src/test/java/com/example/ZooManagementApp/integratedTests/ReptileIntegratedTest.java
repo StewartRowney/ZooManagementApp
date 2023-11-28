@@ -1,6 +1,8 @@
 package com.example.ZooManagementApp.integratedTests;
 
 import com.example.ZooManagementApp.entities.Reptile;
+import com.example.ZooManagementApp.entities.Zoo;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Test;
@@ -14,8 +16,12 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -39,6 +45,95 @@ public class ReptileIntegratedTest {
         assertEquals(2, actualReptiles.length);
     }
 
+    @Test
+    void test_GetReptileById_ValidRequest() throws Exception {
+        UUID reptileId = UUID.fromString("9b2d9232-9385-4707-965f-e5a90cbcfc88");
+        MvcResult result =
+                (this.mockMvc.perform(MockMvcRequestBuilders.get("/reptiles/findById/" + reptileId)))
+                        .andExpect(status().isOk())
+                        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                        .andReturn();
+
+        String contentAsJson = result.getResponse().getContentAsString();
+        Reptile reptile = mapper.readValue(contentAsJson, Reptile.class);
+
+        assertAll(
+                () -> assertEquals(reptileId, reptile.getId()),
+                () -> assertEquals("Sally", reptile.getName()),
+                () -> assertEquals("Python", reptile.getSpeciesName())
+        );
+    }
+
+    @Test
+    void test_AddReptile_ValidRequest() throws Exception {
+        int numberOfReptilesBeforeAdd = getAllReptiles().length;
+        Reptile reptile = new Reptile();
+        reptile.setName("Test");
+        reptile.setSpeciesName("testAnimal");
+        reptile.setZoo(getTestZoo());
+        String json = mapper.writeValueAsString(reptile);
+
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/reptiles")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json)
+                .accept(MediaType.APPLICATION_JSON);
+
+        MvcResult result = (mockMvc.perform(requestBuilder)
+                .andExpect(status().isCreated())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn());
+
+        String contentAsJson = result.getResponse().getContentAsString();
+        Reptile reptileResult = mapper.readValue(contentAsJson, Reptile.class);
+
+        int numberOfReptilesAfterAdd = getAllReptiles().length;
+
+        assertAll(
+                () -> assertEquals(reptile.getName(), reptileResult.getName()),
+                () -> assertEquals(reptile.getSpeciesName(), reptileResult.getSpeciesName()),
+                () -> assertEquals(numberOfReptilesBeforeAdd + 1, numberOfReptilesAfterAdd)
+        );
+    }
+
+    @Test
+    void test_UpdateReptile_ValidRequest() throws Exception {
+        int numberOfReptilesBeforeUpdate = getAllReptiles().length;
+        Reptile reptile = getTestReptile();
+        String json = mapper.writeValueAsString(reptile);
+
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/reptiles")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json)
+                .accept(MediaType.APPLICATION_JSON);
+
+        MvcResult result = (mockMvc.perform(requestBuilder)
+                .andExpect(status().isCreated())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn());
+
+        String contentAsJson = result.getResponse().getContentAsString();
+        Reptile reptileResult = mapper.readValue(contentAsJson, Reptile.class);
+
+        int numberOfReptilesAfterUpdate = getAllReptiles().length;
+
+        assertAll(
+                () -> assertEquals(reptile.getName(), reptileResult.getName()),
+                () -> assertEquals(reptile.getSpeciesName(), reptileResult.getSpeciesName()),
+                () -> assertEquals(numberOfReptilesBeforeUpdate, numberOfReptilesAfterUpdate)
+        );
+    }
+
+    @Test
+    void test_DeleteReptileById_ValidRequest() throws Exception {
+        int numberOfReptilesBeforeDelete = getAllReptiles().length;
+        UUID reptileId = getTestReptile().getId();
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/reptiles/findById/" + reptileId));
+        int numberOfReptilesAfterDelete = getAllReptiles().length;
+
+        assertEquals(numberOfReptilesBeforeDelete - 1, numberOfReptilesAfterDelete);
+    }
+
     private Reptile[] getAllReptiles() throws Exception {
         MvcResult result =
                 (this.mockMvc.perform(MockMvcRequestBuilders.get("/reptiles")))
@@ -48,5 +143,47 @@ public class ReptileIntegratedTest {
 
         String contentAsJson = result.getResponse().getContentAsString();
         return mapper.readValue(contentAsJson, Reptile[].class);
+    }
+
+    private Reptile getTestReptile() {
+        String json = """
+                {
+                  "id": "9b2d9232-9385-4707-965f-e5a90cbcfc88",
+                  "name": "string",
+                  "speciesName": "string",
+                  "birthDate": "28-11-2021",
+                  "habitat": "string",
+                  "behaviour": "string",
+                  "foodType": "string",
+                  "extraInformation": "string",
+                  "hasShell": false,
+                  "isColdBlooded": false,
+                  "hasLegs": true
+                }""";
+
+        try {
+            Reptile reptile = mapper.readValue(json, Reptile.class);
+            reptile.setZoo(getTestZoo());
+            return reptile;
+        } catch (JsonProcessingException e) {
+            return new Reptile();
+        }
+    }
+
+    private Zoo getTestZoo() {
+        String json = """
+                 {
+                    "id": "40ea5519-fcef-4272-b742-e01790ca04c3",
+                    "name": "string",
+                    "location": "string",
+                    "capacity": 0,
+                    "price": 0,
+                    "dateOpened": "12-05-1999"
+                  }""";
+        try {
+            return mapper.readValue(json, Zoo.class);
+        } catch (JsonProcessingException e) {
+            return new Zoo();
+        }
     }
 }

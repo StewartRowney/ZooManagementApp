@@ -68,3 +68,5 @@ public class ZooService implements IZooService{
         if (!repository.existsById(id)) { throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Zoo to update does not exist");}
         repository.deleteById(id);
     }}
+
+//TODO: DOn't delete ZOo if ther'es still animals in it.
