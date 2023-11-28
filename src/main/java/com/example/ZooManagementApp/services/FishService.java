@@ -33,4 +33,15 @@ public class FishService implements IFishService {
         }
         return animalRepository.findFishById(fishId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Fish with id: "+ fishId + " not found"));
     }
+
+    @Override
+    public Fish updateFishWithPut(Fish fish) {
+        if (fish == null || fish.getId() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Fish to update must have an Id");
+        }
+
+        if (!animalRepository.existsById(fish.getId())) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Fish to update does not exist");}
+        return animalRepository.save(fish);
+    }
 }

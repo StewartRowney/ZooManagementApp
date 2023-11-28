@@ -35,4 +35,11 @@ public class FishControllerNoSpringTest {
         uut.getFishById(id);
         verify(mockFishService,times(1)).findFishById(id);
     }
+
+    @Test
+    void test_UpdateFish(){
+        Fish fish = new Fish();
+        uut.putAFish(fish);
+        verify(mockFishService,times(1)).updateFishWithPut(fish);
+    }
 }

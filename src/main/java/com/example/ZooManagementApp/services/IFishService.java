@@ -12,4 +12,6 @@ public interface IFishService {
     List<Fish> findAllFish();
 
     Fish findFishById(UUID id);
+
+    Fish updateFishWithPut(Fish fish);
 }
