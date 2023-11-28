@@ -20,7 +20,7 @@ public class FishControllerNoSpringTest {
     }
 
     @Test
-    void testMammalServiceCalledForGetAllMammals() {
+    void testFishServiceCalledForGetAllFish() {
         uut.getAllFish();
         verify(mockFishService, times(1)).findAllFish();
     }

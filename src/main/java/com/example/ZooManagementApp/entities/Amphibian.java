@@ -1,7 +1,10 @@
 package com.example.ZooManagementApp.entities;
 
+import jakarta.persistence.Entity;
+
 import java.time.LocalDate;
 
+@Entity
 public class Amphibian extends Animal{
 
     //VARIABLES
@@ -9,7 +12,6 @@ public class Amphibian extends Animal{
     private boolean makesNoise;
 
     //CONSTRUCTORS
-
     public Amphibian() {
     }
     public Amphibian(Zoo zoo, String name, String speciesName, LocalDate birthDate, String habitat, String behaviour, String foodType, String extraInformation, boolean isPoisonous, boolean makesNoise) {

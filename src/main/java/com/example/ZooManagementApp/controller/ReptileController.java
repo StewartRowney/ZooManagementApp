@@ -1,7 +1,9 @@
 package com.example.ZooManagementApp.controller;
 
 import com.example.ZooManagementApp.entities.Insect;
+import com.example.ZooManagementApp.entities.Reptile;
 import com.example.ZooManagementApp.services.IInsectService;
+import com.example.ZooManagementApp.services.IReptileService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,19 +14,19 @@ import java.util.List;
 
 @RestController
 @SuppressWarnings("unused")
-@Tag(name = "Insect Api")
-@RequestMapping("/insects")
-public class InsectController {
+@Tag(name = "Reptile Api")
+@RequestMapping("/reptiles")
+public class ReptileController {
 
-    private final IInsectService insectService;
+    private final IReptileService reptileService;
 
     @Autowired
-    public InsectController(IInsectService insectService) {
-        this.insectService = insectService;
+    public ReptileController(IReptileService reptileService) {
+        this.reptileService = reptileService;
     }
 
     @GetMapping
-    public List<Insect> getAllInsects() {
-        return insectService.findAllInsects();
+    public List<Reptile> getAllReptiles() {
+        return reptileService.findAllReptiles();
     }
 }

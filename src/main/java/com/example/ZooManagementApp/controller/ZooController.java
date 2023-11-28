@@ -1,6 +1,7 @@
 package com.example.ZooManagementApp.controller;
 import com.example.ZooManagementApp.entities.Zoo;
 import com.example.ZooManagementApp.services.IZooService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import java.util.UUID;
 
 @RestController
 @SuppressWarnings("UnusedReturnValue")
+@Tag(name = "Zoo Api")
 @RequestMapping("/zoos")
 public class ZooController {
     IZooService service;
