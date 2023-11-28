@@ -54,10 +54,11 @@ public class ZooController {
         return service.updateZooByName(name, id);
     }
 
-    @DeleteMapping("/deleteZoo/{zooId}")
+    @DeleteMapping("/deleteZoo/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteZooById(UUID id){
-         service.removeZooById(id);
+    public void deleteZooById(@PathVariable UUID id){
+
+        service.removeZooById(id);
     }
 
 
