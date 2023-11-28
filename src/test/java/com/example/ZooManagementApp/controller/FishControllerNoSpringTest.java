@@ -49,4 +49,11 @@ public class FishControllerNoSpringTest {
         uut.deleteZooById(fish.getId());
         verify(mockFishService,times(1)).removeFishById(fish.getId());
     }
+
+    @Test
+    void test_AddFish_ValidRequest() {
+        Fish fish = new Fish();
+        uut.addFish(fish);
+        verify(mockFishService, times(1)).addFish(fish);
+    }
 }

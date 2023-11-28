@@ -54,5 +54,19 @@ public class FishService implements IFishService {
         if (!animalRepository.existsById(id)) { throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Fish to update does not exist");}
         animalRepository.deleteById(id);
     }
+
+    @Override
+    public Fish addFish(Fish fish) {
+        if (fish == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Mammal to add cannot be null");
+        }
+        else if (fish.getId() != null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Mammal to add cannot contain an id");
+        }
+        else if (!animalRepository.existsById(fish.getZoo().getId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot add Mammal to a zoo that doesn't exist");
+        }
+        return animalRepository.save(fish);
+    }
 }
 

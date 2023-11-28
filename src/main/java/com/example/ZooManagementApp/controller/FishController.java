@@ -3,8 +3,10 @@ package com.example.ZooManagementApp.controller;
 import com.example.ZooManagementApp.entities.Animal;
 import com.example.ZooManagementApp.entities.Fish;
 import com.example.ZooManagementApp.services.IFishService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,8 +45,14 @@ public class FishController {
     @DeleteMapping("/deleteFish/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteZooById(@PathVariable UUID id){
-
         fishService.removeFishById(id);
+    }
+
+    @Operation(summary = "Add a Mammal", description = "Add a Mammal, returns a new Mammal")
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Fish addFish(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") Fish fish) {
+        return fishService.addFish(fish);
     }
 }
 

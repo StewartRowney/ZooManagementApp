@@ -93,4 +93,21 @@ public class FishServiceFullSpringTest {
         when(mockAnimalRepository.existsById(any())).thenReturn(false);
         assertThrows(ResponseStatusException.class,() -> uut.removeFishById(fish.getId()));
     }
+    @Test
+    void test_AddFish_InvalidRequest_ZooNotInDatabase() {
+        Fish fish = createAFish();
+        when(mockAnimalRepository.existsById(any(UUID.class))).thenReturn(false);
+        assertThrows(ResponseStatusException.class, () -> uut.addFish(fish));
+    }
+
+    @Test
+    void test_AddFish_InvalidRequest_HasId() {
+        Fish fish = createAFish();
+        assertThrows(ResponseStatusException.class, () -> uut.addFish(fish));
+    }
+
+    @Test
+    void test_AddFish_InvalidRequest_NullMammal() {
+        assertThrows(ResponseStatusException.class, () -> uut.addFish(null));
+    }
 }

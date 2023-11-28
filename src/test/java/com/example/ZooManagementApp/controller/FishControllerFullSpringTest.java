@@ -86,5 +86,19 @@ public class FishControllerFullSpringTest {
         }
     }
 
+    @Test
+    void test_AddFish_ValidRequest() throws Exception {
+        Fish fish = new Fish();
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(fish);
+
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/fish")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json)
+                .accept(MediaType.APPLICATION_JSON);
+
+        mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().isCreated());
+        verify(mockFishService, times(1)).addFish(any(Fish.class));
+    }
 
 }
