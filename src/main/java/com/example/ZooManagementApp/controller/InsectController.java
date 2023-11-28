@@ -34,7 +34,7 @@ public class InsectController {
         return insectService.findInsectById(insectId);
     }
 
-    @Operation(summary = "Add a Mammal", description = "Add a Mammal, returns a new Mammal")
+    @Operation(summary = "Add an Insect", description = "Add an Insect, returns a new Insect")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Insect addInsect(@RequestBody Insect insect) {
