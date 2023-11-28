@@ -4,6 +4,7 @@ import com.example.ZooManagementApp.services.IZooService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,19 +43,19 @@ public class ZooController {
     @Operation(summary = "Add a zoo", description = "Add a zoo")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Zoo postNewZoo(@RequestBody Zoo zoo){
+    public Zoo postNewZoo(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") Zoo zoo ){
         return service.addNewZoo(zoo);
     }
     @Operation(summary = "Update a zoo", description = "Update a zoo")
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Zoo putAZoo(@RequestBody Zoo zoo){
+    public Zoo putAZoo(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") Zoo zoo){
         return service.updateZooWithPut(zoo);
     }
     @Operation(summary = "Update a zoo's name", description = "Update a zoo's name")
     @PatchMapping("/editName/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Zoo patchZooName(@PathVariable UUID id, @RequestBody String name){
+    public Zoo patchZooName(@PathVariable @DateTimeFormat(pattern="dd-MM-yyyy") UUID id, @RequestBody String name){
         return service.updateZooByName(name, id);
     }
     @Operation(summary = "Delete a zoo by id", description = "Delete a zoo by id")
@@ -66,7 +67,7 @@ public class ZooController {
     @Operation(summary = "Add a list of Zoos", description = "Add zoos in bulk through a list")
     @PostMapping("/addZoos")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<Zoo> addAListOfZoos(@RequestBody List<Zoo> zoos){
+    public List<Zoo> addAListOfZoos(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") List<Zoo> zoos){
         return service.addListOfZoos(zoos);
     }
 }
