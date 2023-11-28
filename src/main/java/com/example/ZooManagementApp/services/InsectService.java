@@ -33,4 +33,9 @@ public class InsectService implements IInsectService{
         }
         return animalRepository.findInsectById(insectId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Insect with id: "+ insectId + " not found"));
     }
+
+    @Override
+    public Insect addInsect(Insect insect) {
+        return null;
+    }
 }

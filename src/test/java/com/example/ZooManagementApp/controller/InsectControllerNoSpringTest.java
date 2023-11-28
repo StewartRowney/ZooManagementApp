@@ -1,5 +1,6 @@
 package com.example.ZooManagementApp.controller;
 
+import com.example.ZooManagementApp.entities.Insect;
 import com.example.ZooManagementApp.services.IInsectService;
 import org.junit.jupiter.api.Test;
 
@@ -23,5 +24,12 @@ class InsectControllerNoSpringTest {
         UUID insectId = UUID.randomUUID();
         uut.getInsectById(insectId);
         verify(mockInsectService, times(1)).findInsectById(insectId);
+    }
+
+    @Test
+    void test_addInsect_ValidRequest() {
+        Insect insect = new Insect();
+        uut.addInsect(insect);
+        verify(mockInsectService, times(1)).addInsect(insect);
     }
 }

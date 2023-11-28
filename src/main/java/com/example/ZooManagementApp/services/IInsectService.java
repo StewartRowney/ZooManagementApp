@@ -10,4 +10,5 @@ import java.util.UUID;
 public interface IInsectService {
     List<Insect> findAllInsects();
     Insect findInsectById(UUID insectId);
+    Insect addInsect(Insect insect);
 }
