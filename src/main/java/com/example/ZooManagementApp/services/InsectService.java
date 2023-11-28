@@ -1,6 +1,7 @@
 package com.example.ZooManagementApp.services;
 
 import com.example.ZooManagementApp.data.IAnimalRepository;
+import com.example.ZooManagementApp.data.ZooRepository;
 import com.example.ZooManagementApp.entities.Insect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,17 +9,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class InsectService implements IInsectService{
 
     private final IAnimalRepository animalRepository;
+    private final ZooRepository zooRepository;
 
     @Autowired
-    public InsectService(IAnimalRepository animalRepository) {
+    public InsectService(IAnimalRepository animalRepository, ZooRepository zooRepository) {
         this.animalRepository = animalRepository;
+        this.zooRepository = zooRepository;
     }
 
     @Override
@@ -36,6 +38,15 @@ public class InsectService implements IInsectService{
 
     @Override
     public Insect addInsect(Insect insect) {
-        return null;
+        if (insect == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Insect to add cannot be null");
+        }
+        else if (insect.getId() != null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Insect to add cannot contain an id");
+        }
+        else if (!zooRepository.existsById(insect.getZoo().getId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot add Insect to a zoo that doesn't exist");
+        }
+        return animalRepository.save(insect);
     }
 }

@@ -1,7 +1,13 @@
 package com.example.ZooManagementApp.services;
 
 import com.example.ZooManagementApp.data.IAnimalRepository;
+import com.example.ZooManagementApp.data.ZooRepository;
 import com.example.ZooManagementApp.entities.Insect;
+import com.example.ZooManagementApp.entities.Mammal;
+import com.example.ZooManagementApp.entities.Zoo;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,8 +28,13 @@ class InsectServiceFullSpringTest {
     @MockBean
     private IAnimalRepository mockAnimalRepository;
 
+    @MockBean
+    ZooRepository mockZooRepository;
+
     @Autowired
     private IInsectService uut;
+
+    private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
     @Test
     void test_GetAllInsects_ValidRequest() {
@@ -48,6 +59,75 @@ class InsectServiceFullSpringTest {
     @Test
     void test_GetInsectByID_InvalidRequest_NullId() {
         assertThrows(ResponseStatusException.class, () -> uut.findInsectById(null));
+    }
+
+    @Test
+    void test_AddInsect_ValidRequest() {
+        Insect insect = new Insect();
+        insect.setZoo(createZoo());
+        when(mockZooRepository.existsById(any(UUID.class))).thenReturn(true);
+        uut.addInsect(insect);
+        verify(mockAnimalRepository, times(1)).save(insect);
+    }
+
+    @Test
+    void test_AddInsect_InvalidRequest_ZooNotInDatabase() {
+        Insect insect = new Insect();
+        insect.setZoo(createZoo());
+        when(mockZooRepository.existsById(any(UUID.class))).thenReturn(false);
+        assertThrows(ResponseStatusException.class, () -> uut.addInsect(insect));
+    }
+
+    @Test
+    void test_AddInsect_InvalidRequest_HasId() {
+        Insect insect = createInsect();
+        assertThrows(ResponseStatusException.class, () -> uut.addInsect(insect));
+    }
+
+    @Test
+    void test_AddInsect_InvalidRequest_NullInsect() {
+        assertThrows(ResponseStatusException.class, () -> uut.addInsect(null));
+    }
+
+    private Insect createInsect() {
+        String json = """
+                {
+                    "id": "481c8ba9-64cb-4c5d-84b1-1c22f04f86ea",
+                    "name": "Sid",
+                    "speciesName": "Spider",
+                    "birthDate": "10-10-2020",
+                    "habitat": "Trees",
+                    "behaviour": "Crazy",
+                    "foodType": "Flies",
+                    "extraInformation": "is a great guy",
+                    "hasWings": false,
+                    "numberOfLegs": 8
+                  }""";
+
+        try {
+            Insect insect = mapper.readValue(json, Insect.class);
+            insect.setZoo(createZoo());
+            return insect;
+        } catch (JsonProcessingException e) {
+            return new Insect();
+        }
+    }
+    
+    private Zoo createZoo() {
+        String json = """
+                 {
+                    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                    "name": "string",
+                    "location": "string",
+                    "capacity": 0,
+                    "price": 0,
+                    "dateOpened": "12-05-1999"
+                  }""";
+        try {
+            return mapper.readValue(json, Zoo.class);
+        } catch (JsonProcessingException e) {
+            return new Zoo();
+        }
     }
 
 }
