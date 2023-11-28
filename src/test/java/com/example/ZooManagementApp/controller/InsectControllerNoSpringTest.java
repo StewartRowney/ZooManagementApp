@@ -3,6 +3,8 @@ package com.example.ZooManagementApp.controller;
 import com.example.ZooManagementApp.services.IInsectService;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -14,5 +16,12 @@ class InsectControllerNoSpringTest {
     void test_getAllInsects_ValidRequest() {
         uut.getAllInsects();
         verify(mockInsectService, times(1)).findAllInsects();
+    }
+
+    @Test
+    void test_getInsectById_ValidRequest() {
+        UUID insectId = UUID.randomUUID();
+        uut.getInsectById(insectId);
+        verify(mockInsectService, times(1)).findInsectById(insectId);
     }
 }
