@@ -1,7 +1,9 @@
 package com.example.ZooManagementApp.services;
 
 import com.example.ZooManagementApp.data.IAnimalRepository;
+import com.example.ZooManagementApp.data.ZooRepository;
 import com.example.ZooManagementApp.entities.Amphibian;
+import com.example.ZooManagementApp.entities.Zoo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -14,10 +16,12 @@ import java.util.UUID;
 public class AmphibianService implements IAmphibianService{
 
     private final IAnimalRepository animalRepository;
+    private final ZooRepository zooRepository;
 
     @Autowired
-    public AmphibianService(IAnimalRepository animalRepository) {
+    public AmphibianService(IAnimalRepository animalRepository, ZooRepository zooRepository) {
         this.animalRepository = animalRepository;
+        this.zooRepository = zooRepository;
     }
 
     @Override
@@ -35,8 +39,14 @@ public class AmphibianService implements IAmphibianService{
 
     @Override
     public Amphibian addAmphibian(Amphibian amphibian) {
-        if (amphibian.getId() != null) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Cannot set Amphibian id, set value to null");
+        if (amphibian == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Amphibian to add cannot be null");
+        }
+        else if (amphibian.getId() != null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Amphibian to add cannot contain an id");
+        }
+        else if (!zooRepository.existsById(amphibian.getZoo().getId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot add Amphibian to a zoo that doesn't exist");
         }
         return animalRepository.save(amphibian);
     }
