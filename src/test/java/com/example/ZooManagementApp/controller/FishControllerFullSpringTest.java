@@ -1,5 +1,6 @@
 package com.example.ZooManagementApp.controller;
 
+import com.example.ZooManagementApp.entities.Animal;
 import com.example.ZooManagementApp.services.IFishService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+
+import java.util.UUID;
+
+import static org.mockito.Mockito.*;
 
 @WebMvcTest(FishController.class)
 @ActiveProfiles("test")
@@ -28,4 +31,13 @@ public class FishControllerFullSpringTest {
         mockMvc.perform(requestBuilder);
         verify(mockFishService, times(1)).findAllFish();
     }
+
+    @Test
+    void testZooServiceCallsFindZooByID() throws Exception {
+        UUID id = UUID.randomUUID();
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/fish/findById/" + id);
+        mockMvc.perform(requestBuilder);
+        verify(mockFishService,times(1)).findFishById(id);
+    }
+
 }
