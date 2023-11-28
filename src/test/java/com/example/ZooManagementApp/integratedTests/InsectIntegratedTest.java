@@ -2,6 +2,8 @@ package com.example.ZooManagementApp.integratedTests;
 
 import com.example.ZooManagementApp.entities.Insect;
 import com.example.ZooManagementApp.entities.Mammal;
+import com.example.ZooManagementApp.entities.Zoo;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Test;
@@ -15,6 +17,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.UUID;
@@ -62,6 +65,37 @@ public class InsectIntegratedTest {
         );
     }
 
+    @Test
+    void test_AddInsect_ValidRequest() throws Exception {
+        int numberOfInsectsBeforeAdd = getAllInsects().length;
+        Insect insect = new Insect();
+        insect.setName("Test");
+        insect.setSpeciesName("testAnimal");
+        insect.setZoo(getTestZoo());
+        String json = mapper.writeValueAsString(insect);
+
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/insects")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json)
+                .accept(MediaType.APPLICATION_JSON);
+
+        MvcResult result = (mockMvc.perform(requestBuilder)
+                .andExpect(status().isCreated())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn());
+
+        String contentAsJson = result.getResponse().getContentAsString();
+        Insect insectResult = mapper.readValue(contentAsJson, Insect.class);
+
+        int numberOfInsectsAfterAdd = getAllInsects().length;
+
+        assertAll(
+                () -> assertEquals(insect.getName(), insectResult.getName()),
+                () -> assertEquals(insect.getSpeciesName(), insectResult.getSpeciesName()),
+                () -> assertEquals(numberOfInsectsBeforeAdd + 1, numberOfInsectsAfterAdd)
+        );
+    }
+
     private Insect[] getAllInsects() throws Exception {
         MvcResult result =
                 (this.mockMvc.perform(MockMvcRequestBuilders.get("/insects")))
@@ -71,5 +105,46 @@ public class InsectIntegratedTest {
 
         String contentAsJson = result.getResponse().getContentAsString();
         return mapper.readValue(contentAsJson, Insect[].class);
+    }
+
+    private Insect getTestInsect() {
+        String json = """
+                {
+                    "id": "8a3cdf04-19b5-4acc-90d7-8ad8abef523e",
+                    "name": "Sid",
+                    "speciesName": "Spider",
+                    "birthDate": "10-10-2020",
+                    "habitat": "Trees",
+                    "behaviour": "Crazy",
+                    "foodType": "Flies",
+                    "extraInformation": "is a great guy",
+                    "hasWings": false,
+                    "numberOfLegs": 8
+                  }""";
+
+        try {
+            Insect insect = mapper.readValue(json, Insect.class);
+            insect.setZoo(getTestZoo());
+            return insect;
+        } catch (JsonProcessingException e) {
+            return new Insect();
+        }
+    }
+
+    private Zoo getTestZoo() {
+        String json = """
+                 {
+                    "id": "40ea5519-fcef-4272-b742-e01790ca04c3",
+                    "name": "string",
+                    "location": "string",
+                    "capacity": 0,
+                    "price": 0,
+                    "dateOpened": "12-05-1999"
+                  }""";
+        try {
+            return mapper.readValue(json, Zoo.class);
+        } catch (JsonProcessingException e) {
+            return new Zoo();
+        }
     }
 }
