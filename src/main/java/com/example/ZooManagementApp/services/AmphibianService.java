@@ -56,9 +56,11 @@ public class AmphibianService implements IAmphibianService{
         if (amphibian == null || amphibian.getId() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Amphibian to update must have an Id");
         }
-
-        if (!animalRepository.existsById(amphibian.getId())) {
+        else if (!animalRepository.existsById(amphibian.getId())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Amphibian to update does not exist");
+        }
+        else if (!zooRepository.existsById(amphibian.getZoo().getId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot update Amphibian to a zoo that doesn't exist");
         }
         return animalRepository.save(amphibian);
     }
