@@ -33,4 +33,9 @@ public class MammalService implements IMammalService{
         }
         return animalRepository.findMammalById(mammalId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Mammal with id: "+ mammalId + " not found"));
     }
+
+    @Override
+    public Mammal addMammal(Mammal mammal) {
+        return animalRepository.save(mammal);
+    }
 }
