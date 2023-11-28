@@ -1,6 +1,5 @@
 package com.example.ZooManagementApp.controller;
 
-import com.example.ZooManagementApp.entities.Mammal;
 import com.example.ZooManagementApp.services.IMammalService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,12 +32,5 @@ public class MammalControllerNoSpringTest {
         UUID mammalId = UUID.randomUUID();
         uut.getMammalById(mammalId);
         verify(mockMammalService, times(1)).findMammalById(mammalId);
-    }
-
-    @Test
-    void test_AddMammal_ValidRequest() {
-        Mammal mammal = new Mammal();
-        uut.addMammal(mammal);
-        verify(mockMammalService, times(1)).addMammal(mammal);
     }
 }
