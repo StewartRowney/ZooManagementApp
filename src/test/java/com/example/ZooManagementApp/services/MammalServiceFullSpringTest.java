@@ -123,6 +123,26 @@ public class MammalServiceFullSpringTest {
         assertThrows(ResponseStatusException.class, () -> uut.updateMammal(null));
     }
 
+    @Test
+    void test_DeleteMammalById_ValidRequest() {
+        UUID mammalId = UUID.randomUUID();
+        when(mockAnimalRepository.existsById(mammalId)).thenReturn(true);
+        uut.deleteMammalById(mammalId);
+        verify(mockAnimalRepository, times(1)).deleteById(mammalId);
+    }
+
+    @Test
+    void test_DeleteById_InvalidRequest_NotInDatabase() {
+        UUID mammalId = UUID.randomUUID();
+        when(mockAnimalRepository.existsById(mammalId)).thenReturn(false);
+        assertThrows(ResponseStatusException.class, () -> uut.deleteMammalById(mammalId));
+    }
+
+    @Test
+    void test_DeleteById_InvalidRequest_NullId() {
+        assertThrows(ResponseStatusException.class, () -> uut.deleteMammalById(null));
+    }
+
     private Mammal createMammal() {
         String json = """
                 {
