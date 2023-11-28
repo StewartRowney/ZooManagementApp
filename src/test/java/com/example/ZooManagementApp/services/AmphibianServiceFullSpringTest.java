@@ -182,7 +182,7 @@ public class AmphibianServiceFullSpringTest {
 
     @Test
     void test_UpdateAmphibian_InvalidRequest_NullAmphibian() {
-        assertThrows(ResponseStatusException.class, () -> uut.updateAmphibian(null));
+         assertThrows(ResponseStatusException.class, () -> uut.updateAmphibian(null));
     }
 
     private Amphibian createAmphibian() {
