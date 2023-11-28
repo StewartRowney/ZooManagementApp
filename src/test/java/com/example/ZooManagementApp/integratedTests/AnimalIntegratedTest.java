@@ -36,7 +36,6 @@ public class AnimalIntegratedTest {
     @Test
     void test_GetAllAnimals_ValidRequest() throws Exception {
         Animal[] actualAnimals = getAllAnimals();
-
         assertEquals(12, actualAnimals.length);
     }
 

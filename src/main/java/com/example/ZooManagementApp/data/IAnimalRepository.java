@@ -3,6 +3,7 @@ package com.example.ZooManagementApp.data;
 import com.example.ZooManagementApp.entities.*;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.UUID;
@@ -25,6 +26,11 @@ public interface IAnimalRepository extends ListCrudRepository<Animal, UUID> {
     @Query(value = "SELECT * FROM Animal WHERE DType = 'Bird'", nativeQuery = true)
     List<Bird> findAllBirds();
 
+
+    //AMPHIBIANS
     @Query(value = "SELECT * FROM Animal WHERE DType = 'Amphibian'", nativeQuery = true)
     List<Amphibian> findAllAmphibians();
+
+    @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id}", nativeQuery = true)
+    Amphibian findAmphibianById(@Param("id") UUID id);
 }
