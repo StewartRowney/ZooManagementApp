@@ -12,8 +12,12 @@ import java.util.UUID;
 @Repository
 public interface IAnimalRepository extends ListCrudRepository<Animal, UUID> {
 
+    //MAMMAL
     @Query(value = "SELECT * FROM Animal WHERE DType = 'Mammal'", nativeQuery = true)
     List<Mammal> findAllMammals();
+
+    @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id}", nativeQuery = true)
+    Optional<Mammal> findMammalById(@Param("id") UUID id);
 
     @Query(value = "SELECT * FROM Animal WHERE DType = 'Insect'", nativeQuery = true)
     List<Insect> findAllInsects();
@@ -21,14 +25,20 @@ public interface IAnimalRepository extends ListCrudRepository<Animal, UUID> {
     @Query(value = "SELECT * FROM Animal WHERE DType = 'Fish'", nativeQuery = true)
     List<Fish> findAllFish();
 
+    //REPTILE
     @Query(value = "SELECT * FROM Animal WHERE DType = 'Reptile'", nativeQuery = true)
     List<Reptile> findAllReptiles();
 
+    @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id}", nativeQuery = true)
+    Optional<Reptile> findReptileById(@Param("id") UUID id);
+
+
+    //BIRD
     @Query(value = "SELECT * FROM Animal WHERE DType = 'Bird'", nativeQuery = true)
     List<Bird> findAllBirds();
 
 
-    //AMPHIBIANS
+    //AMPHIBIAN
     @Query(value = "SELECT * FROM Animal WHERE DType = 'Amphibian'", nativeQuery = true)
     List<Amphibian> findAllAmphibians();
 
@@ -36,6 +46,4 @@ public interface IAnimalRepository extends ListCrudRepository<Animal, UUID> {
     Optional<Amphibian> findAmphibianById(@Param("id") UUID id);
 
 
-    @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id}", nativeQuery = true)
-    Optional<Mammal> findMammalById(@Param("id") UUID id);
 }
