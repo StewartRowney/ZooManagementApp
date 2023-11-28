@@ -41,11 +41,4 @@ private final IMammalService mammalService;
     public Mammal addMammal(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") Mammal mammal) {
         return mammalService.addMammal(mammal);
     }
-
-    @Operation(summary = "Update a Mammal", description = "Update a Mammal, returns the updated Mammal")
-    @PutMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Mammal updateMammal(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") Mammal mammal) {
-        return mammalService.updateMammal(mammal);
-    }
 }

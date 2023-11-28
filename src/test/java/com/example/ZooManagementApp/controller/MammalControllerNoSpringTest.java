@@ -41,11 +41,4 @@ public class MammalControllerNoSpringTest {
         uut.addMammal(mammal);
         verify(mockMammalService, times(1)).addMammal(mammal);
     }
-
-    @Test
-    void test_UpdateMammal_ValidRequest() {
-        Mammal mammal = new Mammal();
-        uut.updateMammal(mammal);
-        verify(mockMammalService, times(1)).updateMammal(mammal);
-    }
 }
