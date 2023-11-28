@@ -97,16 +97,14 @@ public class MammalServiceFullSpringTest {
 
     @Test
     void test_UpdateMammal_InvalidRequest_MammalNotInDatabase() {
-        Mammal mammal = new Mammal();
-        mammal.setZoo(createZoo());
+        Mammal mammal = createMammal();
         when(mockAnimalRepository.existsById(any(UUID.class))).thenReturn(false);
         assertThrows(ResponseStatusException.class, () -> uut.updateMammal(mammal));
     }
 
     @Test
     void test_UpdateMammal_InvalidRequest_ZooNotInDatabase() {
-        Mammal mammal = new Mammal();
-        mammal.setZoo(createZoo());
+        Mammal mammal = createMammal();
         when(mockAnimalRepository.existsById(any(UUID.class))).thenReturn(true);
         when(mockZooRepository.existsById(any(UUID.class))).thenReturn(false);
         assertThrows(ResponseStatusException.class, () -> uut.updateMammal(mammal));
