@@ -48,4 +48,9 @@ public class MammalService implements IMammalService{
         }
         return animalRepository.save(mammal);
     }
+
+    @Override
+    public Mammal updateMammal(Mammal mammal) {
+        return null;
+    }
 }

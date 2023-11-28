@@ -2,6 +2,7 @@ package com.example.ZooManagementApp.controller;
 
 import com.example.ZooManagementApp.entities.Mammal;
 import com.example.ZooManagementApp.services.IMammalService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Test;
@@ -58,5 +59,18 @@ public class MammalControllerFullSpringTest {
         mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().isCreated());
 
         verify(mockMammalService, times(1)).addMammal(any(Mammal.class));
+    }
+
+    @Test
+    void test_UpdateMammal_ValidRequest() throws Exception {
+        String json = mapper.writeValueAsString(new Mammal());
+
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/mammals")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json)
+                .accept(MediaType.APPLICATION_JSON);
+
+        mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().isCreated());
+        verify(mockMammalService, times(1)).updateMammal(any(Mammal.class));
     }
 }

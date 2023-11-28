@@ -11,4 +11,5 @@ public interface IMammalService {
     List<Mammal> findAllMammals();
     Mammal findMammalById(UUID mammalId);
     Mammal addMammal(Mammal mammal);
+    Mammal updateMammal(Mammal mammal);
 }
