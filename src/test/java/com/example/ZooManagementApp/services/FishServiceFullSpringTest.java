@@ -107,7 +107,7 @@ public class FishServiceFullSpringTest {
     }
 
     @Test
-    void test_AddFish_InvalidRequest_NullMammal() {
+    void test_AddFish_InvalidRequest_NullFish() {
         assertThrows(ResponseStatusException.class, () -> uut.addFish(null));
     }
 }

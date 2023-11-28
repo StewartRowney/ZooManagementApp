@@ -31,7 +31,7 @@ public class FishController {
         return fishService.findAllFish();
     }
 
-    @GetMapping("/findById/{id}")
+    @GetMapping("/{id}")
     public Fish getFishById(@PathVariable UUID id){
         return fishService.findFishById(id);
     }
@@ -42,7 +42,7 @@ public class FishController {
         return fishService.updateFishWithPut(fish);
     }
 
-    @DeleteMapping("/deleteFish/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteZooById(@PathVariable UUID id){
         fishService.removeFishById(id);

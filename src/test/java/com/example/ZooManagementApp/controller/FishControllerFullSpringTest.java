@@ -38,9 +38,9 @@ public class FishControllerFullSpringTest {
     }
 
     @Test
-    void testZooServiceCallsFindZooByID() throws Exception {
+    void testZooServiceCallsFindFishByID() throws Exception {
         UUID id = UUID.randomUUID();
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/fish/findById/" + id);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/fish/" + id);
         mockMvc.perform(requestBuilder);
         verify(mockFishService,times(1)).findFishById(id);
     }
@@ -64,7 +64,7 @@ public class FishControllerFullSpringTest {
     @Test
     void testZooServiceCallsRemoveZoo() throws Exception {
         UUID id = createAFish().getId();
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/fish/deleteFish/"+id);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/fish/"+id);
         mockMvc.perform(requestBuilder);
         verify(mockFishService,times(1)).removeFishById(id);
     }

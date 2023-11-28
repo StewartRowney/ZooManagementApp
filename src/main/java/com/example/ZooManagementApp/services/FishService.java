@@ -1,8 +1,8 @@
 package com.example.ZooManagementApp.services;
 
 import com.example.ZooManagementApp.data.IAnimalRepository;
+import com.example.ZooManagementApp.data.ZooRepository;
 import com.example.ZooManagementApp.entities.Fish;
-import com.example.ZooManagementApp.entities.Mammal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,9 +16,12 @@ public class FishService implements IFishService {
 
     private final IAnimalRepository animalRepository;
 
+    private final ZooRepository zooRepository;
+
     @Autowired
-    public FishService(IAnimalRepository animalRepository) {
+    public FishService(IAnimalRepository animalRepository, ZooRepository zooRepository) {
         this.animalRepository = animalRepository;
+        this.zooRepository = zooRepository;
     }
 
     @Override
@@ -40,7 +43,7 @@ public class FishService implements IFishService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Fish to update must have an Id");
         }
 
-        if (!animalRepository.existsById(fish.getId())) {
+        if (!zooRepository.existsById(fish.getZoo().getId())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Fish to update does not exist");}
         return animalRepository.save(fish);
     }
@@ -58,13 +61,13 @@ public class FishService implements IFishService {
     @Override
     public Fish addFish(Fish fish) {
         if (fish == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Mammal to add cannot be null");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Fish to add cannot be null");
         }
         else if (fish.getId() != null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Mammal to add cannot contain an id");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Fish to add cannot contain an id");
         }
-        else if (!animalRepository.existsById(fish.getZoo().getId())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot add Mammal to a zoo that doesn't exist");
+        else if (!zooRepository.existsById(fish.getZoo().getId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot add Fish to a zoo that doesn't exist");
         }
         return animalRepository.save(fish);
     }
