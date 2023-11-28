@@ -32,21 +32,34 @@ public class BirdService implements IBirdService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bird to update must have an Id");
         }
         return animalRepository.findBirdById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Zoo with id: "+ id+ " not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Bird with id: "+ id+ " not found"));
     }
+
 
     @Override
     public Bird addNewBird(Bird bird) {
-        return null;
+        return animalRepository.save(bird);
     }
 
     @Override
     public Bird updateBirdWithPut(Bird bird) {
-        return null;
+        if (bird == null || bird.getId() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bird to update must have an Id");
+        }
+
+        if (!animalRepository.existsById(bird.getId())) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Zoo to update does not exist");}
+        return animalRepository.save(bird);
     }
 
     @Override
     public void removeBirdById(UUID id) {
-
+        if (id == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bird to delete must have an Id");
+        }
+        if (!animalRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Bird to Delete does not exist");
+        }
+        animalRepository.deleteById(id);
     }
 }

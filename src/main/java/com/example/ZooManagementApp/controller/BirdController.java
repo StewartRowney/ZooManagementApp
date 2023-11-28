@@ -33,21 +33,16 @@ public class BirdController {
         return service.findBirdById(id);
     }
 
-    @GetMapping("/findByName/{name}")
-    public Bird getBirdByName(@PathVariable String name){
-        return service.findBirdByName(name);
-    }
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Bird postNewBird(@RequestBody Bird Bird){
-        return service.addNewBird(Bird);
+    public Bird postNewBird(@RequestBody Bird bird){
+        return service.addNewBird(bird);
     }
 
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Bird putABird(@RequestBody Bird Bird){
-        return service.updateBirdWithPut(Bird);
+    public Bird putABird(@RequestBody Bird bird){
+        return service.updateBirdWithPut(bird);
     }
 
     @DeleteMapping("/deleteBird/{id}")

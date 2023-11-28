@@ -11,7 +11,6 @@ public interface IBirdService {
 
     Bird findBirdById(UUID id);
 
-    Bird findBirdByName(String name);
 
     Bird addNewBird(Bird bird);
 
