@@ -40,6 +40,11 @@ class ZooServiceFullSpringTest {
         uut.findZooById(id);
         verify(mockZooRepo,times(1)).findById(id);
     }
+
+    @Test
+    void test_findZooById_nullId(){
+        assertThrows(ResponseStatusException.class,() -> uut.findZooById(null));
+    }
     @Test
     void verifyIfRepositoryInvokesFindByName() {
         String name= "someZoo";
@@ -73,24 +78,16 @@ class ZooServiceFullSpringTest {
     }
 
     @Test
-    void test_UpdateZoo_InvalidRequest(){
-        Zoo zoo = new Zoo();
-        when(mockZooRepo.existsById(any())).thenReturn(false);
-        //uut.updateZooWithPut(zoo);
-        assertThrows(ResponseStatusException.class,() -> uut.updateZooWithPut(zoo));
-    }
-
-    @Test
     void test_UpdateZoo_InvalidRequest_NoId(){
         Zoo zoo = new Zoo();
-        when(mockZooRepo.existsById(any())).thenReturn(false);
+        //when(mockZooRepo.existsById(any())).thenReturn(false);
         //uut.updateZooWithPut(zoo);
-        assertThrows(ResponseStatusException.class,() -> uut.updateZooWithPut(zoo));
+        assertThrows(ResponseStatusException.class,() -> uut.updateZooWithPut(null));
     }
 
     @Test
     void test_UpdateZoo_InvalidRequest_IdNotInDatabase(){
-        Zoo zoo = createAZooNotInDataBase();
+        Zoo zoo = createAZoo();
         when(mockZooRepo.existsById(any())).thenReturn(false);
         assertThrows(ResponseStatusException.class,() -> uut.updateZooWithPut(zoo));
     }
@@ -105,7 +102,7 @@ class ZooServiceFullSpringTest {
 
     @Test
     void test_DeleteZoo_ValidRequest_NotInDatabase() {
-        Zoo zoo = createAZooNotInDataBase();
+        Zoo zoo = createAZoo();
         when(mockZooRepo.existsById(any())).thenReturn(false);
         assertThrows(ResponseStatusException.class,() -> uut.removeZooById(zoo.getId()));
     }
@@ -127,7 +124,7 @@ class ZooServiceFullSpringTest {
 
     @Test
     void test_UpdateZooName_ValidRequest_NotInDatabase() {
-        Zoo zoo = createAZooNotInDataBase();
+        Zoo zoo = createAZoo();
         String name = "NewName";
         when(mockZooRepo.existsById(zoo.getId())).thenReturn(false);
         assertThrows(ResponseStatusException.class,() -> uut.updateZooByName(name,zoo.getId()));

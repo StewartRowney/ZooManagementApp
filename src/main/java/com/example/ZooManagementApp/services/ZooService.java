@@ -21,12 +21,16 @@ public class ZooService implements IZooService{
 
     @Override
     public Zoo findZooById(UUID id) {
+        if (id == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Zoo to update must have an Id");
+        }
         return repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Zoo with id: "+ id+ " not found"));
     }
 
     @Override
     public Zoo findZooByName(String name) {
+
         return repository.findByName(name)
                 .orElseThrow(() -> new EntityNotFoundException("Zoo with name: "+ name+ " not found"));
     }
@@ -43,38 +47,24 @@ public class ZooService implements IZooService{
         }
 
         if (!repository.existsById(zoo.getId())) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Zoo to update does not exist");
-        }
-
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Zoo to update does not exist");}
         return repository.save(zoo);
     }
-
     @Override
     public Zoo updateZooByName(String name, UUID id) {
         if (id == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Zoo to update must have an Id");
-        }
-
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Zoo to update must have an Id");}
         if (!repository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Zoo to update does not exist");
-        }
-
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Zoo to update does not exist");}
         Zoo zooToUpdate = findZooById(id);
         zooToUpdate.setName(name);
-        return repository.save(zooToUpdate);
-
-    }
-
+        return repository.save(zooToUpdate);}
     @Override
     public void removeZooById(UUID id) {
         if (id == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Zoo to delete must have an Id");
         }
 
-        if (!repository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Zoo to update does not exist");
-        }
-
+        if (!repository.existsById(id)) { throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Zoo to update does not exist");}
         repository.deleteById(id);
-    }
-}
+    }}
