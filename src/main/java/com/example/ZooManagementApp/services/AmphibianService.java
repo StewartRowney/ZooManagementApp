@@ -35,16 +35,34 @@ public class AmphibianService implements IAmphibianService{
 
     @Override
     public Amphibian addAmphibian(Amphibian amphibian) {
-        return null;
+        if (amphibian.getId() != null) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Cannot set Amphibian id, set value to null");
+        }
+        return animalRepository.save(amphibian);
     }
 
     @Override
     public Amphibian updateAmphibian(Amphibian amphibian) {
-        return null;
+        if (amphibian == null || amphibian.getId() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Amphibian to update must have an Id");
+        }
+
+        if (!animalRepository.existsById(amphibian.getId())) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Amphibian to update does not exist");
+        }
+
+        return animalRepository.save(amphibian);
     }
 
     @Override
     public void deleteAmphibian(UUID amphibianId) {
+        if (amphibianId == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Amphibian id cannot be null");
+        }
 
+        if (!animalRepository.existsById(amphibianId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Amphibian to delete does not exist");
+        }
+        animalRepository.deleteById(amphibianId);
     }
 }
