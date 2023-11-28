@@ -3,6 +3,7 @@ package com.example.ZooManagementApp.services;
 import com.example.ZooManagementApp.data.IAnimalRepository;
 import com.example.ZooManagementApp.data.ZooRepository;
 import com.example.ZooManagementApp.entities.Insect;
+import com.example.ZooManagementApp.entities.Mammal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -52,11 +53,29 @@ public class InsectService implements IInsectService{
 
     @Override
     public Insect updateInsect(Insect insect) {
-        return null;
+        if (insect == null || insect.getId() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Insect to update must have an id");
+        }
+        else if (!animalRepository.existsById(insect.getId())) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Insect to update cannot be found");
+        }
+        else if (!zooRepository.existsById(insect.getZoo().getId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot update Insect to a zoo that doesn't exist");
+        }
+
+        return animalRepository.save(insect);
     }
 
     @Override
     public void deleteInsectById(UUID insectId) {
-
+        if (insectId == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Insect id cannot be null for delete");
+        }
+        else if (!animalRepository.existsById(insectId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Insect to delete could not be found");
+        }
+        else {
+            animalRepository.deleteById(insectId);
+        }
     }
 }

@@ -89,6 +89,61 @@ class InsectServiceFullSpringTest {
         assertThrows(ResponseStatusException.class, () -> uut.addInsect(null));
     }
 
+    @Test
+    void test_UpdateInsect_ValidRequest() {
+        Insect insect = createInsect();
+        when(mockAnimalRepository.existsById(any(UUID.class))).thenReturn(true);
+        when(mockZooRepository.existsById(any(UUID.class))).thenReturn(true);
+        uut.updateInsect(insect);
+        verify(mockAnimalRepository, times(1)).save(insect);
+    }
+
+    @Test
+    void test_UpdateInsect_InvalidRequest_InsectNotInDatabase() {
+        Insect insect = createInsect();
+        when(mockAnimalRepository.existsById(any(UUID.class))).thenReturn(false);
+        assertThrows(ResponseStatusException.class, () -> uut.updateInsect(insect));
+    }
+
+    @Test
+    void test_UpdateInsect_InvalidRequest_ZooNotInDatabase() {
+        Insect insect = createInsect();
+        when(mockAnimalRepository.existsById(any(UUID.class))).thenReturn(true);
+        when(mockZooRepository.existsById(any(UUID.class))).thenReturn(false);
+        assertThrows(ResponseStatusException.class, () -> uut.updateInsect(insect));
+    }
+
+    @Test
+    void test_UpdateInsect_InvalidRequest_HasNoId() {
+        Insect insect = new Insect();
+        assertThrows(ResponseStatusException.class, () -> uut.updateInsect(insect));
+    }
+
+    @Test
+    void test_UpdateInsect_InvalidRequest_NullInsect() {
+        assertThrows(ResponseStatusException.class, () -> uut.updateInsect(null));
+    }
+
+    @Test
+    void test_DeleteInsectById_ValidRequest() {
+        UUID insectId = UUID.randomUUID();
+        when(mockAnimalRepository.existsById(insectId)).thenReturn(true);
+        uut.deleteInsectById(insectId);
+        verify(mockAnimalRepository, times(1)).deleteById(insectId);
+    }
+
+    @Test
+    void test_DeleteById_InvalidRequest_NotInDatabase() {
+        UUID insectId = UUID.randomUUID();
+        when(mockAnimalRepository.existsById(insectId)).thenReturn(false);
+        assertThrows(ResponseStatusException.class, () -> uut.deleteInsectById(insectId));
+    }
+
+    @Test
+    void test_DeleteById_InvalidRequest_NullId() {
+        assertThrows(ResponseStatusException.class, () -> uut.deleteInsectById(null));
+    }
+
     private Insect createInsect() {
         String json = """
                 {
