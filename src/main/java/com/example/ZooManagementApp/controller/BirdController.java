@@ -5,6 +5,7 @@ import com.example.ZooManagementApp.services.IBirdService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,13 +38,13 @@ public class BirdController {
     @Operation(summary = "Add a bird", description = "Add a bird")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Bird postNewBird(@RequestBody Bird bird){
+    public Bird postNewBird(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") Bird bird){
         return service.addNewBird(bird);
     }
     @Operation(summary = "Update a bird", description = "Update a bird")
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Bird putABird(@RequestBody Bird bird){
+    public Bird putABird(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") Bird bird){
         return service.updateBirdWithPut(bird);
     }
     @Operation(summary = "Delete a bird by id", description = "Delete a bird by id")

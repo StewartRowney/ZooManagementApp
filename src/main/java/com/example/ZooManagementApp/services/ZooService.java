@@ -72,7 +72,7 @@ public class ZooService implements IZooService{
     @Override
     public List<Zoo> addListOfZoos(List<Zoo> zoos) {
         for (Zoo zoo : zoos) {
-                repository.save(zoo);
+                addNewZoo(zoo);
         }
         return zoos;
     }
