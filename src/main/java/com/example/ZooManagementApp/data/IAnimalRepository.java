@@ -32,4 +32,7 @@ public interface IAnimalRepository extends ListCrudRepository<Animal, UUID> {
 
     @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id}", nativeQuery = true)
     Optional<Mammal> findMammalById(@Param("id") UUID id);
+
+    @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id}", nativeQuery = true)
+    Optional<Insect> findInsectById(@Param("id") UUID id);
 }
