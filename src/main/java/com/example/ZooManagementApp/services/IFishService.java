@@ -14,4 +14,6 @@ public interface IFishService {
     Fish findFishById(UUID id);
 
     Fish updateFishWithPut(Fish fish);
+
+    void removeFishById(UUID id);
 }

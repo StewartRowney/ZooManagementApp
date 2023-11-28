@@ -60,5 +60,17 @@ public class FishControllerFullSpringTest {
         verify(mockFishService, times(1)).updateFishWithPut(any(Fish.class));
     }
 
+    @Test
+    void testZooServiceCallsRemoveZoo() throws Exception {
+        UUID id = createAFish().getId();
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/zoos/deleteZoo/"+id);
+        mockMvc.perform(requestBuilder);
+        verify(mockFishService,times(1)).removeFishById(id);
+    }
+
+    private Animal createAFish() {
+        return null;
+    }
+
 
 }

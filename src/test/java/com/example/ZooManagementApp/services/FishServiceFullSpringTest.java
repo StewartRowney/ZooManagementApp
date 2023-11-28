@@ -78,4 +78,19 @@ public class FishServiceFullSpringTest {
             return new Fish();
         }
     }
+
+    @Test
+    void test_DeleteFish_ValidRequest_InDatabase() {
+        Fish fish = createAFish();
+        when(mockAnimalRepository.existsById(any())).thenReturn(true);
+        uut.removeFishById(fish.getId());
+        verify(mockAnimalRepository, times(1)).deleteById(fish.getId());
+    }
+
+    @Test
+    void test_DeleteFish_ValidRequest_NotInDatabase() {
+        Fish fish = createAFish();
+        when(mockAnimalRepository.existsById(any())).thenReturn(false);
+        assertThrows(ResponseStatusException.class,() -> uut.removeFishById(fish.getId()));
+    }
 }

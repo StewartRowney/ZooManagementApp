@@ -39,6 +39,13 @@ public class FishController {
     public Fish putAFish(@RequestBody Fish fish){
         return fishService.updateFishWithPut(fish);
     }
+
+    @DeleteMapping("/deleteFish/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteZooById(@PathVariable UUID id){
+
+        fishService.removeFishById(id);
+    }
 }
 
 

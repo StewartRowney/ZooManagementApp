@@ -44,4 +44,15 @@ public class FishService implements IFishService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Fish to update does not exist");}
         return animalRepository.save(fish);
     }
+
+    @Override
+    public void removeFishById(UUID id) {
+        if (id == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Fish to delete must have an Id");
+        }
+
+        if (!animalRepository.existsById(id)) { throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Fish to update does not exist");}
+        animalRepository.deleteById(id);
+    }
 }
+
