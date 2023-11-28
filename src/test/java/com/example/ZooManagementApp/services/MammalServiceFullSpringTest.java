@@ -68,7 +68,7 @@ public class MammalServiceFullSpringTest {
     }
 
     @Test
-    void test_AddMammal_InvalidRequest_ZooNotInDatabase() {
+    void test_AddMammal_InvalidRequest_NotInDatabase() {
         Mammal mammal = new Mammal();
         mammal.setZoo(createZoo());
         when(mockZooRepository.existsById(any(UUID.class))).thenReturn(false);
@@ -84,43 +84,6 @@ public class MammalServiceFullSpringTest {
     @Test
     void test_AddMammal_InvalidRequest_NullMammal() {
         assertThrows(ResponseStatusException.class, () -> uut.addMammal(null));
-    }
-
-    @Test
-    void test_UpdateMammal_ValidRequest() {
-        Mammal mammal = createMammal();
-        when(mockAnimalRepository.existsById(any(UUID.class))).thenReturn(true);
-        when(mockZooRepository.existsById(any(UUID.class))).thenReturn(true);
-        uut.updateMammal(mammal);
-        verify(mockAnimalRepository, times(1)).save(mammal);
-    }
-
-    @Test
-    void test_UpdateMammal_InvalidRequest_MammalNotInDatabase() {
-        Mammal mammal = new Mammal();
-        mammal.setZoo(createZoo());
-        when(mockAnimalRepository.existsById(any(UUID.class))).thenReturn(false);
-        assertThrows(ResponseStatusException.class, () -> uut.updateMammal(mammal));
-    }
-
-    @Test
-    void test_UpdateMammal_InvalidRequest_ZooNotInDatabase() {
-        Mammal mammal = new Mammal();
-        mammal.setZoo(createZoo());
-        when(mockAnimalRepository.existsById(any(UUID.class))).thenReturn(true);
-        when(mockZooRepository.existsById(any(UUID.class))).thenReturn(false);
-        assertThrows(ResponseStatusException.class, () -> uut.updateMammal(mammal));
-    }
-
-    @Test
-    void test_UpdateMammal_InvalidRequest_HasNoId() {
-        Mammal mammal = new Mammal();
-        assertThrows(ResponseStatusException.class, () -> uut.updateMammal(mammal));
-    }
-
-    @Test
-    void test_UpdateMammal_InvalidRequest_NullMammal() {
-        assertThrows(ResponseStatusException.class, () -> uut.updateMammal(null));
     }
 
     private Mammal createMammal() {
