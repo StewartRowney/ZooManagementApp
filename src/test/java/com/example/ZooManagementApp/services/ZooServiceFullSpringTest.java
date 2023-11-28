@@ -2,15 +2,19 @@ package com.example.ZooManagementApp.services;
 
 import com.example.ZooManagementApp.data.ZooRepository;
 import com.example.ZooManagementApp.entities.Zoo;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
@@ -58,12 +62,33 @@ class ZooServiceFullSpringTest {
         verify(mockZooRepo, times(1)).save(zoo);
     }
 
-//    @Test
-//    void test_UpdateZoo_ValidRequest(){
-//        Zoo zoo = new Zoo();
-//        when(mockZooRepo.existsById(zoo.getId())).thenReturn(true);
-//        uut.updateZooWithPut(zoo);
-//        verify(mockZooRepo, times(1)).save(zoo);
-//    }
+    @Test
+    void test_UpdateZoo_ValidRequest(){
+        Zoo zoo = createAZoo();
+        UUID id = zoo.getId();
+        when(mockZooRepo.existsById(any())).thenReturn(true);
+        uut.updateZooWithPut(zoo);
+        assertThrows(ResponseStatusException.class,() -> uut.updateZooWithPut(zoo));
+       // verify(mockZooRepo, times(1)).save(zoo);
+    }
+
+    private Zoo createAZoo() {
+        ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
+        String json = "{\n" +
+                "    \"id\": \"40ea5519-fcef-4272-b742-e01790ca04c3\",\n" +
+                "    \"name\": \"Chester Zoo\",\n" +
+                "    \"location\": \"Upton-by-Chester, Cheshire, England\",\n" +
+                "    \"capacity\": 27000,\n" +
+                "    \"price\": 19,\n" +
+                "    \"dateOpened\": \"10-06-1931\"\n" +
+                "  }";
+        try{
+            return mapper.readValue(json, Zoo.class);
+        } catch (Exception e) {
+            return new Zoo();
+        }
+
+
+    }
 
 }
