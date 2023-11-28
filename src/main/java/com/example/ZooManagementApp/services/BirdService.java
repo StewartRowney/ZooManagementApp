@@ -1,6 +1,7 @@
 package com.example.ZooManagementApp.services;
 
 import com.example.ZooManagementApp.data.IAnimalRepository;
+import com.example.ZooManagementApp.data.ZooRepository;
 import com.example.ZooManagementApp.entities.Bird;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,12 @@ public class BirdService implements IBirdService {
 
     private final IAnimalRepository animalRepository;
 
+    private final ZooRepository zooRepository;
+
     @Autowired
-    public BirdService(IAnimalRepository animalRepository) {
+    public BirdService(IAnimalRepository animalRepository, ZooRepository zooRepository) {
         this.animalRepository = animalRepository;
+        this.zooRepository = zooRepository;
     }
 
     @Override
@@ -42,7 +46,7 @@ public class BirdService implements IBirdService {
         else if (bird.getId() != null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bird to add cannot contain an id");
         }
-        else if (!animalRepository.existsById(bird.getZoo().getId())) {
+        else if (!zooRepository.existsById(bird.getZoo().getId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot add Bird to a zoo that doesn't exist");
         }
         return animalRepository.save(bird);
