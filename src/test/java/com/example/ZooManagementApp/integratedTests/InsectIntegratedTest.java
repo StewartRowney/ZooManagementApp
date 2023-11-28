@@ -96,6 +96,45 @@ public class InsectIntegratedTest {
         );
     }
 
+    @Test
+    void test_UpdateInsect_ValidRequest() throws Exception {
+        int numberOfInsectsBeforeUpdate = getAllInsects().length;
+        Insect insect = getTestInsect();
+        String json = mapper.writeValueAsString(insect);
+
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/insects")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json)
+                .accept(MediaType.APPLICATION_JSON);
+
+        MvcResult result = (mockMvc.perform(requestBuilder)
+                .andExpect(status().isCreated())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn());
+
+        String contentAsJson = result.getResponse().getContentAsString();
+        Insect insectResult = mapper.readValue(contentAsJson, Insect.class);
+
+        int numberOfInsectsAfterUpdate = getAllInsects().length;
+
+        assertAll(
+                () -> assertEquals(insect.getName(), insectResult.getName()),
+                () -> assertEquals(insect.getSpeciesName(), insectResult.getSpeciesName()),
+                () -> assertEquals(numberOfInsectsBeforeUpdate, numberOfInsectsAfterUpdate)
+        );
+    }
+
+    @Test
+    void test_DeleteInsectById_ValidRequest() throws Exception {
+        int numberOfInsectsBeforeDelete = getAllInsects().length;
+        UUID insectId = getTestInsect().getId();
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/insects/" + insectId));
+        int numberOfInsectsAfterDelete = getAllInsects().length;
+
+        assertEquals(numberOfInsectsBeforeDelete - 1, numberOfInsectsAfterDelete);
+    }
+
     private Insect[] getAllInsects() throws Exception {
         MvcResult result =
                 (this.mockMvc.perform(MockMvcRequestBuilders.get("/insects")))
