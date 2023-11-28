@@ -51,6 +51,16 @@ public class MammalService implements IMammalService{
 
     @Override
     public Mammal updateMammal(Mammal mammal) {
-        return null;
+        if (mammal == null || mammal.getId() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Mammal to update must have an id");
+        }
+        else if (!animalRepository.existsById(mammal.getId())) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Mammal to update cannot be found");
+        }
+        else if (!zooRepository.existsById(mammal.getZoo().getId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot update Mammal to a zoo that doesn't exist");
+        }
+
+        return animalRepository.save(mammal);
     }
 }
