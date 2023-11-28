@@ -16,6 +16,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -37,6 +40,25 @@ public class MammalIntegratedTest {
     void test_GetAllMammals_ValidRequest() throws Exception {
         Mammal[] actualMammals = getAllMammals();
         assertEquals(2, actualMammals.length);
+    }
+
+    @Test
+    void test_GetMammalById_ValidRequest() throws Exception {
+        UUID mammalId = UUID.fromString("7a12afea-8b9b-4a7f-94f2-5b57f4e7ffa7");
+        MvcResult result =
+                (this.mockMvc.perform(MockMvcRequestBuilders.get("/mammals/" + mammalId)))
+                        .andExpect(status().isOk())
+                        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                        .andReturn();
+
+        String contentAsJson = result.getResponse().getContentAsString();
+        Mammal mammal = mapper.readValue(contentAsJson, Mammal.class);
+
+        assertAll(
+                () -> assertEquals(mammalId, mammal.getId()),
+                () -> assertEquals("Jimbo", mammal.getName()),
+                () -> assertEquals("Elephant", mammal.getSpeciesName())
+        );
     }
 
     private Mammal[] getAllMammals() throws Exception {
