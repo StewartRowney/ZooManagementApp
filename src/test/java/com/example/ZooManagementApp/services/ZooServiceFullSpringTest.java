@@ -45,6 +45,7 @@ class ZooServiceFullSpringTest {
     void test_findZooById_nullId(){
         assertThrows(ResponseStatusException.class,() -> uut.findZooById(null));
     }
+
     @Test
     void verifyIfRepositoryInvokesFindByName() {
         String name= "someZoo";
@@ -170,8 +171,6 @@ class ZooServiceFullSpringTest {
         } catch (Exception e) {
             return new Zoo();
         }
-
-
     }
 
 
