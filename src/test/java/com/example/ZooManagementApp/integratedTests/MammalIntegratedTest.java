@@ -97,7 +97,7 @@ public class MammalIntegratedTest {
 
     @Test
     void test_UpdateMammal_ValidRequest() throws Exception {
-        int numberOfMammalsBeforeAdd = getAllMammals().length;
+        int numberOfMammalsBeforeUpdate = getAllMammals().length;
         Mammal mammal = getTestMammal();
         String json = mapper.writeValueAsString(mammal);
 
@@ -114,13 +114,24 @@ public class MammalIntegratedTest {
         String contentAsJson = result.getResponse().getContentAsString();
         Mammal mammalResult = mapper.readValue(contentAsJson, Mammal.class);
 
-        int numberOfMammalsAfterAdd = getAllMammals().length;
+        int numberOfMammalsAfterUpdate = getAllMammals().length;
 
         assertAll(
                 () -> assertEquals(mammal.getName(), mammalResult.getName()),
                 () -> assertEquals(mammal.getSpeciesName(), mammalResult.getSpeciesName()),
-                () -> assertEquals(numberOfMammalsBeforeAdd, numberOfMammalsAfterAdd)
+                () -> assertEquals(numberOfMammalsBeforeUpdate, numberOfMammalsAfterUpdate)
         );
+    }
+
+    @Test
+    void test_DeleteMammalById_ValidRequest() throws Exception {
+        int numberOfMammalsBeforeDelete = getAllMammals().length;
+        UUID mammalId = getTestMammal().getId();
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/mammals/" + mammalId));
+        int numberOfMammalsAfterDelete = getAllMammals().length;
+
+        assertEquals(numberOfMammalsBeforeDelete - 1, numberOfMammalsAfterDelete);
     }
 
     private Mammal[] getAllMammals() throws Exception {
