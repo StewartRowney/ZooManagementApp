@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class MammalService implements IMammalService{
@@ -20,10 +19,5 @@ public class MammalService implements IMammalService{
 
     public List<Mammal> findAllMammals() {
         return animalRepository.findAllMammals();
-    }
-
-    @Override
-    public Mammal findMammalById(UUID mammalId) {
-        return null;
     }
 }

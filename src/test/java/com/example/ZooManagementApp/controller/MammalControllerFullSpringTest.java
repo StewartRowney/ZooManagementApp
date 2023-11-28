@@ -8,9 +8,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
-import java.util.UUID;
-
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -18,23 +15,15 @@ import static org.mockito.Mockito.verify;
 public class MammalControllerFullSpringTest {
 
     @MockBean
-    IMammalService mockMammalService;
+    IMammalService mammalService;
 
     @Autowired
     MockMvc mockMvc;
 
     @Test
-    void test_GetAllMammals_ValidRequest() throws Exception {
+    void testMammalServiceCalledForGetAllMammals() throws Exception {
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/mammals");
         mockMvc.perform(requestBuilder);
-        verify(mockMammalService,times(1)).findAllMammals();
-    }
-
-    @Test
-    void test_GetMammalById_ValidRequest() throws Exception {
-        UUID mammalId = UUID.randomUUID();
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/mammals/" + mammalId);
-        mockMvc.perform(requestBuilder);
-        verify(mockMammalService, times(1)).findMammalById(mammalId);
+        verify(mammalService,times(1)).findAllMammals();
     }
 }
