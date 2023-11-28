@@ -3,6 +3,7 @@ package com.example.ZooManagementApp.services;
 import com.example.ZooManagementApp.data.IAnimalRepository;
 import com.example.ZooManagementApp.entities.Bird;
 import com.example.ZooManagementApp.entities.Zoo;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.persistence.EntityNotFoundException;
@@ -30,6 +31,7 @@ public class BirdServiceFullSpringTest {
     @Autowired
     IBirdService uut;
 
+    private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
     @Test
     void testVerifyRepositoryInvokesGetAllBirds() {
         uut.findAllBirds();
@@ -58,14 +60,21 @@ public class BirdServiceFullSpringTest {
     }
 
     @Test
-    void test_addNewBird_InvalidRequest_NoBird() {
+    void test_addNewBird_InvalidRequest_NullBird() {
         assertThrows(ResponseStatusException.class,() -> uut.addNewBird(null));
+    }
+    @Test
+    void test_addNewBird_InvalidRequest_BirdHasID() {
+        Bird bird = createABird();
+        assertThrows(ResponseStatusException.class,() -> uut.addNewBird(bird));
     }
 
     @Test
-    void test_addNewBird_InvalidRequest_BirdHasID() {
+    void test_addNewBird_InvalidRequest_ZooNotInDataBase() {
         Bird bird = new Bird();
-        when(mockAnimalRepository.findById(any())).thenReturn(Optional.of(bird));
+        Zoo zoo = createAZoo();
+        bird.setZoo(zoo);
+        when(mockAnimalRepository.existsById(any(UUID.class))).thenReturn(false);
         assertThrows(ResponseStatusException.class,() -> uut.addNewBird(bird));
     }
     @Test
@@ -73,13 +82,7 @@ public class BirdServiceFullSpringTest {
         Bird bird = new Bird();
         Zoo zoo = createAZoo();
         bird.setZoo(zoo);
-        uut.addNewBird(bird);
-        verify(mockAnimalRepository, times(1)).save(bird);
-    }
-
-    @Test
-    void test_PostNewBird_ValidRequest(){
-        Bird bird = new Bird();
+        when(mockAnimalRepository.existsById(any(UUID.class))).thenReturn(true);
         uut.addNewBird(bird);
         verify(mockAnimalRepository, times(1)).save(bird);
     }
@@ -97,8 +100,7 @@ public class BirdServiceFullSpringTest {
     @Test
     void test_UpdateBird_InvalidRequest_NoId(){
         Bird bird = new Bird();
-        //when(mockAnimalRepository.existsById(any())).thenReturn(false);
-        //uut.updateZooWithPut(bird);
+        when(mockAnimalRepository.existsById(any())).thenReturn(false);
         assertThrows(ResponseStatusException.class,() -> uut.updateBirdWithPut(null));
     }
 
@@ -132,21 +134,31 @@ public class BirdServiceFullSpringTest {
 
 
     private Bird createABird() {
-        ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
-        String json = "{\n" +
-                "    \"id\": \"40ea5519-fcef-4272-b742-e01790ca04c3\",\n" +
-                "    \"name\": \"Chester Bird\",\n" +
-                "    \"location\": \"Upton-by-Chester, Cheshire, England\",\n" +
-                "    \"capacity\": 27000,\n" +
-                "    \"price\": 19,\n" +
-                "    \"dateOpened\": \"10-06-1931\"\n" +
-                "  }";
-        try{
-            return mapper.readValue(json, Bird.class);
-        } catch (Exception e) {
-            return new Bird();
+            String json = """
+                {
+                  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                  "name": "string",
+                  "speciesName": "string",
+                  "birthDate": "28-11-2021",
+                  "habitat": "string",
+                  "behaviour": "string",
+                  "foodType": "string",
+                  "extraInformation": "string",
+                  "hasFur": true,
+                  "hasFins": true,
+                  "hasHooves": true
+                }""";
+
+            try {
+
+                Bird bird = mapper.readValue(json, Bird.class);
+                bird.setZoo(createAZoo());
+                return bird;
+            } catch (JsonProcessingException e) {
+                return new Bird();
+            }
         }
-    }
+
 
     private Zoo createAZoo() {
         ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());

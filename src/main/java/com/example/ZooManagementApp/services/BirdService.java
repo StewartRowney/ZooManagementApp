@@ -55,7 +55,7 @@ public class BirdService implements IBirdService {
         }
 
         if (!animalRepository.existsById(bird.getId())) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Zoo to update does not exist");}
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Bird to update does not exist");}
         return animalRepository.save(bird);
     }
 
