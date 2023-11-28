@@ -73,4 +73,12 @@ public class MammalControllerFullSpringTest {
         mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().isCreated());
         verify(mockMammalService, times(1)).updateMammal(any(Mammal.class));
     }
+
+    @Test
+    void test_DeleteById_ValidRequest() throws Exception {
+        UUID mammalId = UUID.randomUUID();
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/mammals/" + mammalId);
+        mockMvc.perform(requestBuilder);
+        verify(mockMammalService,times(1)).deleteMammalById(any(UUID.class));
+    }
 }
