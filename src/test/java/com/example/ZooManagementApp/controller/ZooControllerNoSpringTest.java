@@ -50,4 +50,28 @@ class ZooControllerNoSpringTest {
         uut.postNewZoo(zoo);
         verify(mockZooService,times(1)).addNewZoo(zoo);
     }
+
+    @Test
+    void test_UpdateZoo(){
+        Zoo zoo = new Zoo();
+        uut.putAZoo(zoo);
+        verify(mockZooService,times(1)).updateZooWithPut(zoo);
+    }
+
+    @Test
+    void test_updateZooName(){
+        Zoo zoo = new Zoo();
+        uut.patchZooName(zoo.getId(),"newName");
+        verify(mockZooService,times(1)).updateZooByName("newName", zoo.getId());
+    }
+
+    @Test
+    void test_DeleteAZoo(){
+        Zoo zoo = new Zoo();
+        uut.deleteZooById(zoo.getId());
+        verify(mockZooService,times(1)).removeZooById(zoo.getId());
+    }
+
+
+
 }
