@@ -69,10 +69,31 @@ public class AmphibianServiceFullSpringTest {
     }
 
     @Test
-    void test_PostNewAmphibian_ValidRequest(){
+    void test_AddAmphibian_ValidRequest() {
+        amphibian.setZoo(createZoo());
+        when(zooRepository.existsById(any(UUID.class))).thenReturn(true);
         uut.addAmphibian(amphibian);
         verify(mockAnimalRepository, times(1)).save(amphibian);
     }
+
+    @Test
+    void test_AddAmphibian_InvalidRequest_ZooNotInDatabase() {
+        amphibian.setZoo(createZoo());
+        when(zooRepository.existsById(any(UUID.class))).thenReturn(false);
+        assertThrows(ResponseStatusException.class, () -> uut.addAmphibian(amphibian));
+    }
+
+    @Test
+    void test_AddAmphibian_InvalidRequest_HasId() {
+        Amphibian amphibian = createAmphibian();
+        assertThrows(ResponseStatusException.class, () -> uut.addAmphibian(amphibian));
+    }
+
+    @Test
+    void test_AddAmphibian_InvalidRequest_NullAmphibian() {
+        assertThrows(ResponseStatusException.class, () -> uut.addAmphibian(null));
+    }
+
 
     @Test
     void test_UpdateAmphibian_InvalidRequest_NoId(){
@@ -126,31 +147,7 @@ public class AmphibianServiceFullSpringTest {
                 "Anywhere", "Stone cold killer", "Humans", "Has killed multiple zookeepers", false, false);
         assertThrows(ResponseStatusException.class,() -> uut.updateAmphibian(amphibian));
     }
-    @Test
-    void test_AddAmphibian_ValidRequest() {
-        amphibian.setZoo(createZoo());
-        when(zooRepository.existsById(any(UUID.class))).thenReturn(true);
-        uut.addAmphibian(amphibian);
-        verify(mockAnimalRepository, times(1)).save(amphibian);
-    }
 
-    @Test
-    void test_AddAmphibian_InvalidRequest_ZooNotInDatabase() {
-        amphibian.setZoo(createZoo());
-        when(zooRepository.existsById(any(UUID.class))).thenReturn(false);
-        assertThrows(ResponseStatusException.class, () -> uut.addAmphibian(amphibian));
-    }
-
-    @Test
-    void test_AddAmphibian_InvalidRequest_HasId() {
-        Amphibian amphibian = createAmphibian();
-        assertThrows(ResponseStatusException.class, () -> uut.addAmphibian(amphibian));
-    }
-
-    @Test
-    void test_AddAmphibian_InvalidRequest_NullAmphibian() {
-        assertThrows(ResponseStatusException.class, () -> uut.addAmphibian(null));
-    }
 
     @Test
     void test_UpdateAmphibian_ValidRequest() {
