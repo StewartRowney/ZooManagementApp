@@ -5,6 +5,7 @@ import com.example.ZooManagementApp.data.ZooRepository;
 import com.example.ZooManagementApp.entities.Mammal;
 import com.example.ZooManagementApp.entities.Zoo;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Test;
@@ -61,7 +62,7 @@ public class MammalServiceFullSpringTest {
     @Test
     void test_AddMammal_ValidRequest() {
         Mammal mammal = new Mammal();
-        mammal.setZoo(createZoo());
+        mammal.setZoo(creatZoo());
         when(mockZooRepository.existsById(any(UUID.class))).thenReturn(true);
         uut.addMammal(mammal);
         verify(mockAnimalRepository, times(1)).save(mammal);
@@ -70,7 +71,7 @@ public class MammalServiceFullSpringTest {
     @Test
     void test_AddMammal_InvalidRequest_NotInDatabase() {
         Mammal mammal = new Mammal();
-        mammal.setZoo(createZoo());
+        mammal.setZoo(creatZoo());
         when(mockZooRepository.existsById(any(UUID.class))).thenReturn(false);
         assertThrows(ResponseStatusException.class, () -> uut.addMammal(mammal));
     }
@@ -104,14 +105,14 @@ public class MammalServiceFullSpringTest {
 
         try {
             Mammal mammal = mapper.readValue(json, Mammal.class);
-            mammal.setZoo(createZoo());
+            mammal.setZoo(creatZoo());
             return mammal;
         } catch (JsonProcessingException e) {
             return new Mammal();
         }
     }
 
-    private Zoo createZoo() {
+    private Zoo creatZoo() {
         String json = """
                  {
                     "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
