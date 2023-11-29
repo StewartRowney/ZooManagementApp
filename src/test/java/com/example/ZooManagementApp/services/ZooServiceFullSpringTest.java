@@ -1,7 +1,10 @@
 package com.example.ZooManagementApp.services;
 
+import com.example.ZooManagementApp.data.IAnimalRepository;
 import com.example.ZooManagementApp.data.ZooRepository;
+import com.example.ZooManagementApp.entities.Animal;
 import com.example.ZooManagementApp.entities.Zoo;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Test;
@@ -11,6 +14,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -23,6 +28,8 @@ class ZooServiceFullSpringTest {
 
     @MockBean
     ZooRepository mockZooRepo;
+    @MockBean
+    IAnimalRepository mockAnimalRepo;
 
     @Autowired
     ZooService uut;
@@ -69,6 +76,36 @@ class ZooServiceFullSpringTest {
     }
 
     @Test
+    void test_AddNewZoo_InvalidRequest_ZooHasId(){
+        Zoo zoo = createAZoo();
+        when(mockZooRepo.existsById(any())).thenReturn(true);
+        assertThrows(ResponseStatusException.class,() -> uut.addNewZoo(zoo));
+    }
+
+    @Test
+    void test_AddListOfZoos_ValidRequest() throws JsonProcessingException {
+        List<Zoo> zoos = new ArrayList<>();
+        Zoo zoo = new Zoo();
+        zoos.add(zoo);
+        uut.addListOfZoos(zoos);
+        verify(mockZooRepo, times(1)).save(zoo);
+    }
+
+    @Test
+    void test_AddListOFZoos_InvalidRequest_1GoodZoo2BadZoo(){
+
+        List<Zoo> zoos = new ArrayList<>();
+        Zoo zoo1 = createAZoo();
+        zoos.add(zoo1);
+        Zoo zoo2 = new Zoo();
+        Zoo zoo3 = createAZoo();
+        zoos.add(zoo2);
+        zoos.add(zoo3);
+        assertThrows(ResponseStatusException.class, () -> uut.addListOfZoos(zoos));
+        verify(mockZooRepo,times(1)).save(any(Zoo.class));
+    }
+
+    @Test
     void test_UpdateZoo_ValidRequest(){
         Zoo zoo = createAZoo();
         UUID id = zoo.getId();
@@ -97,6 +134,7 @@ class ZooServiceFullSpringTest {
     void test_DeleteZoo_ValidRequest_InDatabase() {
         Zoo zoo = createAZoo();
         when(mockZooRepo.existsById(any())).thenReturn(true);
+        when(mockAnimalRepo.findAllAnimalsInAZoo(zoo.getId())).thenReturn(null);
         uut.removeZooById(zoo.getId());
         verify(mockZooRepo, times(1)).deleteById(zoo.getId());
     }
@@ -111,6 +149,14 @@ class ZooServiceFullSpringTest {
     @Test
     void test_DeleteZoo_InvalidRequest_HasNoId() {
         assertThrows(ResponseStatusException.class,() -> uut.removeZooById(null));
+    }
+
+    @Test
+    void test_DeleteZoo_InvalidRequest_ZooHasAnimals(){
+        Zoo zoo = createAZoo();
+        Animal animal = new Animal();
+        animal.setZoo(zoo);
+        assertThrows(ResponseStatusException.class,() -> uut.removeZooById(zoo.getId()));
     }
 
     @Test

@@ -1,6 +1,7 @@
 package com.example.ZooManagementApp.services;
 
 import com.example.ZooManagementApp.entities.Zoo;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.util.List;
 import java.util.UUID;
@@ -20,5 +21,5 @@ public interface IZooService {
 
     void removeZooById(UUID id);
 
-    List<Zoo> addListOfZoos(List<Zoo> zoos);
+    List<Zoo> addListOfZoos(List<Zoo> zoos) throws JsonProcessingException;
 }
