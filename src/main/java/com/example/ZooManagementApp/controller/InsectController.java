@@ -26,12 +26,14 @@ public class InsectController {
     }
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<Insect> getAllInsects() {
         return insectService.findAllInsects();
     }
 
     @GetMapping("/{insectId}")
-    public Insect getInsectById(@PathVariable UUID insectId) {
+    @ResponseStatus(HttpStatus.OK)
+    public Insect getInsect(@PathVariable UUID insectId) {
         return insectService.findInsectById(insectId);
     }
 
@@ -52,7 +54,7 @@ public class InsectController {
     @Operation(summary = "Delete an Insect by Id", description = "Delete an Insect by Id, returns no content")
     @DeleteMapping("/{insectId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteInsectById(@PathVariable UUID insectId) {
-        insectService.deleteInsectById(insectId);
+    public void deleteInsect(@PathVariable UUID insectId) {
+        insectService.deleteInsect(insectId);
     }
 }

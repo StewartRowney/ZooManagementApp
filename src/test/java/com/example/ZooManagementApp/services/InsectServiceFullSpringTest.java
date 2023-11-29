@@ -3,11 +3,12 @@ package com.example.ZooManagementApp.services;
 import com.example.ZooManagementApp.data.IAnimalRepository;
 import com.example.ZooManagementApp.data.ZooRepository;
 import com.example.ZooManagementApp.entities.Insect;
-import com.example.ZooManagementApp.entities.Mammal;
+import com.example.ZooManagementApp.entities.Insect;
 import com.example.ZooManagementApp.entities.Zoo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,49 +22,52 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
 @ActiveProfiles("test")
-class InsectServiceFullSpringTest {
+@SpringBootTest
+public class InsectServiceFullSpringTest {
 
     @MockBean
-    private IAnimalRepository mockAnimalRepository;
-
+    IAnimalRepository mockAnimalRepository;
     @MockBean
     ZooRepository mockZooRepository;
 
     @Autowired
-    private IInsectService uut;
+    IInsectService uut;
 
     private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
+    private Insect insect;
+    private final UUID insectId = UUID.randomUUID();
 
-    @Test
-    void test_GetAllInsects_ValidRequest() {
-        uut.findAllInsects();
-        verify(mockAnimalRepository,times(1)).findAllInsects();
+    @BeforeEach
+    public void beforeEach() {
+        insect = new Insect();
     }
 
     @Test
-    void test_GetInsectById_ValidRequest() {
-        UUID insectId = UUID.randomUUID();
+    void test_FindAllInsects_ValidRequest() {
+        uut.findAllInsects();
+        verify(mockAnimalRepository, times(1)).findAllInsects();
+    }
+
+    @Test
+    void test_FindInsectById_ValidRequest() {
         when(mockAnimalRepository.findInsectById(insectId)).thenReturn(Optional.of(new Insect()));
         uut.findInsectById(insectId);
-        verify(mockAnimalRepository,times(1)).findInsectById(insectId);
+        verify(mockAnimalRepository, times(1)).findInsectById(insectId);
     }
 
     @Test
-    void test_GetInsectByID_InvalidRequest_NotInDatabase() {
-        UUID insectId = UUID.randomUUID();
+    void test_FindInsectById_InvalidRequest_NotInDatabase() {
         assertThrows(ResponseStatusException.class, () -> uut.findInsectById(insectId));
     }
 
     @Test
-    void test_GetInsectByID_InvalidRequest_NullId() {
+    void test_FindInsectById_InvalidRequest_NullID() {
         assertThrows(ResponseStatusException.class, () -> uut.findInsectById(null));
     }
 
     @Test
     void test_AddInsect_ValidRequest() {
-        Insect insect = new Insect();
         insect.setZoo(createZoo());
         when(mockZooRepository.existsById(any(UUID.class))).thenReturn(true);
         uut.addInsect(insect);
@@ -72,7 +76,6 @@ class InsectServiceFullSpringTest {
 
     @Test
     void test_AddInsect_InvalidRequest_ZooNotInDatabase() {
-        Insect insect = new Insect();
         insect.setZoo(createZoo());
         when(mockZooRepository.existsById(any(UUID.class))).thenReturn(false);
         assertThrows(ResponseStatusException.class, () -> uut.addInsect(insect));
@@ -80,7 +83,7 @@ class InsectServiceFullSpringTest {
 
     @Test
     void test_AddInsect_InvalidRequest_HasId() {
-        Insect insect = createInsect();
+        insect = createInsect();
         assertThrows(ResponseStatusException.class, () -> uut.addInsect(insect));
     }
 
@@ -91,7 +94,7 @@ class InsectServiceFullSpringTest {
 
     @Test
     void test_UpdateInsect_ValidRequest() {
-        Insect insect = createInsect();
+        insect = createInsect();
         when(mockAnimalRepository.existsById(any(UUID.class))).thenReturn(true);
         when(mockZooRepository.existsById(any(UUID.class))).thenReturn(true);
         uut.updateInsect(insect);
@@ -100,14 +103,14 @@ class InsectServiceFullSpringTest {
 
     @Test
     void test_UpdateInsect_InvalidRequest_InsectNotInDatabase() {
-        Insect insect = createInsect();
+        insect = createInsect();
         when(mockAnimalRepository.existsById(any(UUID.class))).thenReturn(false);
         assertThrows(ResponseStatusException.class, () -> uut.updateInsect(insect));
     }
 
     @Test
     void test_UpdateInsect_InvalidRequest_ZooNotInDatabase() {
-        Insect insect = createInsect();
+        insect = createInsect();
         when(mockAnimalRepository.existsById(any(UUID.class))).thenReturn(true);
         when(mockZooRepository.existsById(any(UUID.class))).thenReturn(false);
         assertThrows(ResponseStatusException.class, () -> uut.updateInsect(insect));
@@ -115,7 +118,7 @@ class InsectServiceFullSpringTest {
 
     @Test
     void test_UpdateInsect_InvalidRequest_HasNoId() {
-        Insect insect = new Insect();
+        insect = new Insect();
         assertThrows(ResponseStatusException.class, () -> uut.updateInsect(insect));
     }
 
@@ -126,22 +129,20 @@ class InsectServiceFullSpringTest {
 
     @Test
     void test_DeleteInsectById_ValidRequest() {
-        UUID insectId = UUID.randomUUID();
         when(mockAnimalRepository.existsById(insectId)).thenReturn(true);
-        uut.deleteInsectById(insectId);
+        uut.deleteInsect(insectId);
         verify(mockAnimalRepository, times(1)).deleteById(insectId);
     }
 
     @Test
     void test_DeleteById_InvalidRequest_NotInDatabase() {
-        UUID insectId = UUID.randomUUID();
         when(mockAnimalRepository.existsById(insectId)).thenReturn(false);
-        assertThrows(ResponseStatusException.class, () -> uut.deleteInsectById(insectId));
+        assertThrows(ResponseStatusException.class, () -> uut.deleteInsect(insectId));
     }
 
     @Test
     void test_DeleteById_InvalidRequest_NullId() {
-        assertThrows(ResponseStatusException.class, () -> uut.deleteInsectById(null));
+        assertThrows(ResponseStatusException.class, () -> uut.deleteInsect(null));
     }
 
     private Insect createInsect() {

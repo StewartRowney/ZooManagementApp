@@ -1,7 +1,6 @@
 package com.example.ZooManagementApp.integratedTests;
 
 import com.example.ZooManagementApp.entities.Insect;
-import com.example.ZooManagementApp.entities.Mammal;
 import com.example.ZooManagementApp.entities.Zoo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

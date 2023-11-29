@@ -1,7 +1,6 @@
 package com.example.ZooManagementApp.controller;
 
 import com.example.ZooManagementApp.entities.Insect;
-import com.example.ZooManagementApp.entities.Mammal;
 import com.example.ZooManagementApp.services.IInsectService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -35,21 +34,21 @@ public class InsectControllerFullSpringTest {
     private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
     @Test
-    void test_getAllInsects_ValidRequest() throws Exception {
+    void test_getAllInsects_ServiceCalledFor() throws Exception {
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/insects");
         mockMvc.perform(requestBuilder);
         verify(mockInsectService, times(1)).findAllInsects();
     }
 
     @Test
-    void test_getInsectById_ValidRequest() throws Exception {
+    void test_getInsectById_ServiceCalledFor() throws Exception {
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/insects/" + UUID.randomUUID());
         mockMvc.perform(requestBuilder);
         verify(mockInsectService, times(1)).findInsectById(any(UUID.class));
     }
 
     @Test
-    void test_addInsect_ValidRequest() throws Exception {
+    void test_addInsect_ServiceCalledFor() throws Exception {
         String json = mapper.writeValueAsString(new Insect());
 
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/insects")
@@ -63,7 +62,7 @@ public class InsectControllerFullSpringTest {
     }
 
     @Test
-    void test_UpdateInsect_ValidRequest() throws Exception {
+    void test_UpdateInsect_ServiceCalledFor() throws Exception {
         String json = mapper.writeValueAsString(new Insect());
 
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/insects")
@@ -76,11 +75,11 @@ public class InsectControllerFullSpringTest {
     }
 
     @Test
-    void test_DeleteById_ValidRequest() throws Exception {
+    void test_DeleteById_ServiceCalledFor() throws Exception {
         UUID insectId = UUID.randomUUID();
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/insects/" + insectId);
         mockMvc.perform(requestBuilder);
-        verify(mockInsectService,times(1)).deleteInsectById(any(UUID.class));
+        verify(mockInsectService,times(1)).deleteInsect(any(UUID.class));
     }
 
 }

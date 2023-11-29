@@ -1,50 +1,48 @@
 package com.example.ZooManagementApp.controller;
 
 import com.example.ZooManagementApp.entities.Insect;
-import com.example.ZooManagementApp.entities.Mammal;
 import com.example.ZooManagementApp.services.IInsectService;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class InsectControllerNoSpringTest {
+public class InsectControllerNoSpringTest {
+
     private final IInsectService mockInsectService = mock(IInsectService.class);
     private final InsectController uut = new InsectController(mockInsectService);
+    private final Insect insect = new Insect();
+    private final UUID insectId = UUID.randomUUID();
+
 
     @Test
-    void test_getAllInsects_ValidRequest() {
+    void test_GetAllInsects() {
         uut.getAllInsects();
         verify(mockInsectService, times(1)).findAllInsects();
     }
 
     @Test
-    void test_getInsectById_ValidRequest() {
-        UUID insectId = UUID.randomUUID();
-        uut.getInsectById(insectId);
+    void test_GetInsect() {
+        uut.getInsect(insectId);
         verify(mockInsectService, times(1)).findInsectById(insectId);
     }
 
     @Test
-    void test_addInsect_ValidRequest() {
-        Insect insect = new Insect();
+    void test_AddInsect() {
         uut.addInsect(insect);
         verify(mockInsectService, times(1)).addInsect(insect);
     }
 
     @Test
-    void test_UpdateInsect_ValidRequest() {
-        Insect insect = new Insect();
+    void test_UpdateInsect() {
         uut.updateInsect(insect);
         verify(mockInsectService, times(1)).updateInsect(insect);
     }
 
     @Test
-    void test_DeleteInsectById_ValidRequest() {
-        UUID insectId = UUID.randomUUID();
-        uut.deleteInsectById(insectId);
-        verify(mockInsectService, times(1)).deleteInsectById(insectId);
+    void test_DeleteInsect() {
+        uut.deleteInsect(insectId);
+        verify(mockInsectService, times(1)).deleteInsect(insectId);
     }
 }

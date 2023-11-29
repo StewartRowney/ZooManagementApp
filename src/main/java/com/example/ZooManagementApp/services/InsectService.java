@@ -67,7 +67,7 @@ public class InsectService implements IInsectService{
     }
 
     @Override
-    public void deleteInsectById(UUID insectId) {
+    public void deleteInsect(UUID insectId) {
         if (insectId == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Insect id cannot be null for delete");
         }
