@@ -2,12 +2,14 @@ package com.example.ZooManagementApp.controller;
 
 import com.example.ZooManagementApp.entities.Zoo;
 import com.example.ZooManagementApp.services.IZooService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-
 import java.util.UUID;
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
@@ -47,6 +49,15 @@ class ZooControllerNoSpringTest {
         Zoo zoo = new Zoo();
         uut.postNewZoo(zoo);
         verify(mockZooService,times(1)).addNewZoo(zoo);
+    }
+
+    @Test
+    void test_AddAListOfZoos() throws JsonProcessingException {
+        List<Zoo> zoos = new ArrayList<>();
+        Zoo zoo1 = new Zoo();
+        zoos.add(zoo1);
+        uut.addAListOfZoos(zoos);
+        verify(mockZooService,times(zoos.toArray().length)).addListOfZoos(zoos);
     }
 
     @Test

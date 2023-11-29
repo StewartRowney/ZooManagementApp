@@ -15,6 +15,9 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -72,6 +75,25 @@ public class ZooControllerFullSpringTest {
     }
 
     @Test
+    void test_AddingAListOfZoos_ValidRequest() throws Exception {
+        Zoo zoo = createAZoo();
+        List<Zoo> zoos = new ArrayList<>();
+        zoos.add(zoo);
+        ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
+        String json = mapper.writeValueAsString(zoos);
+
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/zoos/addZoos")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json)
+                .accept(MediaType.APPLICATION_JSON);
+
+        mockMvc.perform(requestBuilder)
+                .andExpect(MockMvcResultMatchers.status().isCreated());
+
+        verify(mockZooService, times(1)).addListOfZoos(Collections.singletonList(any()));
+    }
+
+    @Test
     void test_UpdateAZoo_ValidRequest() throws Exception {
         Zoo zoo = new Zoo();
         ObjectMapper mapper = new ObjectMapper();
@@ -113,6 +135,8 @@ public class ZooControllerFullSpringTest {
         mockMvc.perform(requestBuilder);
         verify(mockZooService,times(1)).removeZooById(id);
     }
+
+
 
     private Zoo createAZoo() {
         ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
