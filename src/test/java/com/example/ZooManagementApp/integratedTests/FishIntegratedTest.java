@@ -36,7 +36,6 @@ public class FishIntegratedTest {
 
     @Autowired
     private MockMvc mockMvc;
-
     private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
     @Test
@@ -55,7 +54,6 @@ public class FishIntegratedTest {
         String contentAsJson = result.getResponse().getContentAsString();
         return mapper.readValue(contentAsJson, Fish[].class);
     }
-
 
     @Test
     void test_GetFishById_ValidRequest() throws Exception {
@@ -145,7 +143,6 @@ public class FishIntegratedTest {
         assertEquals(numberOfFishBeforeDelete - 1, numberOfFishAfterDelete);
     }
 
-
     private Fish getTestFish() {
         String json = """
                 {
@@ -186,5 +183,4 @@ public class FishIntegratedTest {
             return new Zoo();
         }
     }
-
 }
