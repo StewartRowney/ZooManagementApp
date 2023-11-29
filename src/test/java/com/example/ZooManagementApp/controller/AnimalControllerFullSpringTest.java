@@ -54,27 +54,23 @@ public class AnimalControllerFullSpringTest {
     }
 
     @Test
-    void test_getAllAnimalsByIds_ValidRequest() throws Exception {
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/animals/findByIds")
+    void test_postAllAnimalsByIds_ValidRequest() throws Exception {
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/animals/findByIds")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(createIdList())
                 .accept(MediaType.APPLICATION_JSON);
 
         mockMvc.perform(requestBuilder)
-                .andExpect(MockMvcResultMatchers.status().isOk()).andDo(print());
+                .andExpect(MockMvcResultMatchers.status().isOk());
 
         verify(mockAnimalService, times(1)).findAnimalListById(any());
     }
 
     public String createIdList() throws JsonProcessingException {
-
         List<UUID> idList = new ArrayList<>();
         idList.add(UUID.randomUUID());
         idList.add(UUID.randomUUID());
         idList.add(UUID.randomUUID());
-
-      //  idList = mapper.readValue(idList, new TypeReference<List<UUID>>(){});
-
         return mapper.writeValueAsString(idList);
     }
 }
