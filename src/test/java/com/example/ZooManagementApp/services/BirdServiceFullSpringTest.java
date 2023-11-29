@@ -3,15 +3,18 @@ package com.example.ZooManagementApp.services;
 import com.example.ZooManagementApp.data.IAnimalRepository;
 import com.example.ZooManagementApp.data.ZooRepository;
 import com.example.ZooManagementApp.entities.Bird;
+import com.example.ZooManagementApp.entities.Bird;
 import com.example.ZooManagementApp.entities.Zoo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.persistence.EntityNotFoundException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
@@ -19,126 +22,133 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.when;
 
+@ActiveProfiles("test")
 @SpringBootTest
 public class BirdServiceFullSpringTest {
 
     @MockBean
     IAnimalRepository mockAnimalRepository;
-
     @MockBean
-    ZooRepository zooRepository;
+    ZooRepository mockZooRepository;
 
     @Autowired
     IBirdService uut;
 
     private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
+    private Bird bird;
+    private final UUID birdId = UUID.randomUUID();
+
+    @BeforeEach
+    public void beforeEach() {
+        bird = new Bird();
+    }
+
     @Test
-    void testVerifyRepositoryInvokesGetAllBirds() {
+    void test_FindAllBirds_ValidRequest() {
         uut.findAllBirds();
         verify(mockAnimalRepository, times(1)).findAllBirds();
     }
 
     @Test
-    void test_FindBirdByID_ValidRequest() {
-        UUID id= UUID.randomUUID();
-        when(mockAnimalRepository.findBirdById(id)).thenReturn(Optional.of(new Bird()));
-        uut.findBirdById(id);
-        verify(mockAnimalRepository,times(1)).findBirdById(id);
-    }
-    @Test
-    void test_FindBirdByID_IDNotFound() {
-        UUID id= UUID.randomUUID();
-        assertThrows(EntityNotFoundException.class,() -> uut.findBirdById(id));
-//        when(mockAnimalRepository.findById(id)).thenReturn(Optional.of(new Bird()));
-//        uut.findBirdById(id);
-//        verify(mockAnimalRepository,times(1)).findById(id);
+    void test_FindBirdById_ValidRequest() {
+        when(mockAnimalRepository.findBirdById(birdId)).thenReturn(Optional.of(new Bird()));
+        uut.findBirdById(birdId);
+        verify(mockAnimalRepository, times(1)).findBirdById(birdId);
     }
 
     @Test
-    void test_findBirdById_nullId(){
-        assertThrows(ResponseStatusException.class,() -> uut.findBirdById(null));
+    void test_FindBirdById_InvalidRequest_NotInDatabase() {
+        assertThrows(ResponseStatusException.class, () -> uut.findBirdById(birdId));
     }
 
     @Test
-    void test_addNewBird_InvalidRequest_NullBird() {
-        assertThrows(ResponseStatusException.class,() -> uut.addNewBird(null));
-    }
-    @Test
-    void test_addNewBird_InvalidRequest_BirdHasID() {
-        Bird bird = createABird();
-        assertThrows(ResponseStatusException.class,() -> uut.addNewBird(bird));
+    void test_FindBirdById_InvalidRequest_NullID() {
+        assertThrows(ResponseStatusException.class, () -> uut.findBirdById(null));
     }
 
     @Test
-    void test_addNewBird_InvalidRequest_ZooNotInDataBase() {
-        Bird bird = new Bird();
-        Zoo zoo = createAZoo();
-        bird.setZoo(zoo);
-        when(mockAnimalRepository.existsById(any(UUID.class))).thenReturn(false);
-        assertThrows(ResponseStatusException.class,() -> uut.addNewBird(bird));
-    }
-    @Test
-    void test_addNewBird_ValidRequest() {
-        Bird bird = new Bird();
-        bird.setZoo(createAZoo());
-
-        when(mockAnimalRepository.existsById(bird.getId())).thenReturn(true);
-        when(zooRepository.existsById(any(UUID.class))).thenReturn(true);
-        uut.addNewBird(bird);
+    void test_AddBird_ValidRequest() {
+        bird.setZoo(createZoo());
+        when(mockZooRepository.existsById(any(UUID.class))).thenReturn(true);
+        uut.addBird(bird);
         verify(mockAnimalRepository, times(1)).save(bird);
     }
 
     @Test
-    void test_UpdateBird_ValidRequest(){
-        Bird bird = createABird();
+    void test_AddBird_InvalidRequest_ZooNotInDatabase() {
+        bird.setZoo(createZoo());
+        when(mockZooRepository.existsById(any(UUID.class))).thenReturn(false);
+        assertThrows(ResponseStatusException.class, () -> uut.addBird(bird));
+    }
+
+    @Test
+    void test_AddBird_InvalidRequest_HasId() {
+        bird = createBird();
+        assertThrows(ResponseStatusException.class, () -> uut.addBird(bird));
+    }
+
+    @Test
+    void test_AddBird_InvalidRequest_NullBird() {
+        assertThrows(ResponseStatusException.class, () -> uut.addBird(null));
+    }
+
+    @Test
+    void test_UpdateBird_ValidRequest() {
+        bird = createBird();
         when(mockAnimalRepository.existsById(any(UUID.class))).thenReturn(true);
-        when(zooRepository.existsById(any(UUID.class))).thenReturn(true);
-        uut.updateBirdWithPut(bird);
-        //assertThrows(ResponseStatusException.class,() -> uut.updateZooWithPut(bird));
+        when(mockZooRepository.existsById(any(UUID.class))).thenReturn(true);
+        uut.updateBird(bird);
         verify(mockAnimalRepository, times(1)).save(bird);
     }
 
     @Test
-    void test_UpdateBird_InvalidRequest_NoId(){
-        Bird bird = new Bird();
-        when(mockAnimalRepository.existsById(any())).thenReturn(false);
-        assertThrows(ResponseStatusException.class,() -> uut.updateBirdWithPut(null));
+    void test_UpdateBird_InvalidRequest_BirdNotInDatabase() {
+        bird = createBird();
+        when(mockAnimalRepository.existsById(any(UUID.class))).thenReturn(false);
+        assertThrows(ResponseStatusException.class, () -> uut.updateBird(bird));
     }
 
     @Test
-    void test_UpdateBird_InvalidRequest_IdNotInDatabase(){
-        Bird bird = createABird();
-        when(mockAnimalRepository.existsById(any())).thenReturn(false);
-        assertThrows(ResponseStatusException.class,() -> uut.updateBirdWithPut(bird));
+    void test_UpdateBird_InvalidRequest_ZooNotInDatabase() {
+        bird = createBird();
+        when(mockAnimalRepository.existsById(any(UUID.class))).thenReturn(true);
+        when(mockZooRepository.existsById(any(UUID.class))).thenReturn(false);
+        assertThrows(ResponseStatusException.class, () -> uut.updateBird(bird));
     }
 
     @Test
-    void test_DeleteBird_ValidRequest_InDatabase() {
-        Bird bird = new Bird();
-        UUID id = UUID.randomUUID();
-        when(mockAnimalRepository.existsById(any())).thenReturn(true);
-        uut.removeBirdById(id);
-        verify(mockAnimalRepository, times(1)).deleteById(id);
+    void test_UpdateBird_InvalidRequest_HasNoId() {
+        bird = new Bird();
+        assertThrows(ResponseStatusException.class, () -> uut.updateBird(bird));
     }
 
     @Test
-    void test_DeleteBird_ValidRequest_NotInDatabase() {
-        Bird zoo = createABird();
-        when(mockAnimalRepository.existsById(any())).thenReturn(false);
-        assertThrows(ResponseStatusException.class,() -> uut.removeBirdById(zoo.getId()));
+    void test_UpdateBird_InvalidRequest_NullBird() {
+        assertThrows(ResponseStatusException.class, () -> uut.updateBird(null));
     }
 
     @Test
-    void test_DeleteBird_InvalidRequest_HasNoId() {
-        assertThrows(ResponseStatusException.class,() -> uut.removeBirdById(null));
+    void test_DeleteBirdById_ValidRequest() {
+        when(mockAnimalRepository.existsById(birdId)).thenReturn(true);
+        uut.deleteBird(birdId);
+        verify(mockAnimalRepository, times(1)).deleteById(birdId);
+    }
+
+    @Test
+    void test_DeleteById_InvalidRequest_NotInDatabase() {
+        when(mockAnimalRepository.existsById(birdId)).thenReturn(false);
+        assertThrows(ResponseStatusException.class, () -> uut.deleteBird(birdId));
+    }
+
+    @Test
+    void test_DeleteById_InvalidRequest_NullId() {
+        assertThrows(ResponseStatusException.class, () -> uut.deleteBird(null));
     }
 
 
-    private Bird createABird() {
+    private Bird createBird() {
             String json = """
                     {
                         "id": "9183d69e-97dc-4138-92ca-3d1cc0a1aef2",
@@ -155,7 +165,7 @@ public class BirdServiceFullSpringTest {
 
             try {
                 Bird bird = mapper.readValue(json, Bird.class);
-                bird.setZoo(createAZoo());
+                bird.setZoo(createZoo());
                 return bird;
             } catch (JsonProcessingException e) {
                 return new Bird();
@@ -163,8 +173,7 @@ public class BirdServiceFullSpringTest {
         }
 
 
-    private Zoo createAZoo() {
-        //ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
+    private Zoo createZoo() {
         String json = """
                  {
                     "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
