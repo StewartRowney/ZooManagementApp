@@ -27,7 +27,7 @@ public class ReptileController {
     public ReptileController(IReptileService reptileService) {
         this.reptileService = reptileService;
     }
-
+    @Operation(summary = "Get all reptiles", description = "Returns a list of reptiles")
     @GetMapping
     public List<Reptile> getAllReptiles() {
         return reptileService.findAllReptiles();
