@@ -38,7 +38,21 @@ public class FishService implements IFishService {
     }
 
     @Override
-    public Fish updateFishWithPut(Fish fish) {
+    public Fish addFish(Fish fish) {
+        if (fish == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Fish to add cannot be null");
+        }
+        else if (fish.getId() != null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Fish to add cannot contain an id");
+        }
+        else if (!zooRepository.existsById(fish.getZoo().getId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot add a Fish to a zoo that doesn't exist");
+        }
+        return animalRepository.save(fish);
+    }
+
+    @Override
+    public Fish updateFish(Fish fish) {
         if (fish == null || fish.getId() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Fish to update must have an Id");
         }
@@ -49,27 +63,13 @@ public class FishService implements IFishService {
     }
 
     @Override
-    public void removeFishById(UUID id) {
+    public void deleteFish(UUID id) {
         if (id == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Fish to delete must have an Id");
         }
 
         if (!animalRepository.existsById(id)) { throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Fish to update does not exist");}
         animalRepository.deleteById(id);
-    }
-
-    @Override
-    public Fish addFish(Fish fish) {
-        if (fish == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Fish to add cannot be null");
-        }
-        else if (fish.getId() != null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Fish to add cannot contain an id");
-        }
-        else if (!zooRepository.existsById(fish.getZoo().getId())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot add Fish to a zoo that doesn't exist");
-        }
-        return animalRepository.save(fish);
     }
 }
 

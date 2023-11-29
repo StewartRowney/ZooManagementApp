@@ -1,6 +1,5 @@
 package com.example.ZooManagementApp.controller;
 
-import com.example.ZooManagementApp.entities.Animal;
 import com.example.ZooManagementApp.entities.Fish;
 import com.example.ZooManagementApp.services.IFishService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,32 +26,34 @@ public class FishController {
     }
 
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<Fish> getAllFish() {
         return fishService.findAllFish();
     }
 
     @GetMapping("/{id}")
-    public Fish getFishById(@PathVariable UUID id){
+    @ResponseStatus(HttpStatus.OK)
+    public Fish getFish(@PathVariable UUID id){
         return fishService.findFishById(id);
     }
 
-    @PutMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Fish putAFish(@RequestBody Fish fish){
-        return fishService.updateFishWithPut(fish);
-    }
-
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteZooById(@PathVariable UUID id){
-        fishService.removeFishById(id);
-    }
-
-    @Operation(summary = "Add a Mammal", description = "Add a Mammal, returns a new Mammal")
+    @Operation(summary = "Add a Fish", description = "Add a Fish, returns a new Fish")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Fish addFish(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") Fish fish) {
         return fishService.addFish(fish);
+    }
+
+    @PutMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Fish updateFish(@RequestBody Fish fish){
+        return fishService.updateFish(fish);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteFish(@PathVariable UUID id){
+        fishService.deleteFish(id);
     }
 }
 
