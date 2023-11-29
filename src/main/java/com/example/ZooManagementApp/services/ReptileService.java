@@ -18,7 +18,6 @@ public class ReptileService implements IReptileService{
     private final IAnimalRepository animalRepository;
     private final ZooRepository zooRepository;
 
-
     @Autowired
     public ReptileService(IAnimalRepository animalRepository, ZooRepository zooRepository) {
         this.animalRepository = animalRepository;

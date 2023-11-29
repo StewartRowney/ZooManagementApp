@@ -3,10 +3,8 @@ package com.example.ZooManagementApp.controller;
 import com.example.ZooManagementApp.entities.Reptile;
 import com.example.ZooManagementApp.entities.Animal;
 import com.example.ZooManagementApp.services.IReptileService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -23,45 +21,39 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @WebMvcTest(ReptileController.class)
+@SuppressWarnings("unused")
 @ActiveProfiles("test")
 public class ReptileControllerFullSpringTest {
 
     @MockBean
-    private IReptileService mockReptileService;
+    IReptileService mockReptileService;
 
     @Autowired
     private MockMvc mockMvc;
 
-    Animal reptile;
-    ObjectMapper mapper;
-    String json;
-    UUID reptileId;
-
-    @BeforeEach
-    void beforeEach() throws JsonProcessingException {
-        this.reptile = new Reptile();
-        this.mapper = new ObjectMapper().registerModule(new JavaTimeModule());
-        this.json = mapper.writeValueAsString(reptile);
-        this.reptileId = UUID.randomUUID();
-    }
+    private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
+    private final Reptile reptile = new Reptile();
+    private final UUID reptileId = UUID.randomUUID();
 
     @Test
-    void testReptileServiceCalledForGetAllReptiles() throws Exception {
+    void test_GetAllReptiles_ServiceCalledFor() throws Exception {
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/reptiles");
         mockMvc.perform(requestBuilder);
         verify(mockReptileService, times(1)).findAllReptiles();
     }
 
     @Test
-    void test_ServiceCalledFor_GetReptileById() throws Exception {
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/reptiles/findById/" + reptileId);
+    void test_GetReptileById_ServiceCalledFor() throws Exception {
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/reptiles/" + reptileId);
         mockMvc.perform(requestBuilder);
 
         verify(mockReptileService, times(1)).findReptileById(reptileId);
     }
 
     @Test
-    void test_ServiceCalledFor_AddReptile() throws Exception {
+    void test_AddReptile_ServiceCalledFor() throws Exception {
+        String json = mapper.writeValueAsString(reptile);
+
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/reptiles")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json)
@@ -74,7 +66,9 @@ public class ReptileControllerFullSpringTest {
     }
 
     @Test
-    void test_ServiceCalledFor_UpdateReptile() throws Exception {
+    void test_UpdateReptile_ServiceCalledFor() throws Exception {
+        String json = mapper.writeValueAsString(reptile);
+
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/reptiles")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json)
@@ -87,8 +81,8 @@ public class ReptileControllerFullSpringTest {
     }
 
     @Test
-    void test_DeleteReptile() throws Exception {
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/reptiles/findById/" + reptileId);
+    void test_DeleteReptile_ServiceCalledFor() throws Exception {
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/reptiles/" + reptileId);
         mockMvc.perform(requestBuilder);
 
         verify(mockReptileService, times(1)).deleteReptile(reptileId);

@@ -31,7 +31,7 @@ public class ReptileController {
     }
 
     @Operation(summary = "Get reptile by id", description = "Returns a reptile by id")
-    @GetMapping("findById/{reptileId}")
+    @GetMapping("{reptileId}")
     public Reptile getReptile(@PathVariable UUID reptileId) {
         return reptileService.findReptileById(reptileId);
     }
@@ -51,7 +51,7 @@ public class ReptileController {
     }
 
     @Operation(summary = "Delete a reptile by id", description = "Delete a reptile by id")
-    @DeleteMapping("findById/{reptileId}")
+    @DeleteMapping("{reptileId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteReptile(@PathVariable UUID reptileId) {
         reptileService.deleteReptile(reptileId);
