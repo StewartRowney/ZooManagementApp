@@ -45,22 +45,11 @@ public class BirdIntegratedTest {
         assertEquals(2, actualBirds.length);
     }
 
-    private Bird[] getAllBirds() throws Exception {
-        MvcResult result =
-                (this.mockMvc.perform(MockMvcRequestBuilders.get("/birds")))
-                        .andExpect(status().isOk())
-                        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                        .andReturn();
-
-        String contentAsJson = result.getResponse().getContentAsString();
-        return mapper.readValue(contentAsJson, Bird[].class);
-    }
-
     @Test
     void test_GetBirdById_ValidRequest() throws Exception {
         UUID birdId = UUID.fromString("952a60c2-e4ad-422c-bb55-7f1aad97c15d");
         MvcResult result =
-                (this.mockMvc.perform(MockMvcRequestBuilders.get("/birds/findById/" + birdId)))
+                (this.mockMvc.perform(MockMvcRequestBuilders.get("/birds/" + birdId)))
                         .andExpect(status().isOk())
                         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                         .andReturn();
@@ -132,6 +121,28 @@ public class BirdIntegratedTest {
                 () -> assertEquals(bird.getSpeciesName(), bird1.getSpeciesName()),
                 () -> assertEquals(numberOfBirdsBeforeAdd, numberOfBirdsAfterAdd)
         );
+    }
+
+    @Test
+    void test_DeleteBird_ValidRequest() throws Exception {
+        int numberOfBirdsBeforeDelete = getAllBirds().length;
+        UUID birdId = getTestBird().getId();
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/birds/" + birdId));
+        int numberOfBirdsAfterDelete = getAllBirds().length;
+
+        assertEquals(numberOfBirdsBeforeDelete - 1, numberOfBirdsAfterDelete);
+    }
+
+    private Bird[] getAllBirds() throws Exception {
+        MvcResult result =
+                (this.mockMvc.perform(MockMvcRequestBuilders.get("/birds")))
+                        .andExpect(status().isOk())
+                        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                        .andReturn();
+
+        String contentAsJson = result.getResponse().getContentAsString();
+        return mapper.readValue(contentAsJson, Bird[].class);
     }
 
     private Bird getTestBird() {

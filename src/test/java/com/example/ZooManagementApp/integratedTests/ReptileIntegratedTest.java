@@ -49,7 +49,7 @@ public class ReptileIntegratedTest {
     void test_GetReptileById_ValidRequest() throws Exception {
         UUID reptileId = UUID.fromString("9b2d9232-9385-4707-965f-e5a90cbcfc88");
         MvcResult result =
-                (this.mockMvc.perform(MockMvcRequestBuilders.get("/reptiles/findById/" + reptileId)))
+                (this.mockMvc.perform(MockMvcRequestBuilders.get("/reptiles/" + reptileId)))
                         .andExpect(status().isOk())
                         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                         .andReturn();
@@ -128,7 +128,7 @@ public class ReptileIntegratedTest {
         int numberOfReptilesBeforeDelete = getAllReptiles().length;
         UUID reptileId = getTestReptile().getId();
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/reptiles/findById/" + reptileId));
+        mockMvc.perform(MockMvcRequestBuilders.delete("/reptiles/" + reptileId));
         int numberOfReptilesAfterDelete = getAllReptiles().length;
 
         assertEquals(numberOfReptilesBeforeDelete - 1, numberOfReptilesAfterDelete);

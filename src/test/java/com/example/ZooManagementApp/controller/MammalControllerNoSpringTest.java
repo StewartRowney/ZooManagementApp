@@ -2,57 +2,47 @@ package com.example.ZooManagementApp.controller;
 
 import com.example.ZooManagementApp.entities.Mammal;
 import com.example.ZooManagementApp.services.IMammalService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.util.UUID;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 public class MammalControllerNoSpringTest {
 
-    IMammalService mockMammalService;
-    MammalController uut;
+    private final IMammalService mockMammalService = mock(IMammalService.class);
+    private final MammalController uut = new MammalController(mockMammalService);
+    private final Mammal mammal = new Mammal();
+    private final UUID mammalId = UUID.randomUUID();
 
-    @BeforeEach
-    void beforeEach(){
-        mockMammalService = Mockito.mock(IMammalService.class);
-        uut = new MammalController(mockMammalService);
-    }
 
     @Test
-    void test_GetAllMammals_ValidRequest() {
+    void test_GetAllMammals() {
         uut.getAllMammals();
         verify(mockMammalService, times(1)).findAllMammals();
     }
 
     @Test
-    void test_GetMammalById_ValidRequest() {
-        UUID mammalId = UUID.randomUUID();
-        uut.getMammalById(mammalId);
+    void test_GetMammal() {
+        uut.getMammal(mammalId);
         verify(mockMammalService, times(1)).findMammalById(mammalId);
     }
 
     @Test
-    void test_AddMammal_ValidRequest() {
-        Mammal mammal = new Mammal();
+    void test_AddMammal() {
         uut.addMammal(mammal);
         verify(mockMammalService, times(1)).addMammal(mammal);
     }
 
     @Test
-    void test_UpdateMammal_ValidRequest() {
-        Mammal mammal = new Mammal();
+    void test_UpdateMammal() {
         uut.updateMammal(mammal);
         verify(mockMammalService, times(1)).updateMammal(mammal);
     }
 
     @Test
-    void test_DeleteMammalById_ValidRequest() {
-        UUID mammalId = UUID.randomUUID();
-        uut.deleteMammalById(mammalId);
-        verify(mockMammalService, times(1)).deleteMammalById(mammalId);
+    void test_DeleteMammal() {
+        uut.deleteMammal(mammalId);
+        verify(mockMammalService, times(1)).deleteMammal(mammalId);
     }
 }

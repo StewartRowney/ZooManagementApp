@@ -6,10 +6,12 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Component
+@SuppressWarnings({"unused"})
 @Profile("!test")
 public class Populator {
 
@@ -45,7 +47,7 @@ public class Populator {
         Mammal badger = new Mammal(edinburghZoo, "Bill", "Badger", LocalDate.of(1996, 3, 9), "Woods", "Likes digging", "rodents, vermin, insects", "Eats whatever it can get its paws on", true, false, false);
         animalRepository.save(badger);
 
-        Fish goldfish = new Fish(edinburghZoo, "Goldie", "Goldfish", LocalDate.of(2023, 07, 29), "Ocean", "Literally unknown, does nothing, exists", "flakes", "A very boring/uncool animal", false, false);
+        Fish goldfish = new Fish(edinburghZoo, "Goldie", "Goldfish", LocalDate.of(2023, 7, 29), "Ocean", "Literally unknown, does nothing, exists", "flakes", "A very boring/uncool animal", false, false);
         animalRepository.save(goldfish);
 
         Insect spider = new Insect(chesterZoo, "Sid", "Spider", LocalDate.of(2020,10,10),"Trees", "Crazy", "Flies", "is a great guy", false, 8);

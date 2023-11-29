@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -15,9 +16,6 @@ public interface IAnimalRepository extends ListCrudRepository<Animal, UUID> {
     //MAMMAL
     @Query(value = "SELECT * FROM Animal WHERE DType = 'Mammal'", nativeQuery = true)
     List<Mammal> findAllMammals();
-
-    @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id}", nativeQuery = true)
-    Optional<Mammal> findMammalById(@Param("id") UUID id);
 
     @Query(value = "SELECT * FROM Animal WHERE DType = 'Insect'", nativeQuery = true)
     List<Insect> findAllInsects();
@@ -43,6 +41,13 @@ public interface IAnimalRepository extends ListCrudRepository<Animal, UUID> {
     List<Amphibian> findAllAmphibians();
 
     @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id}", nativeQuery = true)
+    Optional<Fish> findFishById(@Param("id") UUID id);
+
+    @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id}", nativeQuery = true)
+    Optional<Mammal> findMammalById(@Param("id") UUID id);
+
+    @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id}", nativeQuery = true)
+    Optional<Insect> findInsectById(@Param("id") UUID id);
     Optional<Bird> findBirdById(@Param("id") UUID id);
 
     @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id}", nativeQuery = true)

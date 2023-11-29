@@ -19,4 +19,6 @@ public interface IZooService {
     Zoo updateZooByName(String name, UUID id);
 
     void removeZooById(UUID id);
+
+    List<Zoo> addListOfZoos(List<Zoo> zoos);
 }

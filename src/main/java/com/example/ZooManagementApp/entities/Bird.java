@@ -2,9 +2,11 @@ package com.example.ZooManagementApp.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
+
 import java.time.LocalDate;
 
 @Entity
+@SuppressWarnings({"unused"})
 public class Bird extends Animal {
 
     //Variables

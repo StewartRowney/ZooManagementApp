@@ -7,10 +7,12 @@ import com.example.ZooManagementApp.entities.Zoo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
@@ -19,12 +21,12 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
+@ActiveProfiles("test")
 @SpringBootTest
 public class MammalServiceFullSpringTest {
 
     @MockBean
     IAnimalRepository mockAnimalRepository;
-
     @MockBean
     ZooRepository mockZooRepository;
 
@@ -32,6 +34,13 @@ public class MammalServiceFullSpringTest {
     IMammalService uut;
 
     private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
+    private Mammal mammal;
+    private final UUID mammalId = UUID.randomUUID();
+
+    @BeforeEach
+    public void beforeEach() {
+        mammal = new Mammal();
+    }
 
     @Test
     void test_FindAllMammals_ValidRequest() {
@@ -41,7 +50,6 @@ public class MammalServiceFullSpringTest {
 
     @Test
     void test_FindMammalById_ValidRequest() {
-        UUID mammalId = UUID.randomUUID();
         when(mockAnimalRepository.findMammalById(mammalId)).thenReturn(Optional.of(new Mammal()));
         uut.findMammalById(mammalId);
         verify(mockAnimalRepository, times(1)).findMammalById(mammalId);
@@ -49,7 +57,6 @@ public class MammalServiceFullSpringTest {
 
     @Test
     void test_FindMammalById_InvalidRequest_NotInDatabase() {
-        UUID mammalId = UUID.randomUUID();
         assertThrows(ResponseStatusException.class, () -> uut.findMammalById(mammalId));
     }
 
@@ -60,7 +67,6 @@ public class MammalServiceFullSpringTest {
 
     @Test
     void test_AddMammal_ValidRequest() {
-        Mammal mammal = new Mammal();
         mammal.setZoo(createZoo());
         when(mockZooRepository.existsById(any(UUID.class))).thenReturn(true);
         uut.addMammal(mammal);
@@ -69,7 +75,6 @@ public class MammalServiceFullSpringTest {
 
     @Test
     void test_AddMammal_InvalidRequest_ZooNotInDatabase() {
-        Mammal mammal = new Mammal();
         mammal.setZoo(createZoo());
         when(mockZooRepository.existsById(any(UUID.class))).thenReturn(false);
         assertThrows(ResponseStatusException.class, () -> uut.addMammal(mammal));
@@ -77,7 +82,7 @@ public class MammalServiceFullSpringTest {
 
     @Test
     void test_AddMammal_InvalidRequest_HasId() {
-        Mammal mammal = createMammal();
+        mammal = createMammal();
         assertThrows(ResponseStatusException.class, () -> uut.addMammal(mammal));
     }
 
@@ -88,7 +93,7 @@ public class MammalServiceFullSpringTest {
 
     @Test
     void test_UpdateMammal_ValidRequest() {
-        Mammal mammal = createMammal();
+        mammal = createMammal();
         when(mockAnimalRepository.existsById(any(UUID.class))).thenReturn(true);
         when(mockZooRepository.existsById(any(UUID.class))).thenReturn(true);
         uut.updateMammal(mammal);
@@ -97,14 +102,14 @@ public class MammalServiceFullSpringTest {
 
     @Test
     void test_UpdateMammal_InvalidRequest_MammalNotInDatabase() {
-        Mammal mammal = createMammal();
+        mammal = createMammal();
         when(mockAnimalRepository.existsById(any(UUID.class))).thenReturn(false);
         assertThrows(ResponseStatusException.class, () -> uut.updateMammal(mammal));
     }
 
     @Test
     void test_UpdateMammal_InvalidRequest_ZooNotInDatabase() {
-        Mammal mammal = createMammal();
+        mammal = createMammal();
         when(mockAnimalRepository.existsById(any(UUID.class))).thenReturn(true);
         when(mockZooRepository.existsById(any(UUID.class))).thenReturn(false);
         assertThrows(ResponseStatusException.class, () -> uut.updateMammal(mammal));
@@ -112,7 +117,7 @@ public class MammalServiceFullSpringTest {
 
     @Test
     void test_UpdateMammal_InvalidRequest_HasNoId() {
-        Mammal mammal = new Mammal();
+        mammal = new Mammal();
         assertThrows(ResponseStatusException.class, () -> uut.updateMammal(mammal));
     }
 
@@ -123,24 +128,21 @@ public class MammalServiceFullSpringTest {
 
     @Test
     void test_DeleteMammalById_ValidRequest() {
-        UUID mammalId = UUID.randomUUID();
         when(mockAnimalRepository.existsById(mammalId)).thenReturn(true);
-        uut.deleteMammalById(mammalId);
+        uut.deleteMammal(mammalId);
         verify(mockAnimalRepository, times(1)).deleteById(mammalId);
     }
 
     @Test
     void test_DeleteById_InvalidRequest_NotInDatabase() {
-        UUID mammalId = UUID.randomUUID();
         when(mockAnimalRepository.existsById(mammalId)).thenReturn(false);
-        assertThrows(ResponseStatusException.class, () -> uut.deleteMammalById(mammalId));
+        assertThrows(ResponseStatusException.class, () -> uut.deleteMammal(mammalId));
     }
 
     @Test
     void test_DeleteById_InvalidRequest_NullId() {
-        assertThrows(ResponseStatusException.class, () -> uut.deleteMammalById(null));
+        assertThrows(ResponseStatusException.class, () -> uut.deleteMammal(null));
     }
-
     private Mammal createMammal() {
         String json = """
                 {

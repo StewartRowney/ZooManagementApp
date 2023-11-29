@@ -1,7 +1,6 @@
 package com.example.ZooManagementApp.integratedTests;
 
 import com.example.ZooManagementApp.entities.Amphibian;
-import com.example.ZooManagementApp.entities.Amphibian;
 import com.example.ZooManagementApp.entities.Zoo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,8 +19,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -52,7 +49,7 @@ public class AmphibianIntegratedTest {
     void test_GetAmphibianById_ValidRequest() throws Exception {
         UUID amphibianId = UUID.fromString("60229efa-5978-4cf0-b2f8-76a690ef32b6");
         MvcResult result =
-                (this.mockMvc.perform(MockMvcRequestBuilders.get("/amphibians/findById/" + amphibianId)))
+                (this.mockMvc.perform(MockMvcRequestBuilders.get("/amphibians/" + amphibianId)))
                         .andExpect(status().isOk())
                         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                         .andReturn();
@@ -127,11 +124,11 @@ public class AmphibianIntegratedTest {
     }
 
     @Test
-    void test_DeleteAmphibianById_ValidRequest() throws Exception {
+    void test_DeleteAmphibian_ValidRequest() throws Exception {
         int numberOfAmphibiansBeforeDelete = getAllAmphibians().length;
         UUID amphibianId = getTestAmphibian().getId();
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/amphibians/findById/" + amphibianId));
+        mockMvc.perform(MockMvcRequestBuilders.delete("/amphibians/" + amphibianId));
         int numberOfAmphibiansAfterDelete = getAllAmphibians().length;
 
         assertEquals(numberOfAmphibiansBeforeDelete - 1, numberOfAmphibiansAfterDelete);

@@ -2,12 +2,10 @@ package com.example.ZooManagementApp.controller;
 
 
 import com.example.ZooManagementApp.entities.Animal;
-import com.example.ZooManagementApp.entities.Zoo;
 import com.example.ZooManagementApp.services.IAnimalService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.util.ArrayList;
 import java.util.List;
