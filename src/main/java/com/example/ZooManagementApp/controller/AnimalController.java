@@ -36,7 +36,7 @@ public class AnimalController {
 
     @Operation(summary = "Find a list of animals in a zoo", description = "Find a list of animals in a zoo")
     @GetMapping("/findByIds")
-    public List<Animal> getAnimalListById(@RequestParam(value="idList") List<UUID> idList){
+    public List<Animal> getAnimalListById(@RequestBody List<UUID> idList){
         return animalService.findAnimalListById(idList);
     }
 
