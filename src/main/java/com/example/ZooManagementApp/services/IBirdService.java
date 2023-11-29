@@ -2,6 +2,7 @@ package com.example.ZooManagementApp.services;
 
 import com.example.ZooManagementApp.entities.Bird;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -11,10 +12,9 @@ public interface IBirdService {
 
     Bird findBirdById(UUID id);
 
+    Bird addBird(Bird bird);
 
-    Bird addNewBird(Bird bird);
+    Bird updateBird(Bird bird);
 
-    Bird updateBirdWithPut(Bird bird);
-
-    void removeBirdById(UUID id);
+    void deleteBird(UUID id);
 }

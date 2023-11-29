@@ -12,5 +12,5 @@ public interface IInsectService {
     Insect findInsectById(UUID insectId);
     Insect addInsect(Insect insect);
     Insect updateInsect(Insect insect);
-    void deleteInsectById(UUID insectId);
+    void deleteInsect(UUID insectId);
 }

@@ -1,61 +1,48 @@
 package com.example.ZooManagementApp.controller;
 
 import com.example.ZooManagementApp.entities.Bird;
-import com.example.ZooManagementApp.entities.Zoo;
 import com.example.ZooManagementApp.services.IBirdService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.util.UUID;
 
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.when;
 
 public class BirdControllerNoSpringTest {
 
-    IBirdService mockBirdService;
-    BirdController uut;
+    private final IBirdService mockBirdService = mock(IBirdService.class);
+    private final BirdController uut = new BirdController(mockBirdService);
+    private final Bird bird = new Bird();
+    private final UUID birdId = UUID.randomUUID();
 
-    @BeforeEach
-    void beforeEach(){
-        mockBirdService = Mockito.mock(IBirdService.class);
-        uut = new BirdController(mockBirdService);
-    }
 
     @Test
-    void testBirdServiceCalledForGetAllBirds() {
+    void test_GetAllBirds() {
         uut.getAllBirds();
         verify(mockBirdService, times(1)).findAllBirds();
     }
 
     @Test
-    void test_findBirdById() {
-        UUID id= UUID.randomUUID();
-        when(mockBirdService.findBirdById(id)).thenReturn((new Bird()));
-        uut.getBirdById(id);
-        verify(mockBirdService,times(1)).findBirdById(id);
+    void test_GetBird() {
+        uut.getBird(birdId);
+        verify(mockBirdService, times(1)).findBirdById(birdId);
     }
 
     @Test
-    void test_AddNewZoo(){
-        Bird bird = new Bird();
-        uut.postNewBird(bird);
-        verify(mockBirdService,times(1)).addNewBird(bird);
+    void test_AddBird() {
+        uut.addBird(bird);
+        verify(mockBirdService, times(1)).addBird(bird);
     }
 
     @Test
-    void test_UpdateZoo(){
-        Bird bird = new Bird();
-        uut.putABird(bird);
-        verify(mockBirdService,times(1)).updateBirdWithPut(bird);
+    void test_UpdateBird() {
+        uut.updateBird(bird);
+        verify(mockBirdService, times(1)).updateBird(bird);
     }
 
     @Test
-    void test_DeleteAZoo(){
-        Bird bird = new Bird();
-        uut.deleteBirdById(bird.getId());
-        verify(mockBirdService,times(1)).removeBirdById(bird.getId());
+    void test_DeleteBird() {
+        uut.deleteBird(birdId);
+        verify(mockBirdService, times(1)).deleteBird(birdId);
     }
 }

@@ -21,7 +21,7 @@ public class Zoo {
     private String location;
     private int capacity;
     @OneToMany
-    private List<Animal> animals = new ArrayList<Animal>();
+    private final List<Animal> animals = new ArrayList<>();
     private BigDecimal price;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate dateOpened;

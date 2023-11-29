@@ -1,9 +1,6 @@
 package com.example.ZooManagementApp.controller;
 
-import com.example.ZooManagementApp.entities.Amphibian;
-import com.example.ZooManagementApp.entities.Insect;
 import com.example.ZooManagementApp.entities.Reptile;
-import com.example.ZooManagementApp.services.IInsectService;
 import com.example.ZooManagementApp.services.IReptileService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -16,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "UnusedReturnValue"})
 @Tag(name = "Reptile Api")
 @RequestMapping("/reptiles")
 public class ReptileController {
@@ -34,7 +31,7 @@ public class ReptileController {
     }
 
     @Operation(summary = "Get reptile by id", description = "Returns a reptile by id")
-    @GetMapping("findById/{reptileId}")
+    @GetMapping("{reptileId}")
     public Reptile getReptile(@PathVariable UUID reptileId) {
         return reptileService.findReptileById(reptileId);
     }
@@ -54,7 +51,7 @@ public class ReptileController {
     }
 
     @Operation(summary = "Delete a reptile by id", description = "Delete a reptile by id")
-    @DeleteMapping("findById/{reptileId}")
+    @DeleteMapping("{reptileId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteReptile(@PathVariable UUID reptileId) {
         reptileService.deleteReptile(reptileId);

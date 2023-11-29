@@ -1,14 +1,9 @@
 package com.example.ZooManagementApp.controller;
 
-import com.example.ZooManagementApp.data.ZooRepository;
 import com.example.ZooManagementApp.entities.Amphibian;
-import com.example.ZooManagementApp.entities.Animal;
-import com.example.ZooManagementApp.entities.Zoo;
 import com.example.ZooManagementApp.services.IAmphibianService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -20,9 +15,6 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -30,6 +22,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @WebMvcTest(AmphibianController.class)
+@SuppressWarnings("unused")
 @ActiveProfiles("test")
 public class AmphibianControllerFullSpringTest {
 
@@ -39,36 +32,29 @@ public class AmphibianControllerFullSpringTest {
     @Autowired
     private MockMvc mockMvc;
 
-    Animal amphibian;
-    ObjectMapper mapper;
-    String json;
-    UUID amphibianId;
-
-    @BeforeEach
-    void beforeEach() throws JsonProcessingException {
-        this.amphibian = new Amphibian();
-        this.mapper = new ObjectMapper().registerModule(new JavaTimeModule());
-        this.json = mapper.writeValueAsString(amphibian);
-        this.amphibianId = UUID.randomUUID();
-    }
+    private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
+    private final Amphibian amphibian = new Amphibian();
+    private final UUID amphibianId = UUID.randomUUID();
 
     @Test
-    void testAmphibianServiceCalledForGetAllAmphibians() throws Exception {
+    void test_GetAllAmphibians_ServiceCalledFor() throws Exception {
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/amphibians");
         mockMvc.perform(requestBuilder);
         verify(mockAmphibianService, times(1)).findAllAmphibians();
     }
 
     @Test
-    void test_ServiceCalledFor_GetAmphibianById() throws Exception {
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/amphibians/findById/" + amphibianId);
+    void test_GetAmphibianById_ServiceCalledFor() throws Exception {
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/amphibians/" + amphibianId);
         mockMvc.perform(requestBuilder);
 
         verify(mockAmphibianService, times(1)).findAmphibianById(amphibianId);
     }
 
     @Test
-    void test_ServiceCalledFor_AddAmphibian() throws Exception {
+    void test_AddAmphibian_ServiceCalledFor() throws Exception {
+        String json = mapper.writeValueAsString(amphibian);
+
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/amphibians")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json)
@@ -81,7 +67,9 @@ public class AmphibianControllerFullSpringTest {
     }
 
     @Test
-    void test_ServiceCalledFor_UpdateAmphibian() throws Exception {
+    void test_UpdateAmphibian_ServiceCalledFor() throws Exception {
+        String json = mapper.writeValueAsString(amphibian);
+
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/amphibians")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json)
@@ -94,8 +82,8 @@ public class AmphibianControllerFullSpringTest {
     }
 
     @Test
-    void test_DeleteAmphibian() throws Exception {
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/amphibians/findById/" + amphibianId);
+    void test_DeleteAmphibian_ServiceCalledFor() throws Exception {
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/amphibians/" + amphibianId);
         mockMvc.perform(requestBuilder);
 
         verify(mockAmphibianService, times(1)).deleteAmphibian(amphibianId);

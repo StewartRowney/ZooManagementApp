@@ -1,9 +1,10 @@
 package com.example.ZooManagementApp.controller;
+
 import com.example.ZooManagementApp.entities.Zoo;
-import com.example.ZooManagementApp.services.IZooService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@SuppressWarnings("UnusedReturnValue")
+@SuppressWarnings({"unused", "UnusedReturnValue"})
 @Tag(name = "Zoo Api")
 @RequestMapping("/zoos")
 public class ZooController {

@@ -40,19 +40,8 @@ public class FishIntegratedTest {
 
     @Test
     void test_GetAllFish_ValidRequest() throws Exception {
-        Fish[] actualFishs = getAllFish();
-        assertEquals(2, actualFishs.length);
-    }
-
-    private Fish[] getAllFish() throws Exception {
-        MvcResult result =
-                (this.mockMvc.perform(MockMvcRequestBuilders.get("/fish")))
-                        .andExpect(status().isOk())
-                        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                        .andReturn();
-
-        String contentAsJson = result.getResponse().getContentAsString();
-        return mapper.readValue(contentAsJson, Fish[].class);
+        Fish[] actualFish = getAllFish();
+        assertEquals(2, actualFish.length);
     }
 
     @Test
@@ -133,7 +122,7 @@ public class FishIntegratedTest {
         );
     }
     @Test
-    void test_DeleteFishById_ValidRequest() throws Exception {
+    void test_DeleteFish_ValidRequest() throws Exception {
         int numberOfFishBeforeDelete = getAllFish().length;
         UUID fishId = getTestFish().getId();
 
@@ -141,6 +130,17 @@ public class FishIntegratedTest {
         int numberOfFishAfterDelete = getAllFish().length;
 
         assertEquals(numberOfFishBeforeDelete - 1, numberOfFishAfterDelete);
+    }
+
+    private Fish[] getAllFish() throws Exception {
+        MvcResult result =
+                (this.mockMvc.perform(MockMvcRequestBuilders.get("/fish")))
+                        .andExpect(status().isOk())
+                        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                        .andReturn();
+
+        String contentAsJson = result.getResponse().getContentAsString();
+        return mapper.readValue(contentAsJson, Fish[].class);
     }
 
     private Fish getTestFish() {

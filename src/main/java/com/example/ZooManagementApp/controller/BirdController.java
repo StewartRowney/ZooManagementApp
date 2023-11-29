@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "UnusedReturnValue"})
 @Tag(name = "Bird Api")
 @RequestMapping("/birds")
 public class BirdController {
@@ -27,30 +27,36 @@ public class BirdController {
 
     @Operation(summary = "Get a list of all birds", description = "Returns a list of all birds")
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<Bird> getAllBirds() {
         return service.findAllBirds();
     }
+
     @Operation(summary = "Get Bird by id", description = "Returns a bird by id")
-    @GetMapping("/findById/{id}")
-    public Bird getBirdById(@PathVariable UUID id){
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Bird getBird(@PathVariable UUID id){
         return service.findBirdById(id);
     }
-    @Operation(summary = "Add a bird", description = "Add a bird")
+
+    @Operation(summary = "Add a bird", description = "Add a bird, returns new bird")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Bird postNewBird(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") Bird bird){
-        return service.addNewBird(bird);
+    public Bird addBird(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") Bird bird){
+        return service.addBird(bird);
     }
-    @Operation(summary = "Update a bird", description = "Update a bird")
+
+    @Operation(summary = "Update a bird", description = "Update a bird, returns updated bird")
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Bird putABird(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") Bird bird){
-        return service.updateBirdWithPut(bird);
+    public Bird updateBird(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") Bird bird){
+        return service.updateBird(bird);
     }
+
     @Operation(summary = "Delete a bird by id", description = "Delete a bird by id")
-    @DeleteMapping("/deleteBird/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteBirdById(@PathVariable UUID id){
-        service.removeBirdById(id);
+    public void deleteBird(@PathVariable UUID id){
+        service.deleteBird(id);
     }
 }

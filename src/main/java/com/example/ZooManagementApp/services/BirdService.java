@@ -3,7 +3,6 @@ package com.example.ZooManagementApp.services;
 import com.example.ZooManagementApp.data.IAnimalRepository;
 import com.example.ZooManagementApp.data.ZooRepository;
 import com.example.ZooManagementApp.entities.Bird;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -13,10 +12,10 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@SuppressWarnings({"unused"})
 public class BirdService implements IBirdService {
 
     private final IAnimalRepository animalRepository;
-
     private final ZooRepository zooRepository;
 
     @Autowired
@@ -36,10 +35,10 @@ public class BirdService implements IBirdService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bird to update must have an Id");
         }
         return animalRepository.findBirdById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Bird with id: "+ id+ " not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Bird with id: "+ id + " not found"));
     }
     @Override
-    public Bird addNewBird(Bird bird) {
+    public Bird addBird(Bird bird) {
         if (bird == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bird to add cannot be null");
         }
@@ -53,18 +52,21 @@ public class BirdService implements IBirdService {
     }
 
     @Override
-    public Bird updateBirdWithPut(Bird bird) {
+    public Bird updateBird(Bird bird) {
         if (bird == null || bird.getId() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bird to update must have an Id");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bird to update must have an id");
         }
-
-        if (!animalRepository.existsById(bird.getId())) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Bird to update does not exist");}
+        else if (!animalRepository.existsById(bird.getId())) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Bird to update cannot be found");
+        }
+        else if (!zooRepository.existsById(bird.getZoo().getId())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot update Bird to a zoo that doesn't exist");
+        }
         return animalRepository.save(bird);
     }
 
     @Override
-    public void removeBirdById(UUID id) {
+    public void deleteBird(UUID id) {
         if (id == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bird to delete must have an Id");
         }

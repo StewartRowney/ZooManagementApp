@@ -3,8 +3,6 @@ package com.example.ZooManagementApp.services;
 import com.example.ZooManagementApp.data.IAnimalRepository;
 import com.example.ZooManagementApp.data.ZooRepository;
 import com.example.ZooManagementApp.entities.Amphibian;
-import com.example.ZooManagementApp.entities.Mammal;
-import com.example.ZooManagementApp.entities.Zoo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -14,6 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@SuppressWarnings({"unused"})
 public class AmphibianService implements IAmphibianService{
 
     private final IAnimalRepository animalRepository;
@@ -63,7 +62,6 @@ public class AmphibianService implements IAmphibianService{
         else if (!zooRepository.existsById(amphibian.getZoo().getId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot update Amphibian to a zoo that doesn't exist");
         }
-
         return animalRepository.save(amphibian);
     }
 
