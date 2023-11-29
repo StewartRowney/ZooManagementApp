@@ -44,7 +44,7 @@ public class AmphibianControllerFullSpringTest {
 
     @Test
     void test_GetAmphibianById_ServiceCalledFor() throws Exception {
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/amphibians/findById/" + amphibianId);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/amphibians/" + amphibianId);
         mockMvc.perform(requestBuilder);
 
         verify(mockAmphibianService, times(1)).findAmphibianById(amphibianId);
@@ -82,7 +82,7 @@ public class AmphibianControllerFullSpringTest {
 
     @Test
     void test_DeleteAmphibian_ServiceCalledFor() throws Exception {
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/amphibians/findById/" + amphibianId);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/amphibians/" + amphibianId);
         mockMvc.perform(requestBuilder);
 
         verify(mockAmphibianService, times(1)).deleteAmphibian(amphibianId);

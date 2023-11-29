@@ -62,7 +62,6 @@ public class AmphibianService implements IAmphibianService{
         else if (!zooRepository.existsById(amphibian.getZoo().getId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot update Amphibian to a zoo that doesn't exist");
         }
-
         return animalRepository.save(amphibian);
     }
 
