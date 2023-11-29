@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "UnusedReturnValue"})
 @Tag(name = "Amphibian Api")
 @RequestMapping("/amphibians")
 public class AmphibianController {

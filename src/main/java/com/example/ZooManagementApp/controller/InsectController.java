@@ -1,7 +1,6 @@
 package com.example.ZooManagementApp.controller;
 
 import com.example.ZooManagementApp.entities.Insect;
-import com.example.ZooManagementApp.entities.Mammal;
 import com.example.ZooManagementApp.services.IInsectService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "UnusedReturnValue"})
 @Tag(name = "Insect Api")
 @RequestMapping("/insects")
 public class InsectController {

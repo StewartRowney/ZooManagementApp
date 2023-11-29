@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import java.time.LocalDate;
 
 @Entity
+@SuppressWarnings({"unused"})
 public class Fish extends Animal{
     //Variables
     private boolean isBioluminiscent;

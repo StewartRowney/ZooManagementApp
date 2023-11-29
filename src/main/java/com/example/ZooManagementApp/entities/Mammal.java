@@ -1,12 +1,11 @@
 package com.example.ZooManagementApp.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 
 import java.time.LocalDate;
 
 @Entity
+@SuppressWarnings({"unused"})
 public class Mammal extends Animal{
 
     //VARIABLES

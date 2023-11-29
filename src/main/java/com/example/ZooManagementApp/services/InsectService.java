@@ -3,7 +3,6 @@ package com.example.ZooManagementApp.services;
 import com.example.ZooManagementApp.data.IAnimalRepository;
 import com.example.ZooManagementApp.data.ZooRepository;
 import com.example.ZooManagementApp.entities.Insect;
-import com.example.ZooManagementApp.entities.Mammal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -13,6 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@SuppressWarnings({"unused"})
 public class InsectService implements IInsectService{
 
     private final IAnimalRepository animalRepository;

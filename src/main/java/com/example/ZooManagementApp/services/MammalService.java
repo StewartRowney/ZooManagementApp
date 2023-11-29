@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@SuppressWarnings({"unused"})
 public class MammalService implements IMammalService{
 
     private final IAnimalRepository animalRepository;

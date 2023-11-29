@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@SuppressWarnings({"unused"})
 public class BirdService implements IBirdService {
 
     private final IAnimalRepository animalRepository;
