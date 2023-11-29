@@ -36,15 +36,14 @@ public class AnimalService implements IAnimalService{
                 .orElseThrow(() -> new EntityNotFoundException("Animal with id: "+ id+ " not found"));
     }
 
+//    @Override
+//    public List<Animal> addListOfAnimals(List<Animal> animals) {
+//        return animalRepository.saveAll(animals);
+//    }
+
     @Override
-    public List<Animal> addListOfAnimals(List<Animal> animals) {
-
-        List<Animal> savedAnimals = null;
-
-        for (Animal animal : animals) {
-
-            savedAnimals.add(addListOfAnimals())
-        }
+    public List<Animal> findAnimalListById(List<UUID> idList) {
+        return animalRepository.findAllById(idList);
     }
 
 }

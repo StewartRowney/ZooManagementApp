@@ -9,6 +9,6 @@ public interface IAnimalService {
 
     List<Animal> findAllAnimals();
     Animal findAnimalById(UUID id);
-    Animal addListOfAnimals(List<Animal> animals);
-
+   // Animal addListOfAnimals(List<Animal> animals);
+    List<Animal> findAnimalListById(List<UUID> idList);
 }
