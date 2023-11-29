@@ -1,5 +1,6 @@
 package com.example.ZooManagementApp.services;
 
+import com.example.ZooManagementApp.data.IAnimalRepository;
 import com.example.ZooManagementApp.data.ZooRepository;
 import com.example.ZooManagementApp.entities.Zoo;
 import jakarta.persistence.EntityNotFoundException;
@@ -15,6 +16,9 @@ import java.util.UUID;
 public class ZooService implements IZooService{
     @Autowired
     ZooRepository repository;
+
+    @Autowired
+    IAnimalRepository animalRepository;
     public List<Zoo> findAllZoos() {
         return repository.findAll();
     }
@@ -64,7 +68,9 @@ public class ZooService implements IZooService{
         if (id == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Zoo to delete must have an Id");
         }
-
+        if(animalRepository.findAllAnimalsInAZoo(id) != null){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Zoo to delete must not have any animals");
+        }
         if (!repository.existsById(id)) { throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Zoo to update does not exist");}
         repository.deleteById(id);
     }
