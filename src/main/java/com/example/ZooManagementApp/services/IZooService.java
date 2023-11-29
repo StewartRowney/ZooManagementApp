@@ -13,4 +13,12 @@ public interface IZooService {
     Zoo findZooByName(String name);
 
     Zoo addNewZoo(Zoo zoo);
+
+    Zoo updateZooWithPut(Zoo zoo);
+
+    Zoo updateZooByName(String name, UUID id);
+
+    void removeZooById(UUID id);
+
+    List<Zoo> addListOfZoos(List<Zoo> zoos);
 }
