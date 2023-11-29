@@ -12,10 +12,9 @@ public interface IBirdService {
 
     Bird findBirdById(UUID id);
 
+    Bird addBird(Bird bird);
 
-    Bird addNewBird(Bird bird);
+    Bird updateBird(Bird bird);
 
-    Bird updateBirdWithPut(Bird bird);
-
-    void removeBirdById(UUID id);
+    void deleteBird(UUID id);
 }
