@@ -1,9 +1,11 @@
 package com.example.ZooManagementApp.services;
 
 import com.example.ZooManagementApp.data.IAnimalRepository;
+import com.example.ZooManagementApp.data.ZooRepository;
 import com.example.ZooManagementApp.entities.Animal;
 import com.example.ZooManagementApp.entities.Fish;
 import com.example.ZooManagementApp.entities.Zoo;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Test;
@@ -24,6 +26,9 @@ public class FishServiceFullSpringTest {
     @MockBean
     IAnimalRepository mockAnimalRepository;
 
+    @MockBean
+    ZooRepository mockZooRepository;
+
     @Autowired
     IFishService uut;
 
@@ -42,9 +47,16 @@ public class FishServiceFullSpringTest {
     }
 
     @Test
+    void test_FindFishById_InvalidRequest_NullId(){
+        assertThrows(ResponseStatusException.class, () -> uut.findFishById(null));
+    }
+
+    @Test
     void test_UpdateFish_ValidRequest() {
         Fish fish = createAFish();
+        fish.setZoo(createZoo());
         when(mockAnimalRepository.existsById(any())).thenReturn(true);
+        when(mockZooRepository.existsById(any(UUID.class))).thenReturn(true);
         uut.updateFishWithPut(fish);
         verify(mockAnimalRepository, times(1)).save(fish);
     }
@@ -59,6 +71,15 @@ public class FishServiceFullSpringTest {
     void test_UpdateFish_InvalidRequest_IdNotInDatabase() {
         Fish fish = new Fish();
         when(mockAnimalRepository.existsById(any())).thenReturn(false);
+        assertThrows(ResponseStatusException.class, () -> uut.updateFishWithPut(fish));
+    }
+
+    @Test
+    void test_UpdateFish_InvalidRequest_ZooNotInDatabase() {
+        Fish fish = createAFish();
+        fish.setZoo(createZoo());
+        when(mockAnimalRepository.existsById(any())).thenReturn(true);
+        when(mockZooRepository.existsById(any(UUID.class))).thenReturn(false);
         assertThrows(ResponseStatusException.class, () -> uut.updateFishWithPut(fish));
     }
 
@@ -88,15 +109,32 @@ public class FishServiceFullSpringTest {
     }
 
     @Test
+    void test_DeleteFish_ValidRequest_NullID(){
+        assertThrows(ResponseStatusException.class, () -> uut.removeFishById(null));
+    }
+
+    @Test
     void test_DeleteFish_ValidRequest_NotInDatabase() {
         Fish fish = createAFish();
         when(mockAnimalRepository.existsById(any())).thenReturn(false);
         assertThrows(ResponseStatusException.class,() -> uut.removeFishById(fish.getId()));
     }
+
+    @Test
+    void test_AddFish_ValidRequest(){
+        Fish fish = new Fish();
+        fish.setZoo(createZoo());
+        when(mockAnimalRepository.existsById(any(UUID.class))).thenReturn(true);
+        when(mockZooRepository.existsById(any(UUID.class))).thenReturn(true);
+        uut.addFish(fish);
+        verify(mockAnimalRepository,times(1)).save(fish);
+    }
     @Test
     void test_AddFish_InvalidRequest_ZooNotInDatabase() {
-        Fish fish = createAFish();
-        when(mockAnimalRepository.existsById(any(UUID.class))).thenReturn(false);
+        Fish fish = new Fish();
+        fish.setZoo(createZoo());
+        when(mockZooRepository.existsById(any(UUID.class))).thenReturn(true);
+        when(mockZooRepository.existsById(any(UUID.class))).thenReturn(false);
         assertThrows(ResponseStatusException.class, () -> uut.addFish(fish));
     }
 
@@ -109,5 +147,23 @@ public class FishServiceFullSpringTest {
     @Test
     void test_AddFish_InvalidRequest_NullFish() {
         assertThrows(ResponseStatusException.class, () -> uut.addFish(null));
+    }
+
+    private Zoo createZoo() {
+        ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
+        String json = """
+                 {
+                    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                    "name": "string",
+                    "location": "string",
+                    "capacity": 0,
+                    "price": 0,
+                    "dateOpened": "12-05-1999"
+                  }""";
+        try {
+            return mapper.readValue(json, Zoo.class);
+        } catch (JsonProcessingException e) {
+            return new Zoo();
+        }
     }
 }
