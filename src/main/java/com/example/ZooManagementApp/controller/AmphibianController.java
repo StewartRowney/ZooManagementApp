@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "UnusedReturnValue"})
 @Tag(name = "Amphibian Api")
 @RequestMapping("/amphibians")
 public class AmphibianController {
@@ -27,12 +27,14 @@ public class AmphibianController {
 
     @Operation(summary = "Get a list of all amphibians", description = "Returns a list of all amphibians")
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<Amphibian> getAllAmphibians() {
         return amphibianService.findAllAmphibians();
     }
 
     @Operation(summary = "Get amphibian by id", description = "Returns an amphibian by id")
-    @GetMapping("findById/{amphibianId}")
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/{amphibianId}")
     public Amphibian getAmphibian(@PathVariable UUID amphibianId) {
         return amphibianService.findAmphibianById(amphibianId);
     }
@@ -52,7 +54,7 @@ public class AmphibianController {
     }
 
     @Operation(summary = "Delete an amphibian by id", description = "Delete an amphibian by id")
-    @DeleteMapping("findById/{amphibianId}")
+    @DeleteMapping("/{amphibianId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteAmphibian(@PathVariable UUID amphibianId) {
         amphibianService.deleteAmphibian(amphibianId);

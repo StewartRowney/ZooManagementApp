@@ -2,30 +2,22 @@ package com.example.ZooManagementApp.controller;
 
 import com.example.ZooManagementApp.entities.Reptile;
 import com.example.ZooManagementApp.services.IReptileService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+
 import java.util.UUID;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+
+import static org.mockito.Mockito.*;
 
 public class ReptileControllerNoSpringTest {
 
-    private IReptileService mockReptileService;
-    private ReptileController uut;
-    private Reptile reptile;
-    private UUID reptileId;
+    private final IReptileService mockReptileService = mock(IReptileService.class);
+    private final ReptileController uut = new ReptileController(mockReptileService);
+    private final Reptile reptile = new Reptile();
+    private final UUID reptileId = UUID.randomUUID();
 
-    @BeforeEach
-    void beforeEach(){
-        this.mockReptileService = Mockito.mock(IReptileService.class);
-        this.uut = new ReptileController(mockReptileService);
-        this.reptile = new Reptile();
-        this.reptileId = UUID.randomUUID();
-    }
 
     @Test
-    void testReptileServiceCalledForGetAllReptiles() {
+    void test_GetAllReptiles() {
         uut.getAllReptiles();
         verify(mockReptileService, times(1)).findAllReptiles();
     }

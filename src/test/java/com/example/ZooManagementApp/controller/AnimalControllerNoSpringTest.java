@@ -2,10 +2,8 @@ package com.example.ZooManagementApp.controller;
 
 
 import com.example.ZooManagementApp.entities.Animal;
-import com.example.ZooManagementApp.entities.Zoo;
 import com.example.ZooManagementApp.services.IAnimalService;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.context.ActiveProfiles;
 
 import java.util.UUID;
 

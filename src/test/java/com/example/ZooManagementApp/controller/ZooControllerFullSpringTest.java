@@ -2,8 +2,6 @@ package com.example.ZooManagementApp.controller;
 
 import com.example.ZooManagementApp.entities.Zoo;
 import com.example.ZooManagementApp.services.IZooService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Test;
