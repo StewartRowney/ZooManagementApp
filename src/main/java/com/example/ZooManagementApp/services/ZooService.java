@@ -77,7 +77,7 @@ public class ZooService implements IZooService{
     public void removeZooById(UUID id) {
         if (id == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Zoo to delete must have an Id");}
-        if(animalRepository.findAllAnimalsInAZoo(id) != null){
+        if(!animalRepository.findAllAnimalsInAZoo(id).isEmpty()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Zoo to delete must not have any animals");
         }
         if (!repository.existsById(id)) { throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Zoo to update does not exist");}
