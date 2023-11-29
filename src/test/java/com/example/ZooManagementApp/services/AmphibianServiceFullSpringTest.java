@@ -34,7 +34,7 @@ public class AmphibianServiceFullSpringTest {
     @Autowired
     IAmphibianService uut;
 
-    private final ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
+    private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
     private Amphibian amphibian;
     private final UUID amphibianId = UUID.randomUUID();
 
@@ -161,7 +161,7 @@ public class AmphibianServiceFullSpringTest {
                 }""";
 
         try {
-            Amphibian amphibian = objectMapper.readValue(json, Amphibian.class);
+            Amphibian amphibian = mapper.readValue(json, Amphibian.class);
             amphibian.setZoo(createZoo());
             return amphibian;
         } catch (JsonProcessingException e) {
@@ -180,7 +180,7 @@ public class AmphibianServiceFullSpringTest {
                     "dateOpened": "12-05-1999"
                   }""";
         try {
-            return objectMapper.readValue(json, Zoo.class);
+            return mapper.readValue(json, Zoo.class);
         } catch (JsonProcessingException e) {
             return new Zoo();
         }
