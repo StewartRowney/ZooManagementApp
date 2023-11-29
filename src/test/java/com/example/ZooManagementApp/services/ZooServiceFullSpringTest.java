@@ -134,7 +134,6 @@ class ZooServiceFullSpringTest {
     void test_DeleteZoo_ValidRequest_InDatabase() {
         Zoo zoo = createAZoo();
         when(mockZooRepo.existsById(any())).thenReturn(true);
-        when(mockAnimalRepo.findAllAnimalsInAZoo(zoo.getId())).thenReturn(null);
         uut.removeZooById(zoo.getId());
         verify(mockZooRepo, times(1)).deleteById(zoo.getId());
     }

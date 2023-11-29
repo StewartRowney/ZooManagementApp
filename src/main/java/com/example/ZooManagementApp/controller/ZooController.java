@@ -1,6 +1,7 @@
 package com.example.ZooManagementApp.controller;
 
 import com.example.ZooManagementApp.entities.Zoo;
+import com.example.ZooManagementApp.services.IZooService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
