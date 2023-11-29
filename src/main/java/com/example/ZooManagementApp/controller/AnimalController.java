@@ -1,12 +1,13 @@
 package com.example.ZooManagementApp.controller;
 
+import com.example.ZooManagementApp.entities.Amphibian;
 import com.example.ZooManagementApp.entities.Animal;
 import com.example.ZooManagementApp.services.IAnimalService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -33,6 +34,19 @@ public class AnimalController {
         return animalService.findAnimalById(id);
     }
 
+    @Operation(summary = "Find a list of animals in a zoo", description = "Find a list of animals in a zoo")
+    @GetMapping("/findByIds")
+    public List<Animal> getAnimalListById(@RequestBody List<UUID> idList){
+        return animalService.findAnimalListById(idList);
+    }
+
+
+//    @Operation(summary = "Add a list of animals to a zoo", description = "Add a list of animals to a zoo")
+//    @PostMapping
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public List<Animal> addListOfAnimals(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") List<Animal> animals) {
+//        return animalService.addListOfAnimals(animals);
+//    }
 
 
 }
