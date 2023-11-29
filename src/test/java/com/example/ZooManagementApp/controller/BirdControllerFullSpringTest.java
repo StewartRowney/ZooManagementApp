@@ -32,7 +32,7 @@ public class BirdControllerFullSpringTest {
     private MockMvc mockMvc;
 
     private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
-    private final Animal bird = new Bird();
+    private final Bird bird = new Bird();
     private final UUID birdId = UUID.randomUUID();
 
     @Test

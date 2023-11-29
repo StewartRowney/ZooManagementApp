@@ -31,7 +31,7 @@ private final IMammalService mammalService;
     }
     @Operation(summary = "Get mammal by id", description = "Returns a mammal by id")
     @GetMapping("/{mammalId}")
-    public Mammal getMammalById(@PathVariable UUID mammalId) {
+    public Mammal getMammal(@PathVariable UUID mammalId) {
         return mammalService.findMammalById(mammalId);
     }
 
@@ -52,7 +52,7 @@ private final IMammalService mammalService;
     @Operation(summary = "Delete a Mammal by Id", description = "Delete a Mammal by Id, returns no content")
     @DeleteMapping("/{mammalId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteMammalById(@PathVariable UUID mammalId) {
-        mammalService.deleteMammalById(mammalId);
+    public void deleteMammal(@PathVariable UUID mammalId) {
+        mammalService.deleteMammal(mammalId);
     }
 }

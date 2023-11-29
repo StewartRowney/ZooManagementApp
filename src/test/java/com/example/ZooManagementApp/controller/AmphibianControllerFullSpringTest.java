@@ -32,7 +32,7 @@ public class AmphibianControllerFullSpringTest {
     private MockMvc mockMvc;
 
     private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
-    private final Animal amphibian = new Amphibian();
+    private final Amphibian amphibian = new Amphibian();
     private final UUID amphibianId = UUID.randomUUID();
 
     @Test

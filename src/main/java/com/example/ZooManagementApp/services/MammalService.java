@@ -66,7 +66,7 @@ public class MammalService implements IMammalService{
     }
 
     @Override
-    public void deleteMammalById(UUID mammalId) {
+    public void deleteMammal(UUID mammalId) {
         if (mammalId == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Mammal id cannot be null for delete");
         }
