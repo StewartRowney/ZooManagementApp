@@ -59,13 +59,13 @@ class ZooControllerNoSpringTest {
     @Test
     void test_UpdateZoo(){
         uut.putAZoo(zoo);
-        verify(mockZooService,times(1)).updateZooWithPut(zoo);
+        verify(mockZooService,times(1)).updateZoo(zoo);
     }
 
     @Test
     void test_updateZooName(){
         uut.patchZooName(zoo.getId(),"newName");
-        verify(mockZooService,times(1)).updateZooByName("newName", zoo.getId());
+        verify(mockZooService,times(1)).updateZooName("newName", zoo.getId());
     }
 
     @Test

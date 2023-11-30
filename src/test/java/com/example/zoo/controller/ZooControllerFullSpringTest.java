@@ -106,7 +106,7 @@ class ZooControllerFullSpringTest {
         mockMvc.perform(requestBuilder)
                 .andExpect(MockMvcResultMatchers.status().isCreated());
 
-        verify(mockZooService, times(1)).updateZooWithPut(any(Zoo.class));
+        verify(mockZooService, times(1)).updateZoo(any(Zoo.class));
     }
 
     @Test
@@ -123,7 +123,7 @@ class ZooControllerFullSpringTest {
 
         mockMvc.perform(requestBuilder);
 
-        verify(mockZooService, times(1)).updateZooByName(any(String.class), any(UUID.class));
+        verify(mockZooService, times(1)).updateZooName(any(String.class), any(UUID.class));
     }
 
     @Test

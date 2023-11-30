@@ -52,13 +52,13 @@ public class ZooController {
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Zoo putAZoo(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") Zoo zoo){
-        return service.updateZooWithPut(zoo);
+        return service.updateZoo(zoo);
     }
     @Operation(summary = "Update a zoo's name", description = "Update a zoo's name")
     @PatchMapping("/editName/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public Zoo patchZooName(@PathVariable @DateTimeFormat(pattern="dd-MM-yyyy") UUID id, @RequestBody String name){
-        return service.updateZooByName(name, id);
+        return service.updateZooName(name, id);
     }
     @Operation(summary = "Delete a zoo by id", description = "Delete a zoo by id")
     @DeleteMapping("/deleteZoo/{id}")
