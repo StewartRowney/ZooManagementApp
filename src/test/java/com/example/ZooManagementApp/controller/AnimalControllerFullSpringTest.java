@@ -6,6 +6,7 @@ import com.example.ZooManagementApp.entities.Zoo;
 import com.example.ZooManagementApp.services.IAnimalService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -36,21 +37,23 @@ public class AnimalControllerFullSpringTest {
     @Autowired
     private MockMvc mockMvc;
 
-    ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
+    private final Animal animal = new Animal();
+
+    private final UUID animalId = UUID.randomUUID();
 
     @Test
-    void test_getAllAnimals_ValidRequest() throws Exception {
+    void test_getAllAnimals_ServiceCalledFor() throws Exception {
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/animals");
         mockMvc.perform(requestBuilder);
         verify(mockAnimalService, times(1)).findAllAnimals();
     }
 
     @Test
-    void testZooServiceCallsFindZooByID() throws Exception {
-        UUID id = UUID.randomUUID();
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/animals/findById/" + id);
+    void test_GetAnimalByID_ServiceCalledFor() throws Exception {
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/animals/findById/" + animalId);
         mockMvc.perform(requestBuilder);
-        verify(mockAnimalService,times(1)).findAnimalById(id);
+        verify(mockAnimalService,times(1)).findAnimalById(animalId);
     }
 
     @Test

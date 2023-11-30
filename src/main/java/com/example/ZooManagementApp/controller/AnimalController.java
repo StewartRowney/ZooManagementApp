@@ -45,13 +45,4 @@ public class AnimalController {
     public List<Animal> getAnimalListById(@RequestBody List<UUID> idList){
         return animalService.findAnimalListById(idList);
     }
-
-//    @Operation(summary = "Add a list of animals to a zoo", description = "Add a list of animals to a zoo")
-//    @PostMapping
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public List<Animal> addListOfAnimals(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") List<Animal> animals) {
-//        return animalService.addListOfAnimals(animals);
-//    }
-
-
 }

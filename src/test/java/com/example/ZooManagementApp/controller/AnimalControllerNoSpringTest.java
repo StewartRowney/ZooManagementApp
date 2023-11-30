@@ -18,7 +18,8 @@ class AnimalControllerNoSpringTest {
 
     private final IAnimalService mockAnimalService = mock(IAnimalService.class);
     private final AnimalController uut = new AnimalController(mockAnimalService);
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final UUID id= UUID.randomUUID();
+
 
     @Test
     void test_getAllAnimals_ValidRequest() {
@@ -27,8 +28,7 @@ class AnimalControllerNoSpringTest {
     }
 
     @Test
-    void verifyIfRepositoryInvokesFindById() {
-        UUID id= UUID.randomUUID();
+    void test_getAnimalById_ServiceCalled() {
         when(mockAnimalService.findAnimalById(id)).thenReturn((new Animal()));
         uut.getAnimalById(id);
         verify(mockAnimalService,times(1)).findAnimalById(id);
