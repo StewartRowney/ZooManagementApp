@@ -40,13 +40,13 @@ class ZooServiceFullSpringTest {
 
 
     @Test
-    void verifyIfRepositoryInvokesFindAll() {
+    void test_FindAllZoos_ValidRequest() {
         uut.findAllZoos();
         verify(mockZooRepo,times(1)).findAll();
     }
 
     @Test
-    void verifyIfRepositoryInvokesFindById() {
+    void test_findZooById_ValidRequest() {
         when(mockZooRepo.findById(id)).thenReturn(Optional.of(new Zoo()));
         uut.findZooById(id);
         verify(mockZooRepo,times(1)).findById(id);
@@ -58,7 +58,7 @@ class ZooServiceFullSpringTest {
     }
 
     @Test
-    void verifyIfRepositoryInvokesFindByName() {
+    void test_ZooFindByName_ValidRequest() {
         String name= "someZoo";
         when(mockZooRepo.findByName(anyString())).thenReturn(Optional.of(new Zoo()));
         uut.findZooByName(name);
@@ -66,13 +66,7 @@ class ZooServiceFullSpringTest {
     }
 
     @Test
-    void verifyMockRepoCallsSaveWhenAddingNewZoo() {
-        uut.addNewZoo(zoo);
-        verify(mockZooRepo, times(1)).save(zoo);
-    }
-
-    @Test
-    void test_PostNewZoo_ValidRequest(){
+    void test_AddNewZoo_ValidRequest() {
         uut.addNewZoo(zoo);
         verify(mockZooRepo, times(1)).save(zoo);
     }
