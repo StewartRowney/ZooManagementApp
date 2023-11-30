@@ -39,7 +39,6 @@ public class ZooService implements IZooService{
         }
         return repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Zoo with id: "+ id+ " not found"));
-
     }
 
     @Override
