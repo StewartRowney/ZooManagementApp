@@ -33,9 +33,9 @@ pipeline {
                             steps {
                                 waitForQualityGate abortPipeline: true
                             }
-                        }
+        }
        stage('OWASP Dependency-Check Vulnerabilities') {
-             steps {
+            steps {
                dependencyCheck additionalArguments: '''
                            -o './'
                            -s './'
@@ -44,12 +44,13 @@ pipeline {
 
                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
              }
-           }
-        stage('Deploy') {
+       }
+       stage('Deploy') {
             steps {
+                sh './jenkins/scripts/deploy.sh'
                 echo 'Deployment successful!!!'
-                //sh './jenkins/scripts/deploy.sh'
+
             }
-        }
+       }
     }
 }
