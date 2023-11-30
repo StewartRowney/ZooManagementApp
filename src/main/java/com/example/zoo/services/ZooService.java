@@ -35,7 +35,7 @@ public class ZooService implements IZooService{
     @Override
     public Zoo findZooById(UUID id) {
         if (id == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Zoo to update must have an Id");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "id cannot be null");
         }
         return repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Zoo with id: "+ id+ " not found"));
@@ -61,7 +61,7 @@ public class ZooService implements IZooService{
     }
 
     @Override
-    public Zoo updateZooWithPut(Zoo zoo) {
+    public Zoo updateZoo(Zoo zoo) {
         if (zoo == null || zoo.getId() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Zoo to update must have an Id");
         }
@@ -71,11 +71,11 @@ public class ZooService implements IZooService{
         return repository.save(zoo);
     }
     @Override
-    public Zoo updateZooByName(String name, UUID id) {
+    public Zoo updateZooName(String name, UUID id) {
         if (id == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Zoo to update must have an Id");}
         if (!repository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Zoo to update does not exist");}
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Zoo to update name does not exist");}
         Zoo zooToUpdate = findZooById(id);
         zooToUpdate.setName(name);
         return repository.save(zooToUpdate);}

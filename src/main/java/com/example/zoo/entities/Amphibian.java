@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 import java.time.LocalDate;
 
 @Entity
-@SuppressWarnings({"unused"})
+@SuppressWarnings({"unused", "java:S107"})
 public class Amphibian extends Animal{
 
     //VARIABLES

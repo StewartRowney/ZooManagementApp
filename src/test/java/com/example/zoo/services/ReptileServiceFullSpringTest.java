@@ -99,8 +99,9 @@ class ReptileServiceFullSpringTest {
 
     @Test
     void test_UpdateReptile_InvalidRequest_IdNotInDatabase(){
+        reptile = createReptile();
         when(mockAnimalRepository.existsById(any())).thenReturn(false);
-        assertThrows(ResponseStatusException.class,() -> uut.updateReptile(createReptile()));
+        assertThrows(ResponseStatusException.class,() -> uut.updateReptile(reptile));
     }
 
     @Test
@@ -114,7 +115,7 @@ class ReptileServiceFullSpringTest {
     @Test
     void test_DeleteReptile_ValidRequest_NotInDatabase() {
         when(mockAnimalRepository.existsById(any())).thenReturn(false);
-        assertThrows(ResponseStatusException.class,() -> uut.deleteReptile(createReptile().getId()));
+        assertThrows(ResponseStatusException.class,() -> uut.deleteReptile(reptileId));
     }
 
     @Test

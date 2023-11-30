@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
+@SuppressWarnings("java:S107")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Animal {
 

@@ -5,14 +5,15 @@ import jakarta.persistence.Entity;
 import java.time.LocalDate;
 
 @Entity
-@SuppressWarnings({"unused"})
+@SuppressWarnings({"unused", "java:S107"})
 public class Fish extends Animal{
     //Variables
     private boolean isBioluminiscent;
     private boolean canDischargeElectricity;
 
     //Constructors
-
+    public Fish() {
+    }
 
     public Fish(Zoo zoo, String name, String speciesName, LocalDate birthDate, String habitat, String behaviour, String foodType, String extraInformation, boolean isBioluminiscent, boolean canDischargeElectricity) {
         super(zoo, name, speciesName, birthDate, habitat, behaviour, foodType, extraInformation);
@@ -20,8 +21,6 @@ public class Fish extends Animal{
         this.canDischargeElectricity = canDischargeElectricity;
     }
 
-    public Fish() {
-    }
 
     //Getters and Setters
 

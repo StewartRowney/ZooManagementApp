@@ -36,7 +36,6 @@ class ZooServiceFullSpringTest {
 
     private final Zoo zoo = new Zoo();
     private final UUID id= UUID.randomUUID();
-    private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
 
     @Test
@@ -109,20 +108,20 @@ class ZooServiceFullSpringTest {
     void test_UpdateZoo_ValidRequest(){
         Zoo zoo = createAZoo();
         when(mockZooRepo.existsById(any())).thenReturn(true);
-        uut.updateZooWithPut(zoo);
+        uut.updateZoo(zoo);
         verify(mockZooRepo, times(1)).save(zoo);
     }
 
     @Test
     void test_UpdateZoo_InvalidRequest_NoId(){
-        assertThrows(ResponseStatusException.class,() -> uut.updateZooWithPut(null));
+        assertThrows(ResponseStatusException.class,() -> uut.updateZoo(null));
     }
 
     @Test
     void test_UpdateZoo_InvalidRequest_IdNotInDatabase(){
         Zoo zoo = createAZoo();
         when(mockZooRepo.existsById(any())).thenReturn(false);
-        assertThrows(ResponseStatusException.class,() -> uut.updateZooWithPut(zoo));
+        assertThrows(ResponseStatusException.class,() -> uut.updateZoo(zoo));
     }
 
     @Test
@@ -135,9 +134,8 @@ class ZooServiceFullSpringTest {
 
     @Test
     void test_DeleteZoo_ValidRequest_NotInDatabase() {
-        Zoo zoo = createAZoo();
         when(mockZooRepo.existsById(any())).thenReturn(false);
-        assertThrows(ResponseStatusException.class,() -> uut.removeZooById(zoo.getId()));
+        assertThrows(ResponseStatusException.class,() -> uut.removeZooById(id));
     }
 
     @Test
@@ -152,7 +150,7 @@ class ZooServiceFullSpringTest {
         Animal animal = new Animal();
         animals.add(animal);
         when(mockAnimalRepo.findAllAnimalsInAZoo(zoo.getId())).thenReturn(animals);
-        assertThrows(ResponseStatusException.class,() -> uut.removeZooById(zoo.getId()));
+        assertThrows(ResponseStatusException.class,() -> uut.removeZooById(id));
     }
 
     @Test
@@ -161,7 +159,7 @@ class ZooServiceFullSpringTest {
         String name = "NewName";
         when(mockZooRepo.existsById(zoo.getId())).thenReturn(true);
         when(mockZooRepo.findById(zoo.getId())).thenReturn(Optional.of(zoo));
-        uut.updateZooByName(name, zoo.getId());
+        uut.updateZooName(name, zoo.getId());
         verify(mockZooRepo, times(1)).save(any(Zoo.class));
     }
 
@@ -170,25 +168,26 @@ class ZooServiceFullSpringTest {
         Zoo zoo = createAZoo();
         String name = "NewName";
         when(mockZooRepo.existsById(zoo.getId())).thenReturn(false);
-        assertThrows(ResponseStatusException.class,() -> uut.updateZooByName(name,zoo.getId()));
+        assertThrows(ResponseStatusException.class,() -> uut.updateZooName(name,id));
     }
 
     @Test
     void test_UpdateZooName_HasNoId() {
         String name = "newName";
-        assertThrows(ResponseStatusException.class,() -> uut.updateZooByName(name,null));
+        assertThrows(ResponseStatusException.class,() -> uut.updateZooName(name,null));
     }
 
     private Zoo createAZoo() {
         ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
-        String json = "{\n" +
-                "    \"id\": \"40ea5519-fcef-4272-b742-e01790ca04c3\",\n" +
-                "    \"name\": \"Chester Zoo\",\n" +
-                "    \"location\": \"Upton-by-Chester, Cheshire, England\",\n" +
-                "    \"capacity\": 27000,\n" +
-                "    \"price\": 19,\n" +
-                "    \"dateOpened\": \"10-06-1931\"\n" +
-                "  }";
+        String json = """
+                {
+                    "id": "40ea5519-fcef-4272-b742-e01790ca04c3",
+                    "name": "Chester Zoo",
+                    "location": "Upton-by-Chester, Cheshire, England",
+                    "capacity": 27000,
+                    "price": 19,
+                    "dateOpened": "10-06-1931"
+                  }""";
         try{
             return mapper.readValue(json, Zoo.class);
         } catch (Exception e) {

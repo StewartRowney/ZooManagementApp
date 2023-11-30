@@ -15,9 +15,9 @@ public interface IZooService {
 
     Zoo addNewZoo(Zoo zoo);
 
-    Zoo updateZooWithPut(Zoo zoo);
+    Zoo updateZoo(Zoo zoo);
 
-    Zoo updateZooByName(String name, UUID id);
+    Zoo updateZooName(String name, UUID id);
 
     void removeZooById(UUID id);
 
