@@ -25,12 +25,14 @@ public class FishController {
         this.fishService = fishService;
     }
 
+    @Operation(summary = "Get a list of all fishes", description = "Returns a list of all fishes")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Fish> getAllFish() {
         return fishService.findAllFish();
     }
 
+    @Operation(summary = "Get a fish by id", description = "return a fish by id")
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Fish getFish(@PathVariable UUID id){
@@ -44,12 +46,14 @@ public class FishController {
         return fishService.addFish(fish);
     }
 
+    @Operation(summary = "Update a Fish", description = "Update a Fish")
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Fish updateFish(@RequestBody Fish fish){
         return fishService.updateFish(fish);
     }
 
+    @Operation(summary = "Delete a Fish by id", description = "Delete a Fish by id")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteFish(@PathVariable UUID id){

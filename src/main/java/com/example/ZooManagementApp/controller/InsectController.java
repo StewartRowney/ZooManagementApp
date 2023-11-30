@@ -25,12 +25,14 @@ public class InsectController {
         this.insectService = insectService;
     }
 
+    @Operation(summary = "Get a list of all insects", description = "Returns a list of all insects")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Insect> getAllInsects() {
         return insectService.findAllInsects();
     }
 
+    @Operation(summary = "Get a insect by id", description = "Returns a insect by id")
     @GetMapping("/{insectId}")
     @ResponseStatus(HttpStatus.OK)
     public Insect getInsect(@PathVariable UUID insectId) {

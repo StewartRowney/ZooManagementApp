@@ -5,6 +5,7 @@ import com.example.ZooManagementApp.entities.Animal;
 import com.example.ZooManagementApp.entities.Reptile;
 import com.example.ZooManagementApp.services.IAnimalService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -16,6 +17,7 @@ import java.util.UUID;
 
 @RestController
 @SuppressWarnings({"unused", "UnusedReturnValue"})
+@Tag(name = "Animal Api")
 @RequestMapping("/animals")
 public class AnimalController {
 
@@ -26,11 +28,13 @@ public class AnimalController {
         this.animalService = animalService;
     }
 
+    @Operation(summary = "Get a list of all animals", description = "Returns a list of all animals")
     @GetMapping
     public List<Animal> getAllAnimals() {
         return animalService.findAllAnimals();
     }
 
+    @Operation(summary = "Get a animal by id", description = "return a animal by id")
     @GetMapping("/findById/{id}")
     public Animal getAnimalById(@PathVariable UUID id){
         return animalService.findAnimalById(id);

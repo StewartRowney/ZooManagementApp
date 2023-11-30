@@ -25,12 +25,13 @@ public class ReptileController {
         this.reptileService = reptileService;
     }
 
+    @Operation(summary = "Get a list of all reptiles", description = "Returns a list of all reptiles")
     @GetMapping
     public List<Reptile> getAllReptiles() {
         return reptileService.findAllReptiles();
     }
 
-    @Operation(summary = "Get reptile by id", description = "Returns a reptile by id")
+    @Operation(summary = "Get a reptile by id", description = "Returns a reptile by id")
     @GetMapping("{reptileId}")
     public Reptile getReptile(@PathVariable UUID reptileId) {
         return reptileService.findReptileById(reptileId);
