@@ -20,7 +20,7 @@ class ZooControllerNoSpringTest {
     IZooService mockZooService;
 
     private final Zoo zoo = new Zoo();
-    private final UUID zooId= UUID.randomUUID();
+    private final UUID id= UUID.randomUUID();
     private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
 
@@ -38,7 +38,6 @@ class ZooControllerNoSpringTest {
 
     @Test
     void verifyIfRepositoryInvokesFindById() {
-        UUID id= UUID.randomUUID();
         when(mockZooService.findZooById(id)).thenReturn((new Zoo()));
         uut.getZooById(id);
         verify(mockZooService,times(1)).findZooById(id);
@@ -53,7 +52,6 @@ class ZooControllerNoSpringTest {
 
     @Test
     void test_AddNewZoo(){
-        Zoo zoo = new Zoo();
         uut.postNewZoo(zoo);
         verify(mockZooService,times(1)).addNewZoo(zoo);
     }
@@ -61,29 +59,25 @@ class ZooControllerNoSpringTest {
     @Test
     void test_AddAListOfZoos() throws JsonProcessingException {
         List<Zoo> zoos = new ArrayList<>();
-        Zoo zoo1 = new Zoo();
-        zoos.add(zoo1);
+        zoos.add(zoo);
         uut.addAListOfZoos(zoos);
         verify(mockZooService,times(zoos.toArray().length)).addListOfZoos(zoos);
     }
 
     @Test
     void test_UpdateZoo(){
-        Zoo zoo = new Zoo();
         uut.putAZoo(zoo);
         verify(mockZooService,times(1)).updateZooWithPut(zoo);
     }
 
     @Test
     void test_updateZooName(){
-        Zoo zoo = new Zoo();
         uut.patchZooName(zoo.getId(),"newName");
         verify(mockZooService,times(1)).updateZooByName("newName", zoo.getId());
     }
 
     @Test
     void test_DeleteAZoo(){
-        Zoo zoo = new Zoo();
         uut.deleteZooById(zoo.getId());
         verify(mockZooService,times(1)).removeZooById(zoo.getId());
     }
