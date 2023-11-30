@@ -18,11 +18,16 @@ import java.util.UUID;
 
 @Service
 public class ZooService implements IZooService{
-    @Autowired
-    ZooRepository repository;
+
+    private final ZooRepository repository;
+    private final IAnimalRepository animalRepository;
 
     @Autowired
-    IAnimalRepository animalRepository;
+    public ZooService(ZooRepository repository, IAnimalRepository animalRepository) {
+        this.repository = repository;
+        this.animalRepository = animalRepository;
+    }
+
     public List<Zoo> findAllZoos() {
         return repository.findAll();
     }
@@ -95,7 +100,7 @@ public class ZooService implements IZooService{
                 zoosThatCannotBeAdded.add(zoo);
             }
         }
-        if(zoosThatCannotBeAdded.size()!=0){
+        if(!zoosThatCannotBeAdded.isEmpty()){
             ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
             String zoosJson = mapper.writeValueAsString(zoosThatCannotBeAdded);
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Some zoos were not added:\n " + zoosJson);

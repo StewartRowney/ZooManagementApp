@@ -13,7 +13,10 @@ import java.util.UUID;
 @Repository
 public interface IAnimalRepository extends ListCrudRepository<Animal, UUID> {
 
-    //MAMMAL
+    //FIND-ALL
+    @Query(value = "SELECT * FROM ANIMAL WHERE ZOO_ID = :#{#zooId}", nativeQuery = true)
+    List<Animal> findAllAnimalsInAZoo(@Param("zooId") UUID zooId);
+
     @Query(value = "SELECT * FROM Animal WHERE DType = 'Mammal'", nativeQuery = true)
     List<Mammal> findAllMammals();
 
@@ -23,36 +26,34 @@ public interface IAnimalRepository extends ListCrudRepository<Animal, UUID> {
     @Query(value = "SELECT * FROM Animal WHERE DType = 'Fish'", nativeQuery = true)
     List<Fish> findAllFish();
 
-    //REPTILE
     @Query(value = "SELECT * FROM Animal WHERE DType = 'Reptile'", nativeQuery = true)
     List<Reptile> findAllReptiles();
 
-    @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id}", nativeQuery = true)
-    Optional<Reptile> findReptileById(@Param("id") UUID id);
-
-
-    //BIRD
     @Query(value = "SELECT * FROM Animal WHERE DType = 'Bird'", nativeQuery = true)
     List<Bird> findAllBirds();
 
-
-    //AMPHIBIAN
     @Query(value = "SELECT * FROM Animal WHERE DType = 'Amphibian'", nativeQuery = true)
     List<Amphibian> findAllAmphibians();
 
-    @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id}", nativeQuery = true)
-    Optional<Fish> findFishById(@Param("id") UUID id);
 
-    @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id}", nativeQuery = true)
+
+    //FIND-BY-ID
+    @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id} AND DType = 'Mammal'", nativeQuery = true)
     Optional<Mammal> findMammalById(@Param("id") UUID id);
 
-    @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id}", nativeQuery = true)
+    @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id} AND DType = 'Insect'", nativeQuery = true)
     Optional<Insect> findInsectById(@Param("id") UUID id);
+
+    @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id} AND DType = 'Fish'", nativeQuery = true)
+    Optional<Fish> findFishById(@Param("id") UUID id);
+
+    @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id} AND DType = 'Reptile'", nativeQuery = true)
+    Optional<Reptile> findReptileById(@Param("id") UUID id);
+
+    @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id} AND DType = 'Bird'", nativeQuery = true)
     Optional<Bird> findBirdById(@Param("id") UUID id);
 
-    @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id}", nativeQuery = true)
+    @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id} AND DType = 'Amphibian'", nativeQuery = true)
     Optional<Amphibian> findAmphibianById(@Param("id") UUID id);
 
-    @Query(value = "SELECT * FROM ANIMAL WHERE ZOO_ID = :#{#zooId}", nativeQuery = true)
-    List<Animal> findAllAnimalsInAZoo(@Param("zooId") UUID zooId);
 }
