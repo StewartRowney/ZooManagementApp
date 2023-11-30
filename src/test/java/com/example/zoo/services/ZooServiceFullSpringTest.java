@@ -145,11 +145,10 @@ class ZooServiceFullSpringTest {
 
     @Test
     void test_DeleteZoo_InvalidRequest_ZooHasAnimals(){
-        Zoo zoo = createAZoo();
         List<Animal> animals = new ArrayList<>();
         Animal animal = new Animal();
         animals.add(animal);
-        when(mockAnimalRepo.findAllAnimalsInAZoo(zoo.getId())).thenReturn(animals);
+        when(mockAnimalRepo.findAllAnimalsInAZoo(id)).thenReturn(animals);
         assertThrows(ResponseStatusException.class,() -> uut.removeZooById(id));
     }
 
