@@ -8,7 +8,7 @@ import java.util.UUID;
 
 import static org.mockito.Mockito.*;
 
-public class MammalControllerNoSpringTest {
+class MammalControllerNoSpringTest {
 
     private final IMammalService mockMammalService = mock(IMammalService.class);
     private final MammalController uut = new MammalController(mockMammalService);

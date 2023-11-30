@@ -34,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @TestPropertySource(properties = {"spring.sql.init.mode=never"})
 @ActiveProfiles("test")
-public class AnimalIntegratedTest {
+class AnimalIntegratedTest {
 
     @Autowired
     private MockMvc mockMvc;

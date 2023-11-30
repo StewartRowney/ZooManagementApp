@@ -23,7 +23,7 @@ import static org.mockito.Mockito.*;
 
 @ActiveProfiles("test")
 @SpringBootTest
-public class InsectServiceFullSpringTest {
+class InsectServiceFullSpringTest {
 
     @MockBean
     IAnimalRepository mockAnimalRepository;

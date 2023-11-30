@@ -24,7 +24,7 @@ import static org.mockito.Mockito.*;
 
 @ActiveProfiles("test")
 @SpringBootTest
-public class AmphibianServiceFullSpringTest {
+class AmphibianServiceFullSpringTest {
 
     @MockBean
     IAnimalRepository mockAnimalRepository;

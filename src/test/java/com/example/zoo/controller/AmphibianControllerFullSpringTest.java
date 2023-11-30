@@ -24,7 +24,7 @@ import static org.mockito.Mockito.verify;
 @WebMvcTest(AmphibianController.class)
 @SuppressWarnings("unused")
 @ActiveProfiles("test")
-public class AmphibianControllerFullSpringTest {
+class AmphibianControllerFullSpringTest {
 
     @MockBean
     IAmphibianService mockAmphibianService;

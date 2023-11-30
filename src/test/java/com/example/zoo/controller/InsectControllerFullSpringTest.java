@@ -24,7 +24,7 @@ import static org.mockito.Mockito.verify;
 @WebMvcTest(InsectController.class)
 @SuppressWarnings("unused")
 @ActiveProfiles("test")
-public class InsectControllerFullSpringTest {
+class InsectControllerFullSpringTest {
 
     @MockBean
     IInsectService mockInsectService;

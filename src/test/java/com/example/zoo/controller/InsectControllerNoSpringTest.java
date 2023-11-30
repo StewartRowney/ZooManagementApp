@@ -8,7 +8,7 @@ import java.util.UUID;
 
 import static org.mockito.Mockito.*;
 
-public class InsectControllerNoSpringTest {
+class InsectControllerNoSpringTest {
 
     private final IInsectService mockInsectService = mock(IInsectService.class);
     private final InsectController uut = new InsectController(mockInsectService);

@@ -8,7 +8,7 @@ import java.util.UUID;
 
 import static org.mockito.Mockito.*;
 
-public class AmphibianControllerNoSpringTest {
+class AmphibianControllerNoSpringTest {
 
     private final IAmphibianService mockAmphibianService = mock(IAmphibianService.class);
     private final AmphibianController uut = new AmphibianController(mockAmphibianService);

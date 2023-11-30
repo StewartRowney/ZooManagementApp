@@ -26,7 +26,7 @@ import static org.mockito.Mockito.verify;
 
 @WebMvcTest(ZooController.class)
 @ActiveProfiles("test")
-public class ZooControllerFullSpringTest {
+class ZooControllerFullSpringTest {
 
     @MockBean
     IZooService mockZooService;

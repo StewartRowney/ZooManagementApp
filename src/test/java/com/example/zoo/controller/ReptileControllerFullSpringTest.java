@@ -24,7 +24,7 @@ import static org.mockito.Mockito.verify;
 @WebMvcTest(ReptileController.class)
 @SuppressWarnings("unused")
 @ActiveProfiles("test")
-public class ReptileControllerFullSpringTest {
+class ReptileControllerFullSpringTest {
 
     @MockBean
     IReptileService mockReptileService;

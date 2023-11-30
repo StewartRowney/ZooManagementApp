@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 
 @WebMvcTest(AnimalController.class)
 @ActiveProfiles("test")
-public class AnimalControllerFullSpringTest {
+class AnimalControllerFullSpringTest {
 
     @MockBean
     private IAnimalService mockAnimalService;

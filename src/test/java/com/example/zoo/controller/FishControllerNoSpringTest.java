@@ -8,7 +8,7 @@ import java.util.UUID;
 
 import static org.mockito.Mockito.*;
 
-public class FishControllerNoSpringTest {
+class FishControllerNoSpringTest {
 
     private final IFishService mockFishService = mock(IFishService.class);
     private final FishController uut = new FishController(mockFishService);

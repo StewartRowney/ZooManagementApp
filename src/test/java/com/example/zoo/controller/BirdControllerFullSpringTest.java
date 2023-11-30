@@ -24,7 +24,7 @@ import static org.mockito.Mockito.verify;
 @WebMvcTest(BirdController.class)
 @SuppressWarnings("unused")
 @ActiveProfiles("test")
-public class BirdControllerFullSpringTest {
+class BirdControllerFullSpringTest {
 
     @MockBean
     IBirdService mockBirdService;

@@ -24,7 +24,7 @@ import static org.mockito.Mockito.verify;
 @WebMvcTest(MammalController.class)
 @SuppressWarnings("unused")
 @ActiveProfiles("test")
-public class MammalControllerFullSpringTest {
+class MammalControllerFullSpringTest {
 
     @MockBean
     IMammalService mockMammalService;

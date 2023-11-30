@@ -24,7 +24,7 @@ import static org.mockito.Mockito.verify;
 @WebMvcTest(FishController.class)
 @SuppressWarnings("unused")
 @ActiveProfiles("test")
-public class FishControllerFullSpringTest {
+class FishControllerFullSpringTest {
 
     @MockBean
     IFishService mockFishService;

@@ -108,5 +108,3 @@ public class ZooService implements IZooService{
         return zoos;
     }
 }
-
-//Todo: Don't delete Zoo if there's still animals in it.

@@ -8,7 +8,7 @@ import java.util.UUID;
 
 import static org.mockito.Mockito.*;
 
-public class BirdControllerNoSpringTest {
+class BirdControllerNoSpringTest {
 
     private final IBirdService mockBirdService = mock(IBirdService.class);
     private final BirdController uut = new BirdController(mockBirdService);
