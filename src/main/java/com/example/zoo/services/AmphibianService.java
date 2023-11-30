@@ -16,6 +16,7 @@ import java.util.UUID;
 public class AmphibianService implements IAmphibianService{
 
     private final IAnimalRepository animalRepository;
+
     private final ZooRepository zooRepository;
 
     @Autowired
