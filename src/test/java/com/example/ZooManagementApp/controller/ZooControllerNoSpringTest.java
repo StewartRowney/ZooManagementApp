@@ -3,6 +3,8 @@ package com.example.ZooManagementApp.controller;
 import com.example.ZooManagementApp.entities.Zoo;
 import com.example.ZooManagementApp.services.IZooService;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -16,6 +18,11 @@ import static org.mockito.Mockito.*;
 class ZooControllerNoSpringTest {
     ZooController uut;
     IZooService mockZooService;
+
+    private final Zoo zoo = new Zoo();
+    private final UUID zooId= UUID.randomUUID();
+    private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
+
 
     @BeforeEach
     void initialiseFields(){

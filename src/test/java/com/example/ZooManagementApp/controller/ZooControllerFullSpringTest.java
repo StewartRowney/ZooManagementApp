@@ -34,6 +34,11 @@ public class ZooControllerFullSpringTest {
     @Autowired
     MockMvc mockMvc;
 
+    private final Zoo zoo = new Zoo();
+    private final UUID zooId= UUID.randomUUID();
+    private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
+
+
     @Test
     void test_FindAllZoos_ValidRequest() throws Exception {
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/zoos");
@@ -59,8 +64,6 @@ public class ZooControllerFullSpringTest {
 
     @Test
     void test_AddingANewZoo_ValidRequest() throws Exception {
-        Zoo zoo = new Zoo();
-        ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(zoo);
 
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/zoos")
@@ -76,10 +79,8 @@ public class ZooControllerFullSpringTest {
 
     @Test
     void test_AddingAListOfZoos_ValidRequest() throws Exception {
-        Zoo zoo = createAZoo();
         List<Zoo> zoos = new ArrayList<>();
         zoos.add(zoo);
-        ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
         String json = mapper.writeValueAsString(zoos);
 
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/zoos/addZoos")
@@ -95,8 +96,6 @@ public class ZooControllerFullSpringTest {
 
     @Test
     void test_UpdateAZoo_ValidRequest() throws Exception {
-        Zoo zoo = new Zoo();
-        ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(zoo);
 
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put("/zoos")
@@ -112,13 +111,12 @@ public class ZooControllerFullSpringTest {
 
     @Test
     void test_PatchAZooName_ValidRequest() throws Exception {
-        UUID id = UUID.randomUUID();
         String name = "name";
 
         ObjectMapper mapper = new ObjectMapper();
         String json = mapper.writeValueAsString(name);
 
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.patch("/zoos/editName/" + id)
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.patch("/zoos/editName/" + zooId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json)
                 .accept(MediaType.APPLICATION_JSON);
@@ -130,30 +128,9 @@ public class ZooControllerFullSpringTest {
 
     @Test
     void testZooServiceCallsRemoveZoo() throws Exception {
-        UUID id = createAZoo().getId();
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/zoos/deleteZoo/"+id);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/zoos/deleteZoo/"+zooId);
         mockMvc.perform(requestBuilder);
-        verify(mockZooService,times(1)).removeZooById(id);
+        verify(mockZooService,times(1)).removeZooById(zooId);
     }
 
-
-
-    private Zoo createAZoo() {
-        ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
-        String json = "{\n" +
-                "    \"id\": \"40ea5519-fcef-4272-b742-e01790ca04c3\",\n" +
-                "    \"name\": \"Chester Zoo\",\n" +
-                "    \"location\": \"Upton-by-Chester, Cheshire, England\",\n" +
-                "    \"capacity\": 27000,\n" +
-                "    \"price\": 19,\n" +
-                "    \"dateOpened\": \"10-06-1931\"\n" +
-                "  }";
-        try{
-            return mapper.readValue(json, Zoo.class);
-        } catch (Exception e) {
-            return new Zoo();
-        }
-
-
-    }
 }
