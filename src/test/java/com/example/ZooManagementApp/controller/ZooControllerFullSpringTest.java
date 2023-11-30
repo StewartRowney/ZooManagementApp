@@ -127,7 +127,7 @@ public class ZooControllerFullSpringTest {
     }
 
     @Test
-    void testZooServiceCallsRemoveZoo() throws Exception {
+    void test_RemoveAZoo() throws Exception {
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/zoos/deleteZoo/"+zooId);
         mockMvc.perform(requestBuilder);
         verify(mockZooService,times(1)).removeZooById(zooId);

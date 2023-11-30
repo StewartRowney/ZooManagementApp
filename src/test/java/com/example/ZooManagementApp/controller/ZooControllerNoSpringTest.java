@@ -16,34 +16,27 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 class ZooControllerNoSpringTest {
-    ZooController uut;
-    IZooService mockZooService;
+    IZooService mockZooService= Mockito.mock(IZooService.class);
+    ZooController uut= new ZooController(mockZooService);;
 
     private final Zoo zoo = new Zoo();
     private final UUID id= UUID.randomUUID();
     private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
-
-    @BeforeEach
-    void initialiseFields(){
-        mockZooService = Mockito.mock(IZooService.class);
-        uut = new ZooController(mockZooService);
-
-    }
     @Test
-    void getAllZoos() {
+    void test_getAllZoos() {
         uut.getAllZoos();
         verify(mockZooService, times(1)).findAllZoos();
     }
 
     @Test
-    void verifyIfRepositoryInvokesFindById() {
+    void test_findZooById() {
         when(mockZooService.findZooById(id)).thenReturn((new Zoo()));
         uut.getZooById(id);
         verify(mockZooService,times(1)).findZooById(id);
     }
     @Test
-    void verifyIfRepositoryInvokesFindByName() {
+    void test_findZooByName() {
         String name= "someZoo";
         when(mockZooService.findZooByName(anyString())).thenReturn((new Zoo()));
         uut.getZooByName(name);
