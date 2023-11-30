@@ -79,6 +79,11 @@ class ZooServiceFullSpringTest {
     }
 
     @Test
+    void test_AddNewZoo_InvalidRequest_ZooIsNull(){
+        assertThrows(ResponseStatusException.class,() -> uut.addNewZoo(null));
+    }
+
+    @Test
     void test_AddListOfZoos_ValidRequest() throws JsonProcessingException {
         List<Zoo> zoos = new ArrayList<>();
         zoos.add(zoo);
@@ -143,8 +148,10 @@ class ZooServiceFullSpringTest {
     @Test
     void test_DeleteZoo_InvalidRequest_ZooHasAnimals(){
         Zoo zoo = createAZoo();
+        List<Animal> animals = new ArrayList<>();
         Animal animal = new Animal();
-        animal.setZoo(zoo);
+        animals.add(animal);
+        when(mockAnimalRepo.findAllAnimalsInAZoo(zoo.getId())).thenReturn(animals);
         assertThrows(ResponseStatusException.class,() -> uut.removeZooById(zoo.getId()));
     }
 
