@@ -27,13 +27,13 @@ class AnimalServiceFullSpringTest {
     private IAnimalService uut;
 
     @Test
-    void verifyIfRepositoryInvokesFindAll() {
+    void test_FindAllAnimals_ServiceCalled() {
         uut.findAllAnimals();
         verify(mockAnimalRepository,times(1)).findAll();
     }
 
     @Test
-    void verifyIfRepositoryInvokesFindById() {
+    void test_findAnimalById_ServiceCalled() {
         UUID id= UUID.randomUUID();
         when(mockAnimalRepository.findById(id)).thenReturn(Optional.of(new Animal()));
         uut.findAnimalById(id);
@@ -41,7 +41,7 @@ class AnimalServiceFullSpringTest {
     }
 
     @Test
-    void verifyIfRepositoryInvokesFindAllAnimalsByIds() throws JsonProcessingException {
+    void test_findAnimalsByListOfId_ServiceCalled() throws JsonProcessingException {
         List<UUID> idList = createIdList();
         uut.findAnimalListById(idList);
         verify(mockAnimalRepository,times(1)).findAllById(anyList());
