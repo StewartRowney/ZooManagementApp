@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.info.*;
 import static java.awt.SystemColor.info;
 
 @SpringBootApplication
-@OpenAPIDefinition(info = @Info(title = "Zoo API", version = "1.0.0", description = "Managing Zoos in the UK") )
+@OpenAPIDefinition(info = @Info(title = "Zoo API", version = "1.0.0", description = "Managing Zoos in the World") )
 public class ZooManagementAppApplication {
 
 	public static void main(String[] args) {
