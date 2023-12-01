@@ -23,7 +23,7 @@ public class Animal {
     private Zoo zoo;
     private String name;
     private String speciesName;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
     private String habitat;
     private String behaviour;

@@ -152,7 +152,7 @@ class BirdServiceFullSpringTest {
                         "id": "9183d69e-97dc-4138-92ca-3d1cc0a1aef2",
                         "name": "Henry",
                         "speciesName": "Pigeon",
-                        "birthDate": "18-01-2022",
+                        "birthDate": "2022-01-18",
                         "habitat": "Woods",
                         "behaviour": "calm and chirpy",
                         "foodType": "seeds",
@@ -179,7 +179,7 @@ class BirdServiceFullSpringTest {
                     "location": "string",
                     "capacity": 0,
                     "price": 0,
-                    "dateOpened": "12-05-1999"
+                    "dateOpened": "1999-05-12"
                   }""";
         try {
             return mapper.readValue(json, Zoo.class);

@@ -33,30 +33,30 @@ public class BirdController {
     }
 
     @Operation(summary = "Get Bird by id", description = "Returns a bird by id")
-    @GetMapping("/{id}")
+    @GetMapping("/{birdId}")
     @ResponseStatus(HttpStatus.OK)
-    public Bird getBird(@PathVariable UUID id){
-        return service.findBirdById(id);
+    public Bird getBird(@PathVariable UUID birdId){
+        return service.findBirdById(birdId);
     }
 
     @Operation(summary = "Add a bird", description = "Add a bird, returns new bird")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Bird addBird(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") Bird bird){
+    public Bird addBird(@RequestBody @DateTimeFormat(pattern="yyyy-MM-dd") Bird bird){
         return service.addBird(bird);
     }
 
     @Operation(summary = "Update a bird", description = "Update a bird, returns updated bird")
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Bird updateBird(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") Bird bird){
+    public Bird updateBird(@RequestBody @DateTimeFormat(pattern="yyyy-MM-dd") Bird bird){
         return service.updateBird(bird);
     }
 
     @Operation(summary = "Delete a bird by id", description = "Delete a bird by id")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{birdId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteBird(@PathVariable UUID id){
-        service.deleteBird(id);
+    public void deleteBird(@PathVariable UUID birdId){
+        service.deleteBird(birdId);
     }
 }

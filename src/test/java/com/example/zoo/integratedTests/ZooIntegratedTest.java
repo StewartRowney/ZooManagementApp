@@ -62,7 +62,7 @@ class ZooIntegratedTest {
     void test_GetZooById_ValidRequest() throws Exception {
         UUID zooId = UUID.fromString("40ea5519-fcef-4272-b742-e01790ca04c3");
         MvcResult result =
-                (this.mockMvc.perform(MockMvcRequestBuilders.get("/zoos/findById/" + zooId)))
+                (this.mockMvc.perform(MockMvcRequestBuilders.get("/zoos/" + zooId)))
                         .andExpect(status().isOk())
                         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                         .andReturn();
@@ -163,7 +163,7 @@ class ZooIntegratedTest {
         int numberOfZooBeforeDelete = getAllZoos().length;
         UUID zooId = UUID.fromString("3931d736-38bc-4cf6-ae01-116d5969e69e");
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/zoos/deleteZoo/" + zooId));
+        mockMvc.perform(MockMvcRequestBuilders.delete("/zoos/" + zooId));
         int numberOfZoosAfterDelete = getAllZoos().length;
 
         assertEquals(numberOfZooBeforeDelete - 1, numberOfZoosAfterDelete);
@@ -177,7 +177,7 @@ class ZooIntegratedTest {
                 "    \"location\": \"Upton-by-Chester, Cheshire, England\",\n" +
                 "    \"capacity\": 27000,\n" +
                 "    \"price\": 19,\n" +
-                "    \"dateOpened\": \"10-06-1931\"\n" +
+                "    \"dateOpened\": \"1931-06-10\"\n" +
                 "  }";
         try{
             return mapper.readValue(json, Zoo.class);

@@ -40,14 +40,14 @@ public class ReptileController {
     @Operation(summary = "Add a reptile", description = "Add a reptile")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Reptile addReptile(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") Reptile reptile) {
+    public Reptile addReptile(@RequestBody @DateTimeFormat(pattern="yyyy-MM-dd") Reptile reptile) {
         return reptileService.addReptile(reptile);
     }
 
     @Operation(summary = "Update a reptile", description = "Update a reptile")
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Reptile updateReptile(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") Reptile reptile) {
+    public Reptile updateReptile(@RequestBody @DateTimeFormat(pattern="yyyy-MM-dd") Reptile reptile) {
         return reptileService.updateReptile(reptile);
     }
 

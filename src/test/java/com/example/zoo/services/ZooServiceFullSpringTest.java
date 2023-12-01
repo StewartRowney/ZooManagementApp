@@ -185,7 +185,7 @@ class ZooServiceFullSpringTest {
                     "location": "Upton-by-Chester, Cheshire, England",
                     "capacity": 27000,
                     "price": 19,
-                    "dateOpened": "10-06-1931"
+                    "dateOpened": "1931-06-10"
                   }""";
         try{
             return mapper.readValue(json, Zoo.class);

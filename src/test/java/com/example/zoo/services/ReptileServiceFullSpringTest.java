@@ -82,7 +82,7 @@ class ReptileServiceFullSpringTest {
 
     @Test
     void test_AddReptile_InvalidRequest_HasId() {
-        Reptile reptile = createReptile();
+        reptile = createReptile();
         assertThrows(ResponseStatusException.class, () -> uut.addReptile(reptile));
     }
 
@@ -106,10 +106,9 @@ class ReptileServiceFullSpringTest {
 
     @Test
     void test_DeleteReptile_ValidRequest_InDatabase() {
-        Reptile reptile = createReptile();
         when(mockAnimalRepository.existsById(any())).thenReturn(true);
-        uut.deleteReptile(reptile.getId());
-        verify(mockAnimalRepository, times(1)).deleteById(reptile.getId());
+        uut.deleteReptile(reptileId);
+        verify(mockAnimalRepository, times(1)).deleteById(reptileId);
     }
 
     @Test
@@ -125,7 +124,7 @@ class ReptileServiceFullSpringTest {
 
     @Test
     void test_UpdateReptile_ValidRequest_InDatabase() {
-        Reptile reptile = createReptile();
+        reptile = createReptile();
         when(mockAnimalRepository.existsById(reptile.getId())).thenReturn(true);
         when(zooRepository.existsById(any())).thenReturn(true);
         uut.updateReptile(reptile);
@@ -134,22 +133,21 @@ class ReptileServiceFullSpringTest {
 
     @Test
     void test_UpdateReptile_ValidRequest_NotInDatabase() {
-        Reptile reptile = createReptile();
+        reptile = createReptile();
         when(mockAnimalRepository.existsById(reptile.getId())).thenReturn(false);
         assertThrows(ResponseStatusException.class,() -> uut.updateReptile(reptile));
     }
 
     @Test
     void test_UpdateReptile_HasNoId() {
-        Reptile reptile = new Reptile(new Zoo(), "Sally", "Python", LocalDate.of(2020, 10, 12),
-        "Jungle", "Docile", "Meat", "Only eats twice a month", false, false, true);
+        reptile = createReptile();
         assertThrows(ResponseStatusException.class,() -> uut.updateReptile(reptile));
     }
 
 
     @Test
     void test_UpdateReptile_ValidRequest() {
-        Reptile reptile = createReptile();
+        reptile = createReptile();
         when(mockAnimalRepository.existsById(any(UUID.class))).thenReturn(true);
         when(zooRepository.existsById(any(UUID.class))).thenReturn(true);
         uut.updateReptile(reptile);
@@ -165,7 +163,7 @@ class ReptileServiceFullSpringTest {
 
     @Test
     void test_UpdateMammal_InvalidRequest_ZooNotInDatabase() {
-        Reptile reptile = createReptile();
+        reptile = createReptile();
         when(mockAnimalRepository.existsById(any(UUID.class))).thenReturn(true);
         when(zooRepository.existsById(any(UUID.class))).thenReturn(false);
         assertThrows(ResponseStatusException.class, () -> uut.updateReptile(reptile));
@@ -187,7 +185,7 @@ class ReptileServiceFullSpringTest {
                   "id": "9b2d9232-9385-4707-965f-e5a90cbcfc88",
                   "name": "string",
                   "speciesName": "string",
-                  "birthDate": "28-11-2021",
+                  "birthDate": "2021-11-23",
                   "habitat": "string",
                   "behaviour": "string",
                   "foodType": "string",
@@ -214,7 +212,7 @@ class ReptileServiceFullSpringTest {
                     "location": "string",
                     "capacity": 0,
                     "price": 0,
-                    "dateOpened": "12-05-1999"
+                    "dateOpened": "1999-05-13"
                   }""";
         try {
             return objectMapper.readValue(json, Zoo.class);

@@ -38,14 +38,14 @@ private final IMammalService mammalService;
     @Operation(summary = "Add a Mammal", description = "Add a Mammal, returns a new Mammal")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Mammal addMammal(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") Mammal mammal) {
+    public Mammal addMammal(@RequestBody @DateTimeFormat(pattern="yyyy-MM-dd") Mammal mammal) {
         return mammalService.addMammal(mammal);
     }
 
     @Operation(summary = "Update a Mammal", description = "Update a Mammal, returns the updated Mammal")
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Mammal updateMammal(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") Mammal mammal) {
+    public Mammal updateMammal(@RequestBody @DateTimeFormat(pattern="yyyy-MM-dd") Mammal mammal) {
         return mammalService.updateMammal(mammal);
     }
 

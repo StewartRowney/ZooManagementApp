@@ -1,14 +1,14 @@
 pipeline {
-        agent any
-        options {
-            skipStagesAfterUnstable()
-        }
-        stages {
-            stage('Build') {
-                steps {
-                    sh 'mvn -B -DskipTests clean package'
-                }
+    agent any
+    options {
+        skipStagesAfterUnstable()
+    }
+    stages {
+        stage('Build') {
+            steps {
+                sh 'mvn -B -DskipTests clean package'
             }
+        }
         stage('Test') {
             steps {
                 sh 'mvn test'
@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     withSonarQubeEnv('sonarqube') {
-//                        sh "${tool('sonar-scanner')}/bin/sonar-scanner -Dsonar.projectKey=myProjectKey -Dsonar.projectName=myProjectName"
+//                      sh "${tool('sonar-scanner')}/bin/sonar-scanner -Dsonar.projectKey=myProjectKey -Dsonar.projectName=myProjectName"
                         sh 'mvn clean package sonar:sonar'
                     }
                 }
@@ -34,7 +34,7 @@ pipeline {
                                 waitForQualityGate abortPipeline: true
                             }
                         }
-       stage('OWASP Dependency-Check Vulnerabilities') {
+        stage('OWASP Dependency-Check Vulnerabilities') {
              steps {
                dependencyCheck additionalArguments: '''
                            -o './'
@@ -44,7 +44,7 @@ pipeline {
 
                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
              }
-           }
+        }
         stage('Deploy') {
             steps {
                 echo 'Deployment successful!!!'

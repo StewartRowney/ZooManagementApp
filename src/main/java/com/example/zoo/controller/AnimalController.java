@@ -30,9 +30,9 @@ public class AnimalController {
     }
 
     @Operation(summary = "Find an animal by ID", description = "Returns an Animal by ID")
-    @GetMapping("/findById/{id}")
-    public Animal getAnimalById(@PathVariable UUID id){
-        return animalService.findAnimalById(id);
+    @GetMapping("/findById/{animalId}")
+    public Animal getAnimalById(@PathVariable UUID animalId){
+        return animalService.findAnimalById(animalId);
     }
 
     @Operation(summary = "Find a list of animals in a zoo", description = "Find a list of animals in a zoo")
