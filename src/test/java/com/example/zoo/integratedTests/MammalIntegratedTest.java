@@ -151,7 +151,7 @@ class MammalIntegratedTest {
                   "id": "2479f54f-b8c4-449f-a54c-31fd1d6074dc",
                   "name": "string",
                   "speciesName": "string",
-                  "birthDate": "28-11-2021",
+                  "birthDate": "2021-11-28",
                   "habitat": "string",
                   "behaviour": "string",
                   "foodType": "string",
@@ -178,7 +178,7 @@ class MammalIntegratedTest {
                     "location": "string",
                     "capacity": 0,
                     "price": 0,
-                    "dateOpened": "12-05-1999"
+                    "dateOpened": "1999-05-12"
                   }""";
         try {
             return mapper.readValue(json, Zoo.class);

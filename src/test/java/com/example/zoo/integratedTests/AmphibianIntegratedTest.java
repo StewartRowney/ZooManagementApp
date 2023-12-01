@@ -151,7 +151,7 @@ class AmphibianIntegratedTest {
                   "id": "60229efa-5978-4cf0-b2f8-76a690ef32b6",
                   "name": "string",
                   "speciesName": "string",
-                  "birthDate": "28-11-2021",
+                  "birthDate": "2021-11-28",
                   "habitat": "string",
                   "behaviour": "string",
                   "foodType": "string",
@@ -177,7 +177,7 @@ class AmphibianIntegratedTest {
                     "location": "string",
                     "capacity": 0,
                     "price": 0,
-                    "dateOpened": "12-05-1999"
+                    "dateOpened": "1999-05-12"
                   }""";
         try {
             return mapper.readValue(json, Zoo.class);

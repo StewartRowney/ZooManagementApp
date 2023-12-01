@@ -149,7 +149,7 @@ class MammalServiceFullSpringTest {
                   "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
                   "name": "string",
                   "speciesName": "string",
-                  "birthDate": "28-11-2021",
+                  "birthDate": "2021-11-28",
                   "habitat": "string",
                   "behaviour": "string",
                   "foodType": "string",

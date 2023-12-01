@@ -151,7 +151,7 @@ class BirdIntegratedTest {
                      "id": "952a60c2-e4ad-422c-bb55-7f1aad97c15d",
                      "name": "Henry",
                      "speciesName": "Pigeon",
-                     "birthDate": "18-01-2022",
+                     "birthDate": "2022-01-18",
                      "habitat": "Woods",
                      "behaviour": "calm and chirpy",
                      "foodType": "seeds",
@@ -177,7 +177,7 @@ class BirdIntegratedTest {
                     "location": "string",
                     "capacity": 0,
                     "price": 0,
-                    "dateOpened": "12-05-1999"
+                    "dateOpened": "1999-05-12"
                   }""";
         try {
             return mapper.readValue(json, Zoo.class);

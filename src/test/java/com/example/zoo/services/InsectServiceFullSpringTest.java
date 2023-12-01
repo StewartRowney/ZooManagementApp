@@ -150,7 +150,7 @@ class InsectServiceFullSpringTest {
                     "id": "481c8ba9-64cb-4c5d-84b1-1c22f04f86ea",
                     "name": "Sid",
                     "speciesName": "Spider",
-                    "birthDate": "10-10-2020",
+                    "birthDate": "2020-10-10",
                     "habitat": "Trees",
                     "behaviour": "Crazy",
                     "foodType": "Flies",
@@ -176,7 +176,7 @@ class InsectServiceFullSpringTest {
                     "location": "string",
                     "capacity": 0,
                     "price": 0,
-                    "dateOpened": "12-05-1999"
+                    "dateOpened": "1999-05-12"
                   }""";
         try {
             return mapper.readValue(json, Zoo.class);
