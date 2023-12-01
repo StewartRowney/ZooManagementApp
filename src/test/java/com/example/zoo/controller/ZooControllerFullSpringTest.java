@@ -49,7 +49,7 @@ class ZooControllerFullSpringTest {
     @Test
     void test_FindZooByID_ValidRequest() throws Exception {
         UUID id = UUID.randomUUID();
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/zoos/findById/" + id);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/zoos/" + id);
         mockMvc.perform(requestBuilder);
         verify(mockZooService,times(1)).findZooById(id);
     }
@@ -128,7 +128,7 @@ class ZooControllerFullSpringTest {
 
     @Test
     void test_RemoveAZoo() throws Exception {
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/zoos/deleteZoo/"+zooId);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/zoos/"+zooId);
         mockMvc.perform(requestBuilder);
         verify(mockZooService,times(1)).removeZooById(zooId);
     }

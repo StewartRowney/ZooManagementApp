@@ -49,7 +49,7 @@ public class InsectController {
     @Operation(summary = "Update an Insect", description = "Update an Insect, returns the updated Insect")
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Insect updateInsect(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") Insect insect) {
+    public Insect updateInsect(@RequestBody @DateTimeFormat(pattern="yyyy-MM-dd") Insect insect) {
         return insectService.updateInsect(insect);
     }
 

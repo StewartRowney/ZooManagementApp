@@ -33,16 +33,16 @@ public class FishController {
     }
 
     @Operation(summary = "Get a fish by id", description = "return a fish by id")
-    @GetMapping("/{id}")
+    @GetMapping("/{fishId}")
     @ResponseStatus(HttpStatus.OK)
-    public Fish getFish(@PathVariable UUID id){
-        return fishService.findFishById(id);
+    public Fish getFish(@PathVariable UUID fishId){
+        return fishService.findFishById(fishId);
     }
 
     @Operation(summary = "Add a Fish", description = "Add a Fish, returns a new Fish")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Fish addFish(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") Fish fish) {
+    public Fish addFish(@RequestBody @DateTimeFormat(pattern="yyyy-MM-dd") Fish fish) {
         return fishService.addFish(fish);
     }
 
@@ -54,10 +54,10 @@ public class FishController {
     }
 
     @Operation(summary = "Delete a Fish by id", description = "Delete a Fish by id")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{fishId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteFish(@PathVariable UUID id){
-        fishService.deleteFish(id);
+    public void deleteFish(@PathVariable UUID fishId){
+        fishService.deleteFish(fishId);
     }
 }
 

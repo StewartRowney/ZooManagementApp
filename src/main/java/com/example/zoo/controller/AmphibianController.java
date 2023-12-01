@@ -42,14 +42,14 @@ public class AmphibianController {
     @Operation(summary = "Add an amphibian", description = "Add an amphibian")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Amphibian addAmphibian(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") Amphibian amphibian) {
+    public Amphibian addAmphibian(@RequestBody @DateTimeFormat(pattern="yyyy-MM-dd") Amphibian amphibian) {
         return amphibianService.addAmphibian(amphibian);
     }
 
     @Operation(summary = "Update an amphibian", description = "Update an amphibian")
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Amphibian updateAmphibian(@RequestBody @DateTimeFormat(pattern="dd-MM-yyyy") Amphibian amphibian) {
+    public Amphibian updateAmphibian(@RequestBody @DateTimeFormat(pattern="yyyy-MM-dd") Amphibian amphibian) {
         return amphibianService.updateAmphibian(amphibian);
     }
 
