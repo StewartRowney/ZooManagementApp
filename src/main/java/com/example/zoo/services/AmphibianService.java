@@ -34,7 +34,7 @@ public class AmphibianService implements IAmphibianService{
         if (amphibianId == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Amphibian id cannot be null for this operation");
         }
-        return animalRepository.findAmphibianById(amphibianId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Amphibian with id: "+ amphibianId + " not found"));
+        return animalRepository.findAmphibianById(String.valueOf(amphibianId)).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Amphibian with id: "+ amphibianId + " not found"));
     }
 
     @Override

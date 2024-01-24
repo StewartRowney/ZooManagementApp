@@ -51,9 +51,9 @@ class AmphibianServiceFullSpringTest {
 
     @Test
     void test_FindAmphibianById_ValidRequest() {
-        when(mockAnimalRepository.findAmphibianById(amphibianId)).thenReturn(Optional.of(new Amphibian()));
+        when(mockAnimalRepository.findAmphibianById(String.valueOf(amphibianId))).thenReturn(Optional.of(new Amphibian()));
         uut.findAmphibianById(amphibianId);
-        verify(mockAnimalRepository, times(1)).findAmphibianById(amphibianId);
+        verify(mockAnimalRepository, times(1)).findAmphibianById(String.valueOf(amphibianId));
     }
 
     @Test

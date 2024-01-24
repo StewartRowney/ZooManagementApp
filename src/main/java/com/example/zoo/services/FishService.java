@@ -34,7 +34,7 @@ public class FishService implements IFishService {
         if (fishId == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Fish id cannot be null for this operation");
         }
-        return animalRepository.findFishById(fishId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Fish with id: "+ fishId + " not found"));
+        return animalRepository.findFishById(String.valueOf(fishId)).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Fish with id: "+ fishId + " not found"));
     }
 
     @Override

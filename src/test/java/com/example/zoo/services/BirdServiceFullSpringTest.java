@@ -51,9 +51,9 @@ class BirdServiceFullSpringTest {
 
     @Test
     void test_FindBirdById_ValidRequest() {
-        when(mockAnimalRepository.findBirdById(birdId)).thenReturn(Optional.of(new Bird()));
+        when(mockAnimalRepository.findBirdById(String.valueOf(birdId))).thenReturn(Optional.of(new Bird()));
         uut.findBirdById(birdId);
-        verify(mockAnimalRepository, times(1)).findBirdById(birdId);
+        verify(mockAnimalRepository, times(1)).findBirdById(String.valueOf(birdId));
     }
 
     @Test

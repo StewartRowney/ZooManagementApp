@@ -50,9 +50,9 @@ class InsectServiceFullSpringTest {
 
     @Test
     void test_FindInsectById_ValidRequest() {
-        when(mockAnimalRepository.findInsectById(insectId)).thenReturn(Optional.of(new Insect()));
+        when(mockAnimalRepository.findInsectById(String.valueOf(insectId))).thenReturn(Optional.of(new Insect()));
         uut.findInsectById(insectId);
-        verify(mockAnimalRepository, times(1)).findInsectById(insectId);
+        verify(mockAnimalRepository, times(1)).findInsectById(String.valueOf(insectId));
     }
 
     @Test
