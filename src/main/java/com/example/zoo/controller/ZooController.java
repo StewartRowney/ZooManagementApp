@@ -17,6 +17,7 @@ import java.util.UUID;
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 @Tag(name = "Zoo Api")
 @RequestMapping("/zoos")
+@CrossOrigin(origins = "http://localhost:3000")
 public class    ZooController {
     IZooService service;
 
