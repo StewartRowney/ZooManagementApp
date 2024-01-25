@@ -1,0 +1,21 @@
+name,speciesName,birthDate,habitat,behaviour,foodType,extraInformation,hasShell,isColdBlooded,hasLegs
+Slippy,Red-eared Slider Turtle,2019-02-15,Ponds,Basks on rocks,Aquatic Invertebrates,Distinctive red markings,true,true,true
+Camo,Chameleon,2020-01-10,Rainforest,Changes color,Insects,Tongue can extend and capture prey,false,true,true
+Spike,Bearded Dragon,2018-08-22,Desert,Basks in the sun,Insects and Vegetables,Distinctive spiky scales,false,true,true
+Serpentina,Green Anaconda,2017-11-30,Amazon Rainforest,Swims in water,Prey Animals,One of the largest snakes in the world,false,true,true
+Gator,American Alligator,2019-05-18,Swamps,Partially submerged,Fish and Small Animals,Powerful bite and excellent swimmers,true,true,true
+Zigzag,Frilled Lizard,2018-04-05,Australian Outback,Displays frill when threatened,Insects and Small Animals,Distinctive frill around the neck,false,true,true
+Venom,Cobra,2020-06-08,Desert,Basks in the sun,Small Mammals and Birds,Can deliver venomous bites,false,true,true
+Sunny,Iguana,2018-09-15,Tropical Forest,Claws and climbs trees,Vegetables and Insects,Distinctive dewlap and spines,false,true,true
+Rocco,Rattlesnake,2019-10-30,Desert,Rattles tail as a warning,Small Mammals and Birds,Venomous bite with a rattling sound,false,true,true
+Hiss,Boa Constrictor,2018-03-15,Forests,Constricts prey,Small Mammals,Powerful constricting muscles,false,true,true
+Scales,Tuatara,2017-07-25,New Zealand,Nocturnal and burrows,Insects and Small Animals,Primitive reptile with a third eye,false,true,true
+Croaky,Horned Toad,2019-12-12,Desert,Buries itself in sand,Ants and Insects,Distinctive flattened body and horns,false,true,true
+Slither,Common King Snake,2018-05-17,Various,Slithers on the ground,Small Animals and Eggs,Immune to venom and preys on other snakes,false,true,true
+Jaws,Monitor Lizard,2017-09-22,Various,Excellent swimmers and climbers,Small Mammals and Birds,Powerful jaws and sharp claws,false,true,true
+Sunbeam,Leopard Gecko,2020-04-22,Desert,Nocturnal,Insects,Distinctive spotted pattern and nocturnal lifestyle,false,true,true
+Hornet,Gila Monster,2019-01-15,Desert,Nocturnal,Small Mammals and Eggs,One of the few venomous lizards,false,true,true
+Stalker,Komodo Dragon,2018-06-03,Islands,Powerful hunters,Large Mammals,Produces venom and has a keen sense of smell,false,true,true
+Basil,Green Basilisk,2020-03-07,Tropical Forest,Runs on water,Insects and Small Animals,Can run short distances on the surface of water,false,true,true
+Rocky,Common Snapping Turtle,2017-12-28,Ponds,Basks on logs,Aquatic Invertebrates,Powerful jaws and a quick snapping motion,true,true,true
+Speedy,Sidewinder,2019-04-20,Desert,Desert Burrows,Small Mammals and Reptiles,Distinctive sidewinding locomotion,false,true,true

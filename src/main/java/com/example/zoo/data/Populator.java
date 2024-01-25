@@ -7,8 +7,14 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 @Component
 @SuppressWarnings({"unused"})
@@ -17,6 +23,8 @@ public class Populator {
 
     private final ZooRepository zooRepository;
     private final IAnimalRepository animalRepository;
+    private final List<Zoo> zoos = new ArrayList<>();
+    private final Random random = new Random();
 
     @Autowired
     public Populator(ZooRepository zooRepository, IAnimalRepository animalRepository) {
@@ -26,35 +34,130 @@ public class Populator {
 
     @EventListener(ContextRefreshedEvent.class)
     public void populate(){
-        Zoo chesterZoo = new Zoo("Chester Zoo", "Upton-by-Chester, Cheshire, England", 27000, BigDecimal.valueOf(19.00), LocalDate.of( 1931,  6, 10));
-        zooRepository.save(chesterZoo);
-
-        Zoo edinburghZoo = new Zoo("Edinburgh Zoo", "Corstorphine,  Edinburgh, Scotland", 2500, BigDecimal.valueOf(22.50), LocalDate.of( 1913,  7, 22));
-        zooRepository.save(edinburghZoo);
-
-        Zoo londonZoo = new Zoo("London Zoo", "Regent's Park, London, England", 20166, BigDecimal.valueOf(27.00), LocalDate.of( 1828,  4, 27));
-        zooRepository.save(londonZoo);
-
-        Mammal tiger = new Mammal(chesterZoo, "Barry", "Tiger", LocalDate.of(2013, 3, 11), "Jungle", "angry and ferocious", "meat", "He is playful when calm but extremely aggressive when provoked", true, false, false);
-        animalRepository.save(tiger);
-
-        Bird pigeon = new Bird(chesterZoo, "Henry", "Pigeon", LocalDate.of(2022, 1, 18), "Woods", "calm and chirpy", "seeds", "Annoying and noisy!", true, false, false);
-        animalRepository.save(pigeon);
-
-        Reptile snake = new Reptile(chesterZoo, "Slimy", "Snake", LocalDate.of(2000, 11, 22), "Rainforest", "Hungry and territorial", "rodents", "Chills most of the time, sleeps and stares alot", false, true, false);
-        animalRepository.save(snake);
-
-        Mammal badger = new Mammal(edinburghZoo, "Bill", "Badger", LocalDate.of(1996, 3, 9), "Woods", "Likes digging", "rodents, vermin, insects", "Eats whatever it can get its paws on", true, false, false);
-        animalRepository.save(badger);
-
-        Fish goldfish = new Fish(edinburghZoo, "Goldie", "Goldfish", LocalDate.of(2023, 7, 29), "Ocean", "Literally unknown, does nothing, exists", "flakes", "A very boring/uncool animal", false, false);
-        animalRepository.save(goldfish);
-
-        Insect spider = new Insect(chesterZoo, "Sid", "Spider", LocalDate.of(2020,10,10),"Trees", "Crazy", "Flies", "is a great guy", false, 8);
-        animalRepository.save(spider);
-
-        Amphibian snail = new Amphibian(edinburghZoo, "Terry", "Snail", LocalDate.of(1990,12,18), "Anywhere", "Stone cold killer", "Humans", "Has killed multiple zookeepers", false, false);
-        animalRepository.save(snail);
+        populateZoos();
+        populateAmphibians();
+        populateBirds();
+        populateFish();
+        populateInsect();
+        populateMammals();
+        populateReptiles();
     }
 
+    private void populateZoos() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/data/zoo-data.csv"))) {
+            String line;
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                String[] values = line.split(",");
+
+                Zoo zoo = new Zoo(values[0], values[1], Integer.parseInt(values[2]), BigDecimal.valueOf(Double.parseDouble(values[3])), LocalDate.parse(values[4]));
+                zooRepository.save(zoo);
+                zoos.add(zoo);
+            }
+        } catch (IOException e) {
+            System.out.println("Error populating Zoos with csv file");
+        }
+    }
+
+    private void populateAmphibians() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/data/amphibian-data.csv"))) {
+            String line;
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                String[] values = line.split(",");
+                Zoo zoo = zoos.get(random.nextInt(zoos.size()));
+
+                Amphibian amphibian = new Amphibian(zoo, values[0], values[1], LocalDate.parse(values[2]), values[3], values[4], values[5], values[6],
+                        Boolean.parseBoolean(values[7]), Boolean.parseBoolean(values[8]));
+                animalRepository.save(amphibian);
+            }
+        } catch (IOException e) {
+            System.out.println("Error populating Amphibians with csv file");
+        }
+    }
+
+    private void populateBirds() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/data/bird-data.csv"))) {
+            String line;
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                String[] values = line.split(",");
+                Zoo zoo = zoos.get(random.nextInt(zoos.size()));
+
+                Bird bird = new Bird(zoo, values[0], values[1], LocalDate.parse(values[2]), values[3], values[4], values[5], values[6],
+                        Boolean.parseBoolean(values[7]), Boolean.parseBoolean(values[8]), Boolean.parseBoolean(values[9]));
+                animalRepository.save(bird);
+            }
+        } catch (IOException e) {
+            System.out.println("Error populating Birds with csv file");
+        }
+    }
+
+    private void populateFish() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/data/fish-data.csv"))) {
+            String line;
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                String[] values = line.split(",");
+                Zoo zoo = zoos.get(random.nextInt(zoos.size()));
+
+                Fish fish = new Fish(zoo, values[0], values[1], LocalDate.parse(values[2]), values[3], values[4], values[5], values[6],
+                        Boolean.parseBoolean(values[7]), Boolean.parseBoolean(values[8]));
+                animalRepository.save(fish);
+            }
+        } catch (IOException e) {
+            System.out.println("Error populating Fish with csv file");
+        }
+    }
+
+    private void populateInsect() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/data/insect-data.csv"))) {
+            String line;
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                String[] values = line.split(",");
+                Zoo zoo = zoos.get(random.nextInt(zoos.size()));
+
+                Insect insect = new Insect(zoo, values[0], values[1], LocalDate.parse(values[2]), values[3], values[4], values[5], values[6],
+                        Boolean.parseBoolean(values[7]), Integer.parseInt(values[8]));
+                animalRepository.save(insect);
+            }
+        } catch (IOException e) {
+            System.out.println("Error populating Insects with csv file");
+        }
+    }
+
+    private void populateMammals() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/data/mammal-data.csv"))) {
+            String line;
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                String[] values = line.split(",");
+                Zoo zoo = zoos.get(random.nextInt(zoos.size()));
+
+                Mammal mammal = new Mammal(zoo, values[0], values[1], LocalDate.parse(values[2]), values[3], values[4], values[5], values[6],
+                        Boolean.parseBoolean(values[7]), Boolean.parseBoolean(values[8]), Boolean.parseBoolean(values[9]));
+                animalRepository.save(mammal);
+            }
+        } catch (IOException e) {
+            System.out.println("Error populating Mammals with csv file");
+        }
+    }
+
+    private void populateReptiles() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/data/reptile-data.csv"))) {
+            String line;
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                String[] values = line.split(",");
+                Zoo zoo = zoos.get(random.nextInt(zoos.size()));
+
+                Reptile reptile = new Reptile(zoo, values[0], values[1], LocalDate.parse(values[2]), values[3], values[4], values[5], values[6],
+                        Boolean.parseBoolean(values[7]), Boolean.parseBoolean(values[8]), Boolean.parseBoolean(values[9]));
+                animalRepository.save(reptile);
+            }
+        } catch (IOException e) {
+            System.out.println("Error populating Reptiles with csv file");
+        }
+    }
 }

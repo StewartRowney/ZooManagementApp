@@ -1,0 +1,21 @@
+name,speciesName,birthDate,habitat,behaviour,foodType,extraInformation,hasFur,hasFins,hasHooves
+Fluffy,African Elephant,2018-05-12,Savannah,Herbivorous,Grasses and Plants,Largest land mammal,true,false,false
+Whiskers,House Cat,2019-02-28,Domestic,Domestic,Commercial Cat Food,Domesticated carnivore,true,false,false
+Stripe,Zebra,2020-01-15,Grasslands,Herbivorous,Grasses,Distinctive black and white stripes,true,false,true
+Rocky,Mountain Goat,2017-09-22,Mountainous Regions,Herbivorous,Alpine Vegetation,Thick fur for insulation,true,false,true
+Sunny,Kangaroo,2018-11-10,Australian Outback,Herbivorous,Grasses and Plants,Powerful hind legs for hopping,true,false,true
+Spike,Porcupine,2019-07-05,Forests,Nocturnal,Leaves,Quills for defense,true,false,false
+Flipper,Dolphin,2020-03-20,Ocean,Highly Social,Fish and Squid,Has fins and streamlined body,true,true,false
+Woolly,Woolly Mammoth,2018-12-18,Tundra,Extinct,Herbivorous,Long shaggy fur and curved tusks,true,false,false
+Buddy,Golden Retriever,2017-06-15,Domestic,Domestic,Commercial Dog Food,Domesticated carnivore,true,false,false
+Spots,Cheetah,2019-09-08,Grasslands,Carnivorous,Prey Animals,Distinctive black tear marks,true,false,false
+Sandy,Arabian Camel,2020-06-25,Desert,Herbivorous,Desert Plants,Distinctive hump for fat storage,true,false,true
+Hopper,Kangaroo Rat,2019-04-03,Deserts,Nocturnal,Seeds and Plants,Excellent jumping abilities,true,false,false
+Jungle,Jaguar,2018-07-12,Rainforest,Carnivorous,Prey Animals,Powerful hunters with distinctive spots,true,false,false
+Paws,Panda,2019-10-30,Mountains,Herbivorous,Bamboo,Black and white coloration,true,false,false
+Pouncer,Lion,2017-08-30,Savannah,Carnivorous,Prey Animals,Top predator with a social structure,true,false,false
+Trunks,Asian Elephant,2018-03-15,Forest,Herbivorous,Grasses and Plants,Large ears and a long trunk,true,false,false
+Splash,Platypus,2017-12-05,Australian Rivers,Nocturnal,Aquatic Invertebrates,Lays eggs and has a duckbill,true,true,false
+Rover,Wolf,2018-06-03,Forests,Carnivorous,Prey Animals,Highly social and skilled hunters,true,false,false
+Sprint,Cheetah,2020-02-08,Savannah,Carnivorous,Prey Animals,Exceptional speed and agility,true,false,false
+Snowy,Arctic Fox,2017-11-20,Tundra,Opportunistic Omnivore,Small mammals and berries,Thick fur that changes color with seasons,true,false,false

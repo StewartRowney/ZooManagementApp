@@ -1,0 +1,26 @@
+name,speciesName,birthDate,habitat,behaviour,foodType,extraInformation,isPoisonous,makesNoise
+Hoppy,Green Tree Frog,2019-08-15,Woodlands,Nocturnal,Insects,Distinctive jumping style,false,true
+Sandy,Marbled Salamander,2020-01-22,Forest Floor,Nocturnal,Small invertebrates,Unique marbled pattern on skin,false,false
+Slick,Smooth Newt,2018-06-30,Ponds,Nocturnal,Aquatic invertebrates,Slippery and smooth skin,false,false
+Glimmer,Blue Poison Dart Frog,2017-11-12,Rainforest,Diurnal,Ants,Vibrant blue coloration,true,false
+Warty,Colorado River Toad,2019-03-05,Desert,Crepuscular,Insects and small animals,Produces toxins, true,true
+Croaky,American Bullfrog,2018-09-18,Wetlands,Nocturnal,Insects,Loud croaking calls,false,true
+Slinky,Slimy Salamander,2021-02-10,Underground Caves,Nocturnal,Small invertebrates,Secretes slimy substance,false,false
+Blaze,Red Salamander,2020-07-25,Deciduous Forest,Crepuscular,Insects,Reddish coloration on the skin,false,false
+Sparkle,Fire Salamander,2019-04-03,Mountainous Regions,Nocturnal,Insects,Bright yellow markings,false,false
+Jelly,Axolotl,2022-01-15,Aquatic,Mostly stationary,Small fish and invertebrates,Regenerates body parts,false,true
+Slippy,Common Frog,2017-12-08,Garden pond,Nocturnal,Insects,Smooth and moist skin,false,true
+Wiggly,Eastern Hellbender,2018-05-20,Rivers,Nocturnal,Aquatic invertebrates,Flat and slimy appearance,false,false
+Noodle,Chinese Giant Salamander,2019-10-14,Rivers,Nocturnal,Fish and amphibians,Largest amphibian species,false,false
+Zigzag,Spotted Salamander,2020-04-17,Deciduous Forest,Nocturnal,Insects,Distinctive yellow spots,false,false
+Hopper,Australian Green Tree Frog,2018-08-03,Woodlands,Nocturnal,Insects,Green coloration,false,true
+Dart,Black Mantella Frog,2021-06-28,Madagascar Rainforest,Diurnal,Small invertebrates,Black coloration,true,false
+Squishy,California Tiger Salamander,2019-01-09,Grasslands,Nocturnal,Insects,Distinctive black and yellow markings,false,false
+Sleek,Italian Agile Frog,2017-10-01,Meadows,Diurnal,Insects,Smooth and agile movements,false,true
+Sprout,Amazon Milk Frog,2022-03-12,Amazon Rainforest,Diurnal,Insects,White spots on the skin,false,true
+Bumpy,European Fire-bellied Toad,2018-04-22,Wetlands,Diurnal,Insects,Bright red markings on the belly,false,true
+Pebbles,African Clawed Frog,2020-09-05,Aquatic,Nocturnal,Small fish,Distinctive claws on the front feet,false,true
+Slimy,Japanese Giant Salamander,2019-02-14,Rivers,Nocturnal,Aquatic invertebrates,Slippery and wrinkled appearance,false,false
+Zippy,Northern Leopard Frog,2021-07-30,Wetlands,Diurnal,Insects,Distinctive spots on the skin,false,true
+Twisty,Asian Painted Frog,2018-11-28,Ponds,Diurnal,Small invertebrates,Colorful and patterned skin,false,true
+Flicker,Common Spadefoot Toad,2020-06-19,Desert,Nocturnal,Insects,Burrows in the ground,false,false

@@ -1,0 +1,21 @@
+name,speciesName,birthDate,habitat,behaviour,foodType,extraInformation,hasWings,numberOfLegs
+Buzz,Western Honey Bee,2019-03-20,Flower Fields,Collective,Nectar and Pollen,Important pollinator,true,6
+Flutter,Monarch Butterfly,2020-05-10,Meadows,Diurnal,Nectar,Long-distance migratory,true,6
+Crawler,Woodlouse,2018-12-05,Under Rocks,Nocturnal,Decaying Organic Matter,Rolls into a ball for protection,false,14
+Lady,Seven-Spot Ladybug,2017-06-15,Gardens,Diurnal,Aphids,Distinctive spots on the elytra,true,6
+Antonio,Carpenter Ant,2019-09-08,Forests,Collective,Various Insects,Builds nests in wood,false,6
+Flash,Firefly,2020-06-25,Woodlands,Nocturnal,Nectar,Produces light through bioluminescence,true,6
+Stinger,Honey Bee,2018-07-12,Apiaries,Collective,Nectar and Pollen,Important pollinator,true,6
+Dart,Dragonfly,2017-08-30,Ponds,Diurnal,Small Insects,Exceptional aerial predator,true,6
+Hopper,Grasshopper,2019-04-03,Grasslands,Diurnal,Plant Matter,Excellent jumpers,true,6
+Weevil,Wheat Weevil,2018-11-20,Stored Grains,Nocturnal,Grains,Damages stored grains,false,6
+Webby,Common Spider,2020-01-15,Webs,Nocturnal,Insects,Weaves intricate webs,false,8
+Jumper,Jumping Spider,2019-07-22,Plants,Diurnal,Small Insects,Excellent jumpers,false,8
+Stilt,Stilt-legged Fly,2017-12-10,Wetlands,Diurnal,Small Insects,Long and slender legs,true,6
+Mothra,Luna Moth,2018-05-17,Forests,Nocturnal,Nectar,Attracted to lights at night,true,6
+Dungy,Dung Beetle,2019-10-05,Savannah,Nocturnal,Dung,Rolls dung into balls for nesting,false,6
+Roamer,Wood Ant,2020-02-28,Forests,Collective,Insects and Honeydew,Constructs nests in wood,false,6
+Tickler,Tick,2017-11-12,Grasslands,Nocturnal,Blood,Can transmit diseases,false,8
+Lantern,Lanternfly,2019-06-08,Trees,Nocturnal,Sap and Plant Juices,Exhibits bioluminescence,true,6
+Stingy,Common Wasp,2018-09-18,Orchards,Collective,Small Insects,Can sting repeatedly,true,6
+Jewel,Jewel Beetle,2020-04-22,Forests,Diurnal,Pollen and Nectar,Distinctive metallic colors,true,6
