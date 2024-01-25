@@ -3,7 +3,7 @@ VALUES
 ('40ea5519-fcef-4272-b742-e01790ca04c3', 'Edinburgh Zoo', 'Edinburgh', 300, '2015-10-17', 10.0),
 ('7cf4649d-32a6-40a8-9160-92073bf64b13', 'Manchester Zoo', 'Manchester', 125, '1990-10-20', 15.0),
 ('3931d736-38bc-4cf6-ae01-116d5969e65e', 'The best Zoo', 'Somewhere in India', 12000, '1947-03-27', 25.0),
-('3931d736-38bc-4cf6-ae01-116d5969e69e', 'The best Zoo', 'Somewhere in India', 12000, '1947-03-27', 25.0);
+('3931d736-38bc-4cf6-ae01-116d5969e69e', 'The best Zoo', 'Really Faek Zoo', 12000, '1947-03-27', 25.0);
 
 INSERT INTO Animal (Id, Zoo_Id, Name, Species_Name, Birth_Date, Habitat, Behaviour, Food_Type, Extra_Information, DType,
 Has_Fins, Has_Fur, Has_Hooves)
