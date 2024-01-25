@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Random;
 
 @Component
-@SuppressWarnings({"unused"})
+@SuppressWarnings({"unused", "java:S2677"})
 @Profile("!test")
 public class Populator {
 
