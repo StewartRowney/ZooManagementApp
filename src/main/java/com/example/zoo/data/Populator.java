@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Logger;
 
 @Component
 @SuppressWarnings({"unused", "java:S2677"})
@@ -25,6 +26,7 @@ public class Populator {
     private final IAnimalRepository animalRepository;
     private final List<Zoo> zoos = new ArrayList<>();
     private final Random random = new Random();
+    private final Logger logger = Logger.getLogger(getClass().getName());
 
     @Autowired
     public Populator(ZooRepository zooRepository, IAnimalRepository animalRepository) {
@@ -55,7 +57,7 @@ public class Populator {
                 zoos.add(zoo);
             }
         } catch (IOException e) {
-            System.out.println("Error populating Zoos with csv file");
+            logger.info("Error populating Zoos with csv file");
         }
     }
 
@@ -72,7 +74,7 @@ public class Populator {
                 animalRepository.save(amphibian);
             }
         } catch (IOException e) {
-            System.out.println("Error populating Amphibians with csv file");
+            logger.info("Error populating Amphibians with csv file");
         }
     }
 
@@ -89,7 +91,7 @@ public class Populator {
                 animalRepository.save(bird);
             }
         } catch (IOException e) {
-            System.out.println("Error populating Birds with csv file");
+            logger.info("Error populating Birds with csv file");
         }
     }
 
@@ -106,7 +108,7 @@ public class Populator {
                 animalRepository.save(fish);
             }
         } catch (IOException e) {
-            System.out.println("Error populating Fish with csv file");
+            logger.info("Error populating Fish with csv file");
         }
     }
 
@@ -123,7 +125,7 @@ public class Populator {
                 animalRepository.save(insect);
             }
         } catch (IOException e) {
-            System.out.println("Error populating Insects with csv file");
+            logger.info("Error populating Insects with csv file");
         }
     }
 
@@ -140,7 +142,7 @@ public class Populator {
                 animalRepository.save(mammal);
             }
         } catch (IOException e) {
-            System.out.println("Error populating Mammals with csv file");
+            logger.info("Error populating Mammals with csv file");
         }
     }
 
@@ -157,7 +159,7 @@ public class Populator {
                 animalRepository.save(reptile);
             }
         } catch (IOException e) {
-            System.out.println("Error populating Reptiles with csv file");
+            logger.info("Error populating Reptiles with csv file");
         }
     }
 }
