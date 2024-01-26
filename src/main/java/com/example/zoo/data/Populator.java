@@ -52,7 +52,7 @@ public class Populator {
             while ((line = reader.readLine()) != null) {
                 String[] values = line.split(",");
 
-                Zoo zoo = new Zoo(values[0], values[1], Integer.parseInt(values[2]), BigDecimal.valueOf(Double.parseDouble(values[3])), LocalDate.parse(values[4]));
+                Zoo zoo = new Zoo(values[0], values[1], values[2], Integer.parseInt(values[3]), BigDecimal.valueOf(Double.parseDouble(values[4])), LocalDate.parse(values[5]));
                 zooRepository.save(zoo);
                 zoos.add(zoo);
             }

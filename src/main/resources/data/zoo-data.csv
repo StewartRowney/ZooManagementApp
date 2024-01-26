@@ -1,6 +1,6 @@
-name,location,capacity,ticketPrice,dateOpened
-San Diego Zoo,San Diego,5000,30.50,1927-10-02
-Bronx Zoo,New York,4500,25.00,1899-11-08
-London Zoo,London,3000,20.00,1828-04-27
-Sydney Zoo,Sydney,4000,28.75,1884-10-07
-Tokyo Zoo,Tokyo,3500,22.50,1882-03-20
+name,location,description,capacity,price,dateOpened
+Wildlife Wonderland,Zooville,Embark on an exciting journey to explore the diverse wonders of wildlife in a captivating setting.,1000,35.99,2005-08-12
+Safari Spectacle,Savannah City,Immerse yourself in the heart of the savannah with our Safari Spectacle. Witness the majesty of wild animals roaming freely in their natural habitat.,800,42.50,2010-04-25
+Ocean Odyssey,Aquatica Bay,Dive deep into the Ocean Odyssey and unravel the mysteries of marine life. Experience the awe-inspiring beauty of underwater creatures in a spectacular aquatic environment.,1200,39.99,2008-11-30
+Sky High Zoo,Mountain Peaks,Take a soaring adventure at Sky High Zoo where you'll encounter exotic birds and mountain wildlife amidst breathtaking mountain peaks. An experience for nature enthusiasts!,600,29.99,2013-06-18
+Jungle Junction,Tropical Forest,Embark on a thrilling expedition into the heart of the jungle at Jungle Junction. Discover the secrets of tropical flora and fauna in an immersive and enchanting environment.,1500,45.00,2007-09-05

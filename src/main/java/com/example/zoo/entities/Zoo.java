@@ -16,12 +16,13 @@ import java.util.UUID;
 public class Zoo {
     @Id
     @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     @JdbcTypeCode(java.sql.Types.VARCHAR)
     private UUID id;
     private String name;
     private String location;
+    private String description;
     private int capacity;
     @OneToMany
     private final List<Animal> animals = new ArrayList<>();
@@ -41,6 +42,10 @@ public class Zoo {
 
     public String getLocation() {
         return location;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public int getCapacity() {
@@ -65,6 +70,10 @@ public class Zoo {
         this.location = location;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
@@ -79,9 +88,10 @@ public class Zoo {
 
 
     //Constructors
-    public Zoo(String name, String location, int capacity, BigDecimal price, LocalDate dateOpened) {
+    public Zoo(String name, String location, String description, int capacity, BigDecimal price, LocalDate dateOpened) {
         this.name = name;
         this.location = location;
+        this.description = description;
         this.capacity = capacity;
         this.price = price;
         this.dateOpened = dateOpened;
