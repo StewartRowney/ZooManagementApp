@@ -15,6 +15,8 @@ import java.util.UUID;
 @RestController
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 @Tag(name = "Bird Api")
+@CrossOrigin(origins = "http://localhost:3000")
+
 @RequestMapping("/birds")
 public class BirdController {
 

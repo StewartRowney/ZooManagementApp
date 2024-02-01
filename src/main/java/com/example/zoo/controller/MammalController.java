@@ -16,6 +16,7 @@ import java.util.UUID;
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 @Tag(name = "Mammal Api")
 @RequestMapping("/mammals")
+@CrossOrigin(origins = "http://localhost:3000")
 public class MammalController {
 
 private final IMammalService mammalService;

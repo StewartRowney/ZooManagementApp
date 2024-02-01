@@ -12,6 +12,8 @@ import java.util.UUID;
 
 @RestController
 @Tag(name = "Animal Api")
+@CrossOrigin(origins = "http://localhost:3000")
+
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 @RequestMapping("/animals")
 public class AnimalController {
