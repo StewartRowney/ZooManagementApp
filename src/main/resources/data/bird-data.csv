@@ -1,0 +1,21 @@
+name,speciesName,birthDate,habitat,behaviour,foodType,extraInformation,canFly,isNocturnal,canMimicSound
+Robin,American Robin,2019-04-15,Woodlands,Diurnal,Insects and berries,Distinctive red breast,true,false,false
+Tweety,Yellow Canary,2020-01-22,Cage,Diurnal,Seeds and fruits,Bright yellow plumage,true,false,true
+Skyler,Bald Eagle,2018-06-30,Mountains,Diurnal,Fish,Symbol of the United States,true,false,false
+Nightshade,Owl,2017-11-12,Forest Nocturnal,Nocturnal,Small mammals,Excellent night vision,true,true,false
+Chirpy,House Sparrow,2019-03-05,Urban,Diurnal,Seeds and insects,Chirps loudly,true,false,false
+Feathers,Peacock,2018-09-18,Grasslands,Diurnal,Insects and small animals,Colorful and iridescent plumage,true,false,false
+Wingspan,Albatross,2021-02-10,Ocean,Diurnal and Nocturnal,Fish and squid,Longest wingspan among birds,true,true,false
+Sunny,Canary-winged Parakeet,2020-07-25,Tropical Rainforest,Diurnal,Fruits and seeds,Colorful feathers,true,false,true
+Swift,Common Swift,2019-04-03,Open Sky,Diurnal,Insects,Long-distance migratory bird,true,false,false
+Polly,Parrot,2022-01-15,Tropical Forest,Diurnal,Fruits and nuts,Can mimic human speech,true,false,true
+Hooty,Great Horned Owl,2017-12-08,Forests,Mainly Nocturnal,Small mammals,Hooting calls,true,true,false
+Eagle-eye,Golden Eagle,2018-05-20,Mountainous Regions,Diurnal,Small mammals and birds,Excellent eyesight,true,false,false
+Talon,Peregrine Falcon,2019-10-14,Cliffs,Diurnal,Birds,High-speed aerial hunter,true,false,false
+Quacker,Mallard Duck,2020-04-17,Ponds,Diurnal,Aquatic plants and insects,Makes quacking sounds,true,false,false
+Piper,Pied Piper,2018-08-03,Fantasy Forest,Diurnal,Musical notes,Followed by small animals,true,false,true
+Whisper,Whistling Duck,2019-06-28,Marshes and Swamps,Diurnal,Insects and plants,Makes whistling sounds,true,false,false
+Starling,Singing Starling,2018-10-01,Fields and Gardens,Diurnal,Insects and berries,Beautiful singing ability,true,false,true
+Talon,Toucan,2017-09-15,Rainforest,Diurnal,Fruits and insects,Distinctive colorful bill,true,false,false
+Frosty,Snowy Owl,2019-02-20,Tundra,Mainly Nocturnal,Small mammals,White plumage with black markings,true,true,false
+Flutter,Pigeon,2020-11-30,Urban,Diurnal,Seeds and crumbs,Common city bird,true,false,false

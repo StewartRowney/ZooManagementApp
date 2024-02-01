@@ -34,7 +34,7 @@ public class BirdService implements IBirdService {
         if (id == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bird to update must have an Id");
         }
-        return animalRepository.findBirdById(id)
+        return animalRepository.findBirdById(String.valueOf(id))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Bird with id: "+ id + " not found"));
     }
     @Override

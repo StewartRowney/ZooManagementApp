@@ -50,9 +50,9 @@ class FishServiceFullSpringTest {
 
     @Test
     void test_FindFishById_ValidRequest() {
-        when(mockAnimalRepository.findFishById(fishId)).thenReturn(Optional.of(new Fish()));
+        when(mockAnimalRepository.findFishById(String.valueOf(fishId))).thenReturn(Optional.of(new Fish()));
         uut.findFishById(fishId);
-        verify(mockAnimalRepository, times(1)).findFishById(fishId);
+        verify(mockAnimalRepository, times(1)).findFishById(String.valueOf(fishId));
     }
 
     @Test

@@ -50,9 +50,9 @@ class MammalServiceFullSpringTest {
 
     @Test
     void test_FindMammalById_ValidRequest() {
-        when(mockAnimalRepository.findMammalById(mammalId)).thenReturn(Optional.of(new Mammal()));
+        when(mockAnimalRepository.findMammalById(String.valueOf(mammalId))).thenReturn(Optional.of(new Mammal()));
         uut.findMammalById(mammalId);
-        verify(mockAnimalRepository, times(1)).findMammalById(mammalId);
+        verify(mockAnimalRepository, times(1)).findMammalById(String.valueOf(mammalId));
     }
 
     @Test

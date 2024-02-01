@@ -54,9 +54,9 @@ class ReptileServiceFullSpringTest {
 
     @Test
     void test_findReptileById() {
-        when(mockAnimalRepository.findReptileById(reptileId)).thenReturn(Optional.of(reptile));
+        when(mockAnimalRepository.findReptileById(String.valueOf(reptileId))).thenReturn(Optional.of(reptile));
         uut.findReptileById(reptileId);
-        verify(mockAnimalRepository,times(1)).findReptileById(reptileId);
+        verify(mockAnimalRepository,times(1)).findReptileById(String.valueOf(reptileId));
     }
 
     @Test

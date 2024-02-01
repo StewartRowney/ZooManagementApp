@@ -39,21 +39,21 @@ public interface IAnimalRepository extends ListCrudRepository<Animal, UUID> {
 
     //FIND-BY-ID
     @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id} AND DType = 'Mammal'", nativeQuery = true)
-    Optional<Mammal> findMammalById(@Param("id") UUID id);
+    Optional<Mammal> findMammalById(@Param("id") String id);
 
     @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id} AND DType = 'Insect'", nativeQuery = true)
-    Optional<Insect> findInsectById(@Param("id") UUID id);
+    Optional<Insect> findInsectById(@Param("id") String id);
 
     @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id} AND DType = 'Fish'", nativeQuery = true)
-    Optional<Fish> findFishById(@Param("id") UUID id);
+    Optional<Fish> findFishById(@Param("id") String id);
 
     @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id} AND DType = 'Reptile'", nativeQuery = true)
-    Optional<Reptile> findReptileById(@Param("id") UUID id);
+    Optional<Reptile> findReptileById(@Param("id") String id);
 
     @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id} AND DType = 'Bird'", nativeQuery = true)
-    Optional<Bird> findBirdById(@Param("id") UUID id);
+    Optional<Bird> findBirdById(@Param("id") String id);
 
     @Query(value = "SELECT * FROM Animal WHERE Id = :#{#id} AND DType = 'Amphibian'", nativeQuery = true)
-    Optional<Amphibian> findAmphibianById(@Param("id") UUID id);
+    Optional<Amphibian> findAmphibianById(@Param("id") String id);
 
 }

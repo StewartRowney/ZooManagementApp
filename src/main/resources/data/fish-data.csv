@@ -1,0 +1,21 @@
+name,speciesName,birthDate,habitat,behaviour,foodType,extraInformation,isBioluminiscent,canDischargeElectricity
+Neon,Neon Tetra,2019-02-15,Amazon River,Shoaling,Small invertebrates,Colorful stripes, true, false
+Sparky,Electric Ray,2018-07-12,Ocean,Nocturnal,Fish,Generates electricity,false,true
+Glowy,Bioluminescent Anglerfish,2020-04-25,Deep Sea,Nocturnal,Fish,Has a glowing lure for hunting,true,false
+Flash,Flashlight Fish,2019-06-08,Deep Sea,Nocturnal,Small fish,Carries bioluminescent bacteria,true,false
+Shocker,Electric Catfish,2017-11-30,African Rivers,Nocturnal,Fish,Discharges electric shocks,false,true
+Twinkle,Starlight Bristlenose Pleco,2018-03-15,South American Rivers,Nocturnal,Algae,Emit light from bristle-like appendages, true, false
+Glimmer,Glowlight Danio,2019-09-05,Southeast Asian Rivers,Shoaling,Small invertebrates,Exhibits bioluminescence,true,false
+Zapper,Electric Eel,2020-01-18,South American Rivers,Nocturnal,Fish,Generates electricity,true,true
+Glowzilla,Glowing Gourami,2018-12-10,Southeast Asian Ponds,Nocturnal,Insects,Exhibits bioluminescence,true,false
+Lumos,Luminous Parrotfish,2017-08-22,Coral Reefs,Diurnal,Algae and coral polyps,Colorful scales with a fluorescent glow,false,false
+Flasher,Flashlight Fish,2021-02-14,Deep Sea,Nocturnal,Small fish,Carries bioluminescent bacteria,true,false
+Volt,Electric Catfish,2019-10-30,African Rivers,Nocturnal,Fish,Discharges electric shocks,false,true
+Radiance,Rainbow Trout,2018-05-17,Mountain Streams,Diurnal,Insects and small fish,Colorful scales with a shimmer,false,false
+Lantern,Lantern Eye Fish,2020-03-07,Deep Sea,Nocturnal,Small fish,Produces light to attract prey,true,false
+Pulse,Electric Knifefish,2017-12-28,Amazon River,Nocturnal,Fish,Produces weak electric fields for navigation,false,true
+Aqua,Angelfish,2019-11-25,South American Rivers,Diurnal,Small invertebrates,Colorful and flat body,false,false
+Moonbeam,Moonlight Gourami,2018-06-03,Southeast Asian Ponds,Nocturnal,Insects,Exhibits bioluminescence,true,false
+Shockwave,Electric Ray,2020-02-08,Ocean,Nocturnal,Fish,Generates electricity,false,true
+Glowfin,Glowing Tetra,2017-09-14,South American Rivers,Shoaling,Small invertebrates,Exhibits bioluminescence,true,false
+Zigzag,Zigzag Eel,2019-04-20,Rivers,Nocturnal,Small fish,Distinctive zigzag pattern on the body,false,false

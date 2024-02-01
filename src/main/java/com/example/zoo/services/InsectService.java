@@ -34,7 +34,7 @@ public class InsectService implements IInsectService{
         if (insectId == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Insect id cannot be null for this operation");
         }
-        return animalRepository.findInsectById(insectId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Insect with id: "+ insectId + " not found"));
+        return animalRepository.findInsectById(String.valueOf(insectId)).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Insect with id: "+ insectId + " not found"));
     }
 
     @Override

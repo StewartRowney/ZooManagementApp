@@ -30,10 +30,11 @@ public class ReptileService implements IReptileService{
 
     @Override
     public Reptile findReptileById(UUID reptileId) {
+        String reptileIdStr = String.valueOf(reptileId);
         if (reptileId == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Reptile id cannot be null for this operation");
         }
-        return animalRepository.findReptileById(reptileId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Reptile with id: "+ reptileId + " not found"));
+        return animalRepository.findReptileById(reptileIdStr).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Reptile with id: "+ reptileId + " not found"));
     }
 
     @Override

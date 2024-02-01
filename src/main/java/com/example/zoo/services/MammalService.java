@@ -33,7 +33,7 @@ public class MammalService implements IMammalService{
         if (mammalId == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Mammal id cannot be null for this operation");
         }
-        return animalRepository.findMammalById(mammalId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Mammal with id: "+ mammalId + " not found"));
+        return animalRepository.findMammalById(String.valueOf(mammalId)).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Mammal with id: "+ mammalId + " not found"));
     }
 
     @Override

@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 @Tag(name = "Amphibian Api")
 @RequestMapping("/amphibians")

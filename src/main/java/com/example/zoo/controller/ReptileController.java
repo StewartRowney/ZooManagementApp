@@ -16,6 +16,8 @@ import java.util.UUID;
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 @Tag(name = "Reptile Api")
 @RequestMapping("/reptiles")
+@CrossOrigin(origins = "http://localhost:3000")
+
 public class ReptileController {
 
     private final IReptileService reptileService;
