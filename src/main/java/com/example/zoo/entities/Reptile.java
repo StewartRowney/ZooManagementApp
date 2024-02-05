@@ -42,7 +42,7 @@ public class Reptile extends Animal{
         this.hasShell = hasShell;
     }
 
-    public void setColdBlooded(boolean coldBlooded) {
+    public void setIsColdBlooded(boolean coldBlooded) {
         isColdBlooded = coldBlooded;
     }
 

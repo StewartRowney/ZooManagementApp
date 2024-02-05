@@ -47,7 +47,7 @@ public class Bird extends Animal {
         this.canFly = canFly;
     }
 
-    public void setNocturnal(boolean nocturnal) {
+    public void setIsNocturnal(boolean nocturnal) {
         isNocturnal = nocturnal;
     }
 

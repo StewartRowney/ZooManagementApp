@@ -29,7 +29,7 @@ public class Fish extends Animal{
         return isBioluminiscent;
     }
 
-    public void setBioluminiscent(boolean bioluminiscent) {
+    public void setIsBioluminiscent(boolean bioluminiscent) {
         isBioluminiscent = bioluminiscent;
     }
 

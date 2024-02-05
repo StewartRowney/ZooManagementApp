@@ -30,8 +30,8 @@ public class Amphibian extends Animal{
     }
 
     //SETTERS
-    public void setPoisonous(boolean poisonous) {
-        isPoisonous = poisonous;
+    public void setIsPoisonous(boolean isPoisonous) {
+        this.isPoisonous = isPoisonous;
     }
     public void setMakesNoise(boolean makesNoise) {
         this.makesNoise = makesNoise;

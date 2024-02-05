@@ -25,15 +25,15 @@ public class Mammal extends Animal{
     }
 
     //GETTERS
-    public boolean isHasFur() {
+    public boolean getHasFur() {
         return hasFur;
     }
 
-    public boolean isHasFins() {
+    public boolean getHasFins() {
         return hasFins;
     }
 
-    public boolean isHasHooves() {
+    public boolean getHasHooves() {
         return hasHooves;
     }
 
