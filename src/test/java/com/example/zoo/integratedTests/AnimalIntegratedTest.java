@@ -91,6 +91,23 @@ class AnimalIntegratedTest {
         );
     }
 
+    @Test
+    void test_DeleteAListOfAnimals_ValidRequest() throws Exception {
+        String json = createIdList();
+        Animal[] beforeDelete = getAllAnimals();
+
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/animals")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json);
+
+        mockMvc.perform(requestBuilder)
+                .andExpect(status().isOk());
+
+        Animal[] afterDelete = getAllAnimals();
+
+        assertEquals(beforeDelete.length - 3, afterDelete.length);
+    }
+
     private Animal[] getAllAnimals() throws Exception {
         MvcResult result =
                 (this.mockMvc.perform(MockMvcRequestBuilders.get("/animals")))
