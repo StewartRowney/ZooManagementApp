@@ -41,7 +41,7 @@ public class AnimalService implements IAnimalService{
 
     @Override
     public void deleteAnimalsByIds(List<UUID> idList) {
-
+        animalRepository.deleteAllById(idList);
     }
 
 }
