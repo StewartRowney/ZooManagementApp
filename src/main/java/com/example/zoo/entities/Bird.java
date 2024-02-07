@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class Bird extends Animal {
 
     //Variables
-    @JsonIgnore
+    //@JsonIgnore
     private boolean canFly;
     private boolean isNocturnal;
     private boolean canMimicSound;
@@ -29,7 +29,7 @@ public class Bird extends Animal {
 
     //Getters
 
-    public boolean isCanFly() {
+    public boolean getCanFly() {
         return canFly;
     }
 
