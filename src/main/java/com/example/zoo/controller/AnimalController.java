@@ -37,10 +37,16 @@ public class AnimalController {
         return animalService.findAnimalById(animalId);
     }
 
-    @Operation(summary = "Find a list of animals in a zoo", description = "Find a list of animals in a zoo")
+    @Operation(summary = "Find a list of animals", description = "Find a list of animals")
     @PostMapping("/findByIds")
     public List<Animal> getAnimalListById(@RequestBody List<UUID> idList){
         return animalService.findAnimalListById(idList);
+    }
+
+    @Operation(summary = "Find a list of animals in a zoo", description = "Find a list of animals in a zoo")
+    @GetMapping("/zoo/{zooId}")
+    public List<Animal> getAnimalListByZooId(@PathVariable UUID zooId){
+        return animalService.findAnimalListByZooId(zooId);
     }
 
     @Operation(summary = "Delete a list of animals by ids", description = "Delete a list of animals by ids")

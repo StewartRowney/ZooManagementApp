@@ -47,6 +47,12 @@ class AnimalServiceFullSpringTest {
     }
 
     @Test
+    void test_findAnimalsByZooId_ServiceCalled() throws JsonProcessingException {
+        uut.findAnimalListByZooId(UUID.randomUUID());
+        verify(mockAnimalRepository,times(1)).findAllAnimalsInAZoo(any(String.class));
+    }
+
+    @Test
     void test_deleteAnimalsByIds_ServiceCalledFor() throws JsonProcessingException {
         uut.deleteAnimalsByIds(createIdList());
         verify(mockAnimalRepository, times(1)).deleteAllById(anyList());

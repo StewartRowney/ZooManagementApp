@@ -31,12 +31,17 @@ public class AnimalService implements IAnimalService{
     @Override
     public Animal findAnimalById(UUID id) {
         return animalRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Animal with id: "+ id+ " not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Animal with id: "+ id + " not found"));
     }
 
     @Override
     public List<Animal> findAnimalListById(List<UUID> idList) {
         return animalRepository.findAllById(idList);
+    }
+
+    @Override
+    public List<Animal> findAnimalListByZooId(UUID zooId) {
+        return animalRepository.findAllAnimalsInAZoo(String.valueOf(zooId));
     }
 
     @Override

@@ -68,7 +68,6 @@ class AnimalIntegratedTest {
 
     @Test
     void test_FindAListOfAnimals_ValidRequest() throws Exception {
-
         String json = createIdList();
 
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/animals/findByIds")
@@ -84,11 +83,26 @@ class AnimalIntegratedTest {
         String contentAsJson = result.getResponse().getContentAsString();
         Animal animalResult[] = mapper.readValue(contentAsJson, Animal[].class);
 
-
         assertAll(
                 () -> assertEquals("Ayush", animalResult[0].getName()),
                 () -> assertEquals("Jimbo", animalResult[1].getName())
         );
+    }
+
+    @Test
+    void test_FindAListOfAnimalsInAZoo_ValidRequest() throws Exception {
+        Zoo zoo = getTestZoo();
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/animals/zoo/" + zoo.getId());
+
+        MvcResult result = (mockMvc.perform(requestBuilder)
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn());
+
+        String contentAsJson = result.getResponse().getContentAsString();
+        Animal animalResult[] = mapper.readValue(contentAsJson, Animal[].class);
+
+        assertEquals(6, animalResult.length);
     }
 
     @Test

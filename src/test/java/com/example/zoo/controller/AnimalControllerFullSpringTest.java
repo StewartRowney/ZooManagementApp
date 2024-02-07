@@ -53,6 +53,13 @@ class AnimalControllerFullSpringTest {
     }
 
     @Test
+    void test_getAnimalsByZooId_ServiceCalledFor() throws Exception {
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/animals/zoo/" + UUID.randomUUID());
+        mockMvc.perform(requestBuilder);
+        verify(mockAnimalService, times(1)).findAnimalListByZooId(any(UUID.class));
+    }
+
+    @Test
     void test_postAllAnimalsByIds_ValidRequest() throws Exception {
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/animals/findByIds")
                 .contentType(MediaType.APPLICATION_JSON)

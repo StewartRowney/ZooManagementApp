@@ -11,4 +11,5 @@ public interface IAnimalService {
     Animal findAnimalById(UUID id);
     List<Animal> findAnimalListById(List<UUID> idList);
     void deleteAnimalsByIds(List<UUID> idList);
+    List<Animal> findAnimalListByZooId(UUID zooId);
 }

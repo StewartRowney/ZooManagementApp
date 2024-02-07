@@ -15,7 +15,7 @@ public interface IAnimalRepository extends ListCrudRepository<Animal, UUID> {
 
     //FIND-ALL
     @Query(value = "SELECT * FROM ANIMAL WHERE ZOO_ID = :#{#zooId}", nativeQuery = true)
-    List<Animal> findAllAnimalsInAZoo(@Param("zooId") UUID zooId);
+    List<Animal> findAllAnimalsInAZoo(@Param("zooId") String zooId);
 
     @Query(value = "SELECT * FROM Animal WHERE DType = 'Mammal'", nativeQuery = true)
     List<Mammal> findAllMammals();

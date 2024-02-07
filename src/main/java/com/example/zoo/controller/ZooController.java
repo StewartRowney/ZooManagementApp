@@ -37,6 +37,7 @@ public class ZooController {
     public Zoo getZooById(@PathVariable UUID zooId){
         return service.findZooById(zooId);
     }
+
     @Operation(summary = "Get a zoo by name", description = "Returns a zoo by name")
     @GetMapping("/findByName/{zooName}")
     public Zoo getZooByName(@PathVariable String zooName){
@@ -55,6 +56,7 @@ public class ZooController {
     public Zoo putAZoo(@RequestBody @DateTimeFormat(pattern="yyyy-MM-dd") Zoo zoo){
         return service.updateZoo(zoo);
     }
+
     @Operation(summary = "Update a zoo's name", description = "Update a zoo's name")
     @PatchMapping("/editName/{zooId}")
     @ResponseStatus(HttpStatus.CREATED)
@@ -67,6 +69,7 @@ public class ZooController {
     public void deleteZooById(@PathVariable UUID zooId){
         service.removeZooById(zooId);
     }
+
     @Operation(summary = "Add a list of Zoos", description = "Add zoos in bulk through a list")
     @PostMapping("/addZoos")
     @ResponseStatus(HttpStatus.CREATED)

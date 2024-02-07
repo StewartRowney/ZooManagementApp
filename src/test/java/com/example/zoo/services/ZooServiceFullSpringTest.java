@@ -148,7 +148,7 @@ class ZooServiceFullSpringTest {
         List<Animal> animals = new ArrayList<>();
         Animal animal = new Animal();
         animals.add(animal);
-        when(mockAnimalRepo.findAllAnimalsInAZoo(id)).thenReturn(animals);
+        when(mockAnimalRepo.findAllAnimalsInAZoo(String.valueOf(id))).thenReturn(animals);
         assertThrows(ResponseStatusException.class,() -> uut.removeZooById(id));
     }
 

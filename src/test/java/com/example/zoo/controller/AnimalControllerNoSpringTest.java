@@ -34,6 +34,12 @@ class AnimalControllerNoSpringTest {
     }
 
     @Test
+    void test_getAnimalsByZooId_ServiceCalled() {
+        uut.getAnimalListByZooId(UUID.randomUUID());
+        verify(mockAnimalService,times(1)).findAnimalListByZooId(any(UUID.class));
+    }
+
+    @Test
     void test_postAllAnimalsByIds_ValidRequest(){
         uut.getAnimalListById(createIdList());
         verify(mockAnimalService, times(1)).findAnimalListById(anyList());
