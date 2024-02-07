@@ -42,4 +42,10 @@ public class AnimalController {
     public List<Animal> getAnimalListById(@RequestBody List<UUID> idList){
         return animalService.findAnimalListById(idList);
     }
+
+    @Operation(summary = "Delete a list of animals by ids", description = "Delete a list of animals by ids")
+    @DeleteMapping()
+    public void deleteAnimalsByIds(@RequestBody List<UUID> idList) {
+        animalService.deleteAnimalsByIds(idList);
+    }
 }

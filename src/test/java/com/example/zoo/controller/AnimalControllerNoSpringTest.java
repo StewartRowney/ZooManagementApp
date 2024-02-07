@@ -34,12 +34,18 @@ class AnimalControllerNoSpringTest {
     }
 
     @Test
-    void test_postAllAnimalsByIds_ValidRequest() throws JsonProcessingException {
+    void test_postAllAnimalsByIds_ValidRequest(){
         uut.getAnimalListById(createIdList());
         verify(mockAnimalService, times(1)).findAnimalListById(anyList());
     }
 
-    public List<UUID> createIdList() throws JsonProcessingException {
+    @Test
+    void test_deleteAnimalsByIds_ValidRequest(){
+        uut.deleteAnimalsByIds(createIdList());
+        verify(mockAnimalService, times(1)).deleteAnimalsByIds(anyList());
+    }
+
+    public List<UUID> createIdList(){
         List<UUID> idList = new ArrayList<>();
         idList.add(UUID.randomUUID());
         idList.add(UUID.randomUUID());

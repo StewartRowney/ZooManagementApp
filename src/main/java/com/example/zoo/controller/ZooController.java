@@ -18,7 +18,7 @@ import java.util.UUID;
 @Tag(name = "Zoo Api")
 @RequestMapping("/zoos")
 @CrossOrigin(origins = "http://localhost:3000")
-public class    ZooController {
+public class ZooController {
     IZooService service;
 
     @Autowired

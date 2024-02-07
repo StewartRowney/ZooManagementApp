@@ -36,7 +36,6 @@ class AnimalControllerFullSpringTest {
 
     private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
     private final Animal animal = new Animal();
-
     private final UUID animalId = UUID.randomUUID();
 
     @Test
@@ -64,6 +63,18 @@ class AnimalControllerFullSpringTest {
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
         verify(mockAnimalService, times(1)).findAnimalListById(any());
+    }
+
+    @Test
+    void test_deleteAnimalsByIds_ValidRequest() throws Exception {
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/animals")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(createIdList());
+
+        mockMvc.perform(requestBuilder)
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        verify(mockAnimalService, times(1)).deleteAnimalsByIds(any());
     }
 
     public String createIdList() throws JsonProcessingException {

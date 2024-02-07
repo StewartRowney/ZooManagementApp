@@ -39,4 +39,9 @@ public class AnimalService implements IAnimalService{
         return animalRepository.findAllById(idList);
     }
 
+    @Override
+    public void deleteAnimalsByIds(List<UUID> idList) {
+
+    }
+
 }
