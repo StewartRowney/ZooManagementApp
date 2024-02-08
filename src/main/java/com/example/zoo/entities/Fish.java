@@ -24,7 +24,7 @@ public class Fish extends Animal{
 
     //Getters and Setters
 
-    public boolean isBioluminiscent() {
+    public boolean getIsBioluminiscent() {
         return isBioluminiscent;
     }
 

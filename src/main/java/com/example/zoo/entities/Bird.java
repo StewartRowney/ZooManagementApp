@@ -33,7 +33,7 @@ public class Bird extends Animal {
         return canFly;
     }
 
-    public boolean isNocturnal() {
+    public boolean getIsNocturnal() {
         return isNocturnal;
     }
 

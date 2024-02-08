@@ -25,15 +25,15 @@ public class Reptile extends Animal{
     }
 
     //GETTERS
-    public boolean isHasShell() {
+    public boolean getHasShell() {
         return hasShell;
     }
 
-    public boolean isColdBlooded() {
+    public boolean getIsColdBlooded() {
         return isColdBlooded;
     }
 
-    public boolean isHasLegs() {
+    public boolean getHasLegs() {
         return hasLegs;
     }
 

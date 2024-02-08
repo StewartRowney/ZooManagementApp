@@ -22,7 +22,7 @@ public class Amphibian extends Animal{
     }
 
     //GETTERS
-    public boolean getisPoisonous() {
+    public boolean getIsPoisonous() {
         return isPoisonous;
     }
     public boolean isMakesNoise() {
