@@ -12,7 +12,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.io.UnsupportedEncodingException;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,7 +28,7 @@ public class AnimalsStepdefinitions {
     @Autowired
     ObjectMapper mapper;
 
-    @Given("I have {int} amphibians")
+    @Given("I have {int} animals")
     public void iHaveAmphibians(int amount) {
         numberOfAnimals = amount;
     }
@@ -39,7 +38,7 @@ public class AnimalsStepdefinitions {
         animals = performMockGetAndReturnAnimals("/" + animalType);
     }
 
-    @Then("The total number of amphibians is correct")
+    @Then("The total number of animals is correct")
     public void theTotalNumberOfAmphibiansIs() {
         assertEquals(numberOfAnimals, animals.length);
     }

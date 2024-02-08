@@ -1,14 +1,14 @@
 Feature: Testing Get Animals
 
-  Scenario: Getting all animal
-    Given I have 12 amphibians
+  Scenario: Getting all animals
+    Given I have 12 animals
     When I request all animals
-    Then The total number of amphibians is correct
+    Then The total number of animals is correct
 
   Scenario Outline: Getting all animal types
-    Given I have <amount> amphibians
+    Given I have <amount> animals
     When I request all <animalType>
-    Then The total number of amphibians is correct
+    Then The total number of animals is correct
 
     Examples:
       | amount | animalType |
