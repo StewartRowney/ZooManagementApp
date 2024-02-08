@@ -4,6 +4,7 @@ import com.example.zoo.entities.Animal;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -18,20 +19,26 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class AnimalsStepdefinitions {
 
     private Animal[] animals;
+    private int numberOfAnimals;
 
     @Autowired
     MockMvc mockMvc;
     @Autowired
     ObjectMapper mapper;
 
-    @Given("I request all amphibians")
-    public void iRequestAllAmphibians() throws Exception {
-        animals = performMockGetAndReturnAnimals("/amphibians");
+    @Given("I have {int} amphibians")
+    public void iHaveAmphibians(int amount) {
+        numberOfAnimals = amount;
     }
 
-    @Then("The total number of amphibians is {int}")
-    public void theTotalNumberOfAmphibiansIs(int amount) {
-        assertEquals(amount, animals.length);
+    @When("I request all {word}")
+    public void iRequestAllAmphibians(String animalType) throws Exception {
+        animals = performMockGetAndReturnAnimals("/" + animalType);
+    }
+
+    @Then("The total number of amphibians is correct")
+    public void theTotalNumberOfAmphibiansIs() {
+        assertEquals(numberOfAnimals, animals.length);
     }
 
     private Animal[] performMockGetAndReturnAnimals(String url) throws Exception {
@@ -43,5 +50,4 @@ public class AnimalsStepdefinitions {
         String contentAsString = result.getResponse().getContentAsString();
         return mapper.readValue(contentAsString, Animal[].class);
     }
-
 }
