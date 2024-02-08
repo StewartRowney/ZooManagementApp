@@ -50,7 +50,7 @@ public class AnimalController {
     }
 
     @Operation(summary = "Delete a list of animals by ids", description = "Delete a list of animals by ids")
-    @DeleteMapping()
+    @DeleteMapping
     public void deleteAnimalsByIds(@RequestBody List<UUID> idList) {
         animalService.deleteAnimalsByIds(idList);
     }
