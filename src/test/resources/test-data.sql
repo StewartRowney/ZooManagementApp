@@ -1,17 +1,9 @@
-INSERT INTO ZOO (Id, Name, Location, Capacity, Date_Opened, Price)
-VALUES
-('40ea5519-fcef-4272-b742-e01790ca04c3', 'Edinburgh Zoo', 'Edinburgh', 300, '2015-10-17', 10.0),
-('7cf4649d-32a6-40a8-9160-92073bf64b13', 'Manchester Zoo', 'Manchester', 125, '1990-10-20', 15.0),
-('3931d736-38bc-4cf6-ae01-116d5969e65e', 'The best Zoo', 'Somewhere in India', 12000, '1947-03-27', 25.0),
-('3931d736-38bc-4cf6-ae01-116d5969e69e', 'The best Zoo', 'Really Faek Zoo', 12000, '1947-03-27', 25.0);
-
-INSERT INTO Animal (Id, Zoo_Id, Name, Species_Name, Birth_Date, Habitat, Behaviour, Food_Type, Extra_Information, DType,
-Has_Fins, Has_Fur, Has_Hooves)
-VALUES
-('7a12afea-8b9b-4a7f-94f2-5b57f4e7ffa7','3931d736-38bc-4cf6-ae01-116d5969e65e', 'Jimbo', 'Elephant', '2007-04-18',
-'Jungle', 'Docile', 'Leaves, Fruit, Veg', 'Has pure mega feet', 'Mammal', false, false, false),
-('2479f54f-b8c4-449f-a54c-31fd1d6074dc','40ea5519-fcef-4272-b742-e01790ca04c3', 'Ayush', 'Gorilla', '2015-10-12',
-'Jungle', 'Aggressive', 'Fruit', 'Has small tail', 'Mammal', false, true, false);
+INSERT INTO ZOO (Id, Name, Location, Capacity, Date_Opened, Price) VALUES ('40ea5519-fcef-4272-b742-e01790ca04c3', 'Edinburgh Zoo', 'Edinburgh', 300, '2015-10-17', 10.0);
+INSERT INTO ZOO (Id, Name, Location, Capacity, Date_Opened, Price) VALUES('7cf4649d-32a6-40a8-9160-92073bf64b13', 'Manchester Zoo', 'Manchester', 125, '1990-10-20', 15.0);
+INSERT INTO ZOO (Id, Name, Location, Capacity, Date_Opened, Price) VALUES('3931d736-38bc-4cf6-ae01-116d5969e65e', 'The best Zoo', 'Somewhere in India', 12000, '1947-03-27', 25.0);
+INSERT INTO ZOO (Id, Name, Location, Capacity, Date_Opened, Price) VALUES('3931d736-38bc-4cf6-ae01-116d5969e69e', 'The best Zoo', 'Really Faek Zoo', 12000, '1947-03-27', 25.0);
+INSERT INTO Animal (Id, Zoo_Id, Name, Species_Name, Birth_Date, Habitat, Behaviour, Food_Type, Extra_Information, DType, Has_Fins, Has_Fur, Has_Hooves) VALUES ('7a12afea-8b9b-4a7f-94f2-5b57f4e7ffa7','3931d736-38bc-4cf6-ae01-116d5969e65e', 'Jimbo', 'Elephant', '2007-04-18', 'Jungle', 'Docile', 'Leaves Fruit Veg', 'Has pure mega feet', 'Mammal', false, false, false);
+INSERT INTO Animal (Id, Zoo_Id, Name, Species_Name, Birth_Date, Habitat, Behaviour, Food_Type, Extra_Information, DType, Has_Fins, Has_Fur, Has_Hooves) VALUES ('2479f54f-b8c4-449f-a54c-31fd1d6074dc','40ea5519-fcef-4272-b742-e01790ca04c3', 'Ayush', 'Gorilla', '2015-10-12', 'Jungle', 'Aggressive', 'Fruit', 'Has small tail', 'Mammal', false, true, false);
 
 INSERT INTO Animal (Id, Zoo_Id, Name, Species_Name, Birth_Date, Habitat, Behaviour, Food_Type, Extra_Information, DType,
 Has_Legs, Has_Shell, Is_Cold_Blooded)
