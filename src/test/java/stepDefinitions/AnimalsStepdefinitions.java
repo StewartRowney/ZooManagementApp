@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.io.UnsupportedEncodingException;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -20,6 +21,8 @@ public class AnimalsStepdefinitions {
 
     private Animal[] animals;
     private int numberOfAnimals;
+    private UUID animalId;
+    private Animal animal;
 
     @Autowired
     MockMvc mockMvc;
@@ -49,5 +52,30 @@ public class AnimalsStepdefinitions {
                 .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
         String contentAsString = result.getResponse().getContentAsString();
         return mapper.readValue(contentAsString, Animal[].class);
+    }
+
+    private Animal performMockGetAndReturnAnimal(String url) throws Exception {
+        MvcResult result = this.mockMvc.perform(
+                        MockMvcRequestBuilders.get(url)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
+        String contentAsString = result.getResponse().getContentAsString();
+        return mapper.readValue(contentAsString, Animal.class);
+    }
+
+    @Given("I have an animal with id: {word}")
+    public void iHaveAnAnimalWithId(String id) {
+        animalId = UUID.fromString(id);
+    }
+
+    @When("I request animal by id")
+    public void iRequestAnimalById() throws Exception {
+        animal = performMockGetAndReturnAnimal("/animals/findById/" + animalId);
+    }
+
+    @Then("I receive animal with name: {word}")
+    public void iReceiveAnimalWithNameSally(String name) {
+        assertEquals(name, animal.getName());
     }
 }
